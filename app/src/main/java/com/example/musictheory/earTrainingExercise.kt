@@ -49,6 +49,7 @@ class earTrainingExercise : AppCompatActivity() {
         maj6Btn = findViewById(R.id.maj6Btn)
         min7Btn = findViewById(R.id.min7Btn)
         maj7Btn = findViewById(R.id.maj7Btn)
+        octBtn = findViewById(R.id.octBtn)
         repeatBtn = findViewById(R.id.repeatBtn)
         resultsTv = findViewById(R.id.resultsTv)
         accuracyTv = findViewById(R.id.accuracyTv)
