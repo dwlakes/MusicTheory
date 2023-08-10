@@ -26,7 +26,8 @@ class earTrainingMainMenu : AppCompatActivity() {
     var intervalList : MutableList<Int> = mutableListOf()
     var intervalsArray = arrayOf(
         "Minor Second", "Major Second", "Minor Third", "Major Third",
-        "Perfect Fourth", "Tritone"
+        "Perfect Fourth", "Tritone", "Perfect Fifth", "Minor Sixth",
+        "Major Sixth", "Minor Seventh", "Major Seventh", "Octave"
     )
 
     private lateinit var playAudioBtn: Button

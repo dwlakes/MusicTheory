@@ -96,11 +96,65 @@ class earTrainingExercise : AppCompatActivity() {
                     //println(maj2Asc.getInfo())
                     audioObjectsList.add(maj2Asc)
                 }
+                "Minor Third" -> assets.list("min3_ascending")?.forEach {
+                    //println(it)
+                    val min3Asc = Interval("Min3","Asc", "min3_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(min3Asc)
+                }
+                "Major Third" -> assets.list("maj3_ascending")?.forEach {
+                    //println(it)
+                    val maj3Asc = Interval("Maj3","Asc", "maj3_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(maj3Asc)
+                }
+                "Perfect Fourth" -> assets.list("perf4_ascending")?.forEach {
+                    //println(it)
+                    val perf4Asc = Interval("Perf4","Asc", "perf4_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(perf4Asc)
+                }
                 "Tritone" -> assets.list("tritone_ascending")?.forEach {
                     //println(it)
                     val tritoneAsc = Interval("Tritone","Asc", "tritone_ascending/$it")
                     println(tritoneAsc.getInfo())
                     audioObjectsList.add(tritoneAsc)
+                }
+                "Perfect Fifth" -> assets.list("perf5_ascending")?.forEach {
+                    //println(it)
+                    val perf5Asc = Interval("Perf5","Asc", "perf5_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(perf5Asc)
+                }
+                "Minor Sixth" -> assets.list("min6_ascending")?.forEach {
+                    //println(it)
+                    val min6Asc = Interval("Min6","Asc", "min6_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(min6Asc)
+                }
+                "Major Sixth" -> assets.list("maj6_ascending")?.forEach {
+                    //println(it)
+                    val maj6Asc = Interval("Maj6","Asc", "maj6_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(maj6Asc)
+                }
+                "Minor Seventh" -> assets.list("min7_ascending")?.forEach {
+                    //println(it)
+                    val min7Asc = Interval("Min7","Asc", "min7_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(min7Asc)
+                }
+                "Major Seventh" -> assets.list("maj7_ascending")?.forEach {
+                    //println(it)
+                    val maj7Asc = Interval("Maj7","Asc", "maj7_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(maj7Asc)
+                }
+                "Octave" -> assets.list("oct_ascending")?.forEach {
+                    //println(it)
+                    val octAsc = Interval("Oct","Asc", "oct_ascending/$it")
+                    //println(maj2Asc.getInfo())
+                    audioObjectsList.add(octAsc)
                 }
 
             }
@@ -111,7 +165,8 @@ class earTrainingExercise : AppCompatActivity() {
     private fun getIntervalsString(selectedIntervalInts: ArrayList<Int>?): MutableList<String> {
         var intervalsArray = arrayOf(
             "Minor Second", "Major Second", "Minor Third", "Major Third",
-            "Perfect Fourth", "Tritone"
+            "Perfect Fourth", "Tritone", "Perfect Fifth", "Minor Sixth",
+            "Major Sixth", "Minor Seventh", "Major Seventh", "Octave"
         )
         val selectedIntervalList = mutableListOf<String>()
 
