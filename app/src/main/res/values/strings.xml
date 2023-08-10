@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MusicTheory</string>
+    <string name="selected_interval">Selected Interval:</string>
+
+    <string-array name="Intervals">
+        <item>Minor Second</item>
+        <item>Major Second</item>
+        <item>Minor Third</item>
+        <item>Major Third</item>
+        <item>Perfect Fourth</item>
+        <item>Augmented Fourth/Diminished Fifth</item>
+    </string-array>
+</resources>
