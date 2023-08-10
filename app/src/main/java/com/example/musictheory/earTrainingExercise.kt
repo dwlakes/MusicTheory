@@ -20,7 +20,14 @@ class earTrainingExercise : AppCompatActivity() {
     lateinit var min2Btn:Button
     lateinit var maj2ndBtn:Button
     lateinit var maj3Btn:Button
+    lateinit var perfFourthBtn:Button
     lateinit var tritoneBtn:Button
+    lateinit var perfFifthBtn:Button
+    lateinit var min6Btn:Button
+    lateinit var maj6Btn:Button
+    lateinit var min7Btn:Button
+    lateinit var maj7Btn:Button
+    lateinit var octBtn:Button
     lateinit var repeatBtn:Button
     lateinit var resultsTv: TextView
     lateinit var accuracyTv: TextView
@@ -34,7 +41,12 @@ class earTrainingExercise : AppCompatActivity() {
 
         min2Btn = findViewById(R.id.min2Btn)
         maj2ndBtn = findViewById(R.id.maj2Btn)
+        maj3Btn = findViewById(R.id.maj3Btn)
+        perfFourthBtn = findViewById(R.id.perf4Btn)
         tritoneBtn = findViewById(R.id.tritoneBtn)
+        perfFifthBtn = findViewById(R.id.perf5Btn)
+        min6Btn = findViewById(R.id.min6Btn)
+        maj6Btn = findViewById(R.id.maj6Btn)
         repeatBtn = findViewById(R.id.repeatBtn)
         resultsTv = findViewById(R.id.resultsTv)
         accuracyTv = findViewById(R.id.accuracyTv)

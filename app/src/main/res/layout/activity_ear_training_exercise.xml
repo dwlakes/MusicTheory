@@ -11,11 +11,11 @@
         android:id="@+id/octBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:text="Octave "
         android:textAllCaps="false"
         android:textSize="14sp"
-        android:layout_marginEnd="16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/maj7Btn"
@@ -39,6 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="224dp"
         android:layout_weight="1"
         android:text="Minor 7th"
         android:textAllCaps="false"
@@ -46,7 +47,7 @@
         app:layout_constraintEnd_toStartOf="@+id/maj7Btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="224dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/maj6Btn"
@@ -79,6 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="176dp"
         android:layout_weight="1"
         android:text="Perfect 5th"
         android:textAllCaps="false"
@@ -86,7 +88,7 @@
         app:layout_constraintEnd_toStartOf="@+id/min6Btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="176dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/tritoneBtn"
@@ -119,6 +121,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="128dp"
         android:layout_weight="1"
         android:text="Major 3rd"
         android:textAllCaps="false"
@@ -126,7 +129,7 @@
         app:layout_constraintEnd_toStartOf="@+id/perf4Btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="128dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/min3Btn"
