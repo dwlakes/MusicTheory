@@ -11,10 +11,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val earTrainingBtn = findViewById<Button>(R.id.earTrainingBtn)
+        val scaleBtn = findViewById<Button>(R.id.scaleBtn)
         earTrainingBtn.setOnClickListener{
             val Intent = Intent(this, earTrainingMainMenu::class.java)
             startActivity(Intent)
 
+        }
+        scaleBtn.setOnClickListener {
+            val Intent = Intent (this, ScalesMenu::class.java)
+            startActivity(Intent)
         }
     }
 }

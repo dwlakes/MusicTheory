@@ -10,7 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicTheory">
         <activity
-            android:name=".earTrainingExercise"
+            android:name=".earTrainingScalesExercise"
+            android:exported="false" />
+        <activity
+            android:name=".ScalesMenu"
+            android:exported="false"
+            android:label="@string/title_activity_scales_menu"
+            android:theme="@style/Theme.MusicTheory.NoActionBar" />
+        <activity
+            android:name=".earTrainingIntervalExercise"
             android:exported="false" />
         <activity
             android:name=".earTrainingMainMenu"
