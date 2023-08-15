@@ -6,6 +6,177 @@
     android:layout_height="match_parent"
     tools:context=".earTrainingScalesExercise">
 
+    <Button
+        android:id="@+id/wholeToneBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Whole Tone"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/bluesBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bluesBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Blues"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/melodicMinorBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/wholeToneBtn"
+        app:layout_constraintTop_toTopOf="@+id/wholeToneBtn" />
+
+    <Button
+        android:id="@+id/melodicMinorBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Melodic Minor"
+        android:textAllCaps="false"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bluesBtn"
+        app:layout_constraintTop_toTopOf="@+id/bluesBtn" />
+
+    <Button
+        android:id="@+id/minorPentBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Minor Pentatonic"
+        android:textAllCaps="false"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/majorPentatonicBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/harmonicMinorBtn"
+        app:layout_constraintTop_toTopOf="@+id/harmonicMinorBtn" />
+
+    <Button
+        android:id="@+id/harmonicMinorBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Harmonic Minor"
+        android:textAllCaps="false"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/minorPentBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/majorPentatonicBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Major Pentatonic"
+        android:textAllCaps="false"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/minorPentBtn"
+        app:layout_constraintTop_toTopOf="@+id/minorPentBtn" />
+
+    <Button
+        android:id="@+id/ionianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Ionian"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/dorianBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/dorianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Dorian"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/phrygianBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ionianBtn"
+        app:layout_constraintTop_toTopOf="@+id/ionianBtn" />
+
+    <Button
+        android:id="@+id/phrygianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Phrygian"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dorianBtn"
+        app:layout_constraintTop_toTopOf="@+id/dorianBtn" />
+
+    <Button
+        android:id="@+id/lydianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Lydian"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/mixolydianBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/mixolydianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Mixolydian"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/aeolianBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/lydianBtn"
+        app:layout_constraintTop_toTopOf="@+id/lydianBtn" />
+
+    <Button
+        android:id="@+id/aeolianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Aeolian"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mixolydianBtn"
+        app:layout_constraintTop_toTopOf="@+id/mixolydianBtn" />
+
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -21,8 +192,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:text="Exercise Activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
