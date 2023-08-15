@@ -47,6 +47,8 @@ class earTrainingScalesExercise : AppCompatActivity() {
         mixolydianBtn = findViewById(R.id.mixolydianBtn)
         aeolianBtn = findViewById(R.id.aeolianBtn)
         locrianBtn = findViewById(R.id.locrianBtn)
+        harmMinBtn = findViewById(R.id.harmonicMinorBtn)
+        melMinBtn = findViewById(R.id.melodicMinorBtn)
         minPentBtn = findViewById(R.id.minorPentBtn)
         majPentBtn = findViewById(R.id.majorPentatonicBtn)
         bluesBtn = findViewById(R.id.bluesBtn)
@@ -109,6 +111,26 @@ class earTrainingScalesExercise : AppCompatActivity() {
                     val minScale = Scale("Aeolian", "scales/min_scales/$it")
                     audioObjectsList.add(minScale)
                 }
+                "Locrian" -> assets.list("scales/locrian_scales")?.forEach {
+                    val locrianScale = Scale("Locrian", "scales/locrian_scales/$it")
+                    audioObjectsList.add(locrianScale)
+                }
+                "Harmonic Minor" -> assets.list("scales/harm_minor_scales")?.forEach {
+                    val harmMinScale = Scale("Harmonic Minor", "scales/harm_minor_scales/$it")
+                    audioObjectsList.add(harmMinScale)
+                }
+                "Melodic Minor" -> assets.list("scales/mel_minor_scales")?.forEach {
+                    val melMinScale = Scale("Melodic Minor", "scales/mel_minor_scales/$it")
+                    audioObjectsList.add(melMinScale)
+                }
+                "Minor Pentatonic" -> assets.list("scales/min_pent_scales")?.forEach {
+                    val minPentScale = Scale("Minor Pentatonic", "scales/min_pent_scales/$it")
+                    audioObjectsList.add(minPentScale)
+                }
+                "Major Pentatonic" -> assets.list("scales/maj_pent_scales")?.forEach {
+                    val majPentScale = Scale("Major Pentatonic", "scales/maj_pent_scales/$it")
+                    audioObjectsList.add(majPentScale)
+                }
             }
         }
         return audioObjectsList
@@ -162,6 +184,22 @@ class earTrainingScalesExercise : AppCompatActivity() {
             }
 
         }
+
+        majPentBtn.setOnClickListener {
+            checkMajPent(selectedSound)
+        }
+        minPentBtn.setOnClickListener {
+            checkMinPent(selectedSound)
+        }
+        melMinBtn.setOnClickListener {
+            checkMelMinor(selectedSound)
+        }
+        harmMinBtn.setOnClickListener {
+            checkHarmMin(selectedSound)
+        }
+        locrianBtn.setOnClickListener {
+            checkLocrian(selectedSound)
+        }
         aeolianBtn.setOnClickListener {
             checkAeolian(selectedSound)
         }
@@ -184,6 +222,46 @@ class earTrainingScalesExercise : AppCompatActivity() {
             playSound(selectedSound)
         }
 
+    }
+
+    private fun checkMajPent(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Major Pentatonic"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkMinPent(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Minor Pentatonic"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkMelMinor(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Melodic Minor"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkHarmMin(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Harmonic Minor"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkLocrian(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Locrian"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
     }
 
     private fun checkAeolian(selectedSound: Scale) {
@@ -244,7 +322,7 @@ class earTrainingScalesExercise : AppCompatActivity() {
         guessCounter++
         resultsTv.text = "Try again."
         accuracyTv.text = "Accuracy: $correctGuesses/$guessCounter"
-        playSound(selectedSound)
+        //playSound(selectedSound)
 
     }
 
