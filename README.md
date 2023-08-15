@@ -34,4 +34,8 @@ App will also keep track of successful identification for each identification. F
 Stimulus: App will be manually opened by the user selecting the app. (The “standard” way of opening an app.)
 Use cases:
 
-musicTheoryUseCase.drawio.png
+![musicTheoryUseCase drawio](https://github.com/dwlakes/MusicTheory/assets/76272809/58dc8f78-01b9-4c51-8431-701c285a9f5a)
+
+![MusicTheoryWireFrame drawio](https://github.com/dwlakes/MusicTheory/assets/76272809/25ee46d4-6e69-4339-acaa-d14f064121f2)
+
+
