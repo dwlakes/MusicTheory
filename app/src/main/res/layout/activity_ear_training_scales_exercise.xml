@@ -6,18 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".earTrainingScalesExercise">
 
+    <TextView
+        android:id="@+id/resultsTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="468dp"
+        android:text="Results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/accuracyTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Accuracy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/wholeToneBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="308dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:text="Whole Tone"
         android:textAllCaps="false"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/bluesBtn"
+        app:layout_constraintEnd_toStartOf="@+id/persianBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,13 +48,15 @@
         android:id="@+id/bluesBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:text="Blues"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@+id/melodicMinorBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/wholeToneBtn"
-        app:layout_constraintTop_toTopOf="@+id/wholeToneBtn" />
+        app:layout_constraintStart_toEndOf="@+id/majorPentatonicBtn"
+        app:layout_constraintTop_toTopOf="@+id/majorPentatonicBtn" />
 
     <Button
         android:id="@+id/melodicMinorBtn"
@@ -46,49 +70,47 @@
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bluesBtn"
-        app:layout_constraintTop_toTopOf="@+id/bluesBtn" />
-
-    <Button
-        android:id="@+id/minorPentBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Minor Pentatonic"
-        android:textAllCaps="false"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toStartOf="@+id/majorPentatonicBtn"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/harmonicMinorBtn"
         app:layout_constraintTop_toTopOf="@+id/harmonicMinorBtn" />
 
     <Button
-        android:id="@+id/harmonicMinorBtn"
+        android:id="@+id/minorPentBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="260dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        android:text="Harmonic Minor"
+        android:text="Minor Pentatonic"
         android:textAllCaps="false"
         android:textSize="11sp"
-        app:layout_constraintEnd_toStartOf="@+id/minorPentBtn"
+        app:layout_constraintEnd_toStartOf="@+id/majorPentatonicBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/harmonicMinorBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Harmonic Minor"
+        android:textAllCaps="false"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/melodicMinorBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/locrianBtn"
+        app:layout_constraintTop_toTopOf="@+id/locrianBtn" />
+
+    <Button
         android:id="@+id/majorPentatonicBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:text="Major Pentatonic"
         android:textAllCaps="false"
         android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bluesBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/minorPentBtn"
         app:layout_constraintTop_toTopOf="@+id/minorPentBtn" />
@@ -178,16 +200,6 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ear training scales"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/scaleExerciseTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -195,6 +207,58 @@
         android:text="Exercise Activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/locrianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="Locrian"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/harmonicMinorBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/persianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Persian"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/ukrainianDorianBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/wholeToneBtn"
+        app:layout_constraintTop_toTopOf="@+id/wholeToneBtn" />
+
+    <Button
+        android:id="@+id/ukrainianDorianBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Ukrainian Dorian"
+        android:textAllCaps="false"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/persianBtn"
+        app:layout_constraintTop_toTopOf="@+id/persianBtn" />
+
+    <Button
+        android:id="@+id/repeatEarTrainingScalesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="564dp"
+        android:text="Repeat"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

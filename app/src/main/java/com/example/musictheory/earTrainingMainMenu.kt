@@ -29,7 +29,9 @@ class earTrainingMainMenu : AppCompatActivity() {
     lateinit var selectedScales: BooleanArray
     var scalesList : MutableList<Int> = mutableListOf()
     var scalesArray = arrayOf(
-        "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"
+        "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian",
+        "Harmonic Minor", "Melodic Minor", "Minor Pentatonic", "Major Pentatonic",
+        "Blues", "Whole Tone", "Persian", "Ukrainian Dorian"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,12 +59,10 @@ class earTrainingMainMenu : AppCompatActivity() {
     private fun startEarTrainingScales() {
         // Singletonlist cannot be cast to arraylist
         if (scalesList.size == 1){
-            println("Selected only 1 interval")
             // Converts singleton to single variable
             val singleScale = scalesList[0]
             // Creates arraylist for single selection
             val selectedScales = arrayListOf<Int>(singleScale)
-            println("Selected Scales"+selectedScales)
             val intent = Intent(this, earTrainingScalesExercise::class.java)
             intent.putIntegerArrayListExtra("selected_scales",selectedScales)
             startActivity(intent)
@@ -70,9 +70,8 @@ class earTrainingMainMenu : AppCompatActivity() {
             //Copies mutable list to immutable arraylist
             //Kotlin can't pass a mutable list through activities
             val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
-            println("Selected scales"+selectedScales)
             val intent = Intent(this, earTrainingScalesExercise::class.java)
-            intent.putIntegerArrayListExtra("selected_intervals",selectedScales)
+            intent.putIntegerArrayListExtra("selected_scales",selectedScales)
             startActivity(intent)
         }
     }
@@ -80,12 +79,10 @@ class earTrainingMainMenu : AppCompatActivity() {
     private fun startEarTrainingInterval() {
         // Singletonlist cannot be cast to arraylist
         if (intervalList.size == 1){
-            println("Selected only 1 interval")
             // Converts singleton to single variable
             val singleInterval = intervalList[0]
             // Creates arraylist for single selection
             val selectedIntervals = arrayListOf<Int>(singleInterval)
-            println("Selected intervals"+selectedIntervals)
             val intent = Intent(this, earTrainingIntervalExercise::class.java)
             intent.putIntegerArrayListExtra("selected_intervals",selectedIntervals)
             startActivity(intent)
@@ -93,7 +90,6 @@ class earTrainingMainMenu : AppCompatActivity() {
             //Copies mutable list to immutable arraylist
             //Kotlin can't pass a mutable list through activities
             val selectedIntervals: ArrayList<Int> = intervalList.toList() as ArrayList<Int>
-            println("Selected intervals"+selectedIntervals)
             val intent = Intent(this, earTrainingIntervalExercise::class.java)
             intent.putIntegerArrayListExtra("selected_intervals",selectedIntervals)
             startActivity(intent)
@@ -213,7 +209,6 @@ class earTrainingMainMenu : AppCompatActivity() {
                     //Remove position from scales list
                     scalesList.remove(i)
                 }
-                println(scalesList.toString())
             }
             builder.setPositiveButton("Ok") { dialogInterface, i -> //Initalize string builder
                 val stringBuilder = StringBuilder()
