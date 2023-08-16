@@ -71,29 +71,29 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
         // audio files
         for (element in selectedChordProgressionStringList) {
             when (element) {
-                "I_IV_V" -> assets.list("chord_progressions/I_IV_V")?.forEach {
-                    val I_IV_V_Chord = ChordProgression("I_IV_V", "chord_progressions/I_IV_V/$it")
+                "I-IV-V" -> assets.list("chord_progressions/I_IV_V")?.forEach {
+                    val I_IV_V_Chord = ChordProgression("I-IV-V", "chord_progressions/I_IV_V/$it")
                     audioObjectsList.add(I_IV_V_Chord)
                 }
-                "I_VI_vi_IV" -> assets.list("chord_progressions/I_VI_vi_IV")?.forEach {
+                "I-VI-vi-IV" -> assets.list("chord_progressions/I_VI_vi_IV")?.forEach {
                     val I_VI_vi_IV_Chord =
-                        ChordProgression("I_VI_vi_IV", "chord_progressions/I_VI_vi_IV/$it")
+                        ChordProgression("I-VI-vi-IV", "chord_progressions/I_VI_vi_IV/$it")
                     audioObjectsList.add(I_VI_vi_IV_Chord)
                 }
-                "ii_V_I" -> assets.list("chord_progressions/ii_V_I")?.forEach {
-                    val ii_V_I_Chord = ChordProgression("ii_V_I", "chord_progressions/ii_V_I/$it")
+                "ii-V-I" -> assets.list("chord_progressions/ii_V_I")?.forEach {
+                    val ii_V_I_Chord = ChordProgression("ii-V-I", "chord_progressions/ii_V_I/$it")
                     audioObjectsList.add(ii_V_I_Chord)
                 }
-                "vi_IV_I_V" -> assets.list("chord_progressions/vi_IV_I_V")?.forEach {
-                    val vi_IV_I_V_Chord = ChordProgression("vi_IV_I_V", "chord_progressions/vi_IV_I_V/$it")
+                "vi-IV-I-V" -> assets.list("chord_progressions/vi_IV_I_V")?.forEach {
+                    val vi_IV_I_V_Chord = ChordProgression("vi-IV-I-V", "chord_progressions/vi_IV_I_V/$it")
                     audioObjectsList.add(vi_IV_I_V_Chord)
                 }
-                "I_vi_IV_V" -> assets.list("chord_progressions/I_vi_IV_V")?.forEach {
-                    val I_vi_IV_V_Chord = ChordProgression("I_vi_IV_V", "chord_progressions/I_vi_IV_V/$it")
+                "I-vi-IV-V" -> assets.list("chord_progressions/I_vi_IV_V")?.forEach {
+                    val I_vi_IV_V_Chord = ChordProgression("I-vi-IV-V", "chord_progressions/I_vi_IV_V/$it")
                     audioObjectsList.add(I_vi_IV_V_Chord)
                 }
-                "I_III_IV_iv"-> assets.list("chord_progressions/I_III_IV_iv")?.forEach {
-                    val I_III_IV_iv_Chord = ChordProgression("I_III_IV_iv", "chord_progressions/I_III_IV_iv/$it")
+                "I-III-IV-iv"-> assets.list("chord_progressions/I_III_IV_iv")?.forEach {
+                    val I_III_IV_iv_Chord = ChordProgression("I-III-IV-iv", "chord_progressions/I_III_IV_iv/$it")
                     audioObjectsList.add(I_III_IV_iv_Chord)
                 }
             }
@@ -103,7 +103,7 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
 
     private fun getChordProgressionString(selectedChordProgressionInts: ArrayList<Int>?): MutableList<String> {
         var chordProgressionsArray = arrayOf(
-            "ii_V_I","vi_IV_I_V","I_IV_V","I_VI_vi_IV","I_vi_IV_V","I_III_IV_iv"
+            "ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
         )
         val selectedChordProgressionList = mutableListOf<String>()
         // Gets selected index with matching chord progression
