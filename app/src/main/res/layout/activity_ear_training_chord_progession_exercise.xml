@@ -44,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:text="ii-V-I"
@@ -85,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="188dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:text="I-VI-vi-IV"
@@ -131,4 +131,44 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/I_I_ii_IBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="I-I-ii-I"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/I_IV_I_IVBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/I_IV_I_IVBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="I-IV-I-IV"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/I_V_I_VBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/I_I_ii_IBtn"
+        app:layout_constraintTop_toTopOf="@+id/I_I_ii_IBtn" />
+
+    <Button
+        android:id="@+id/I_V_I_VBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:text="I-V-I-V"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/I_IV_I_IVBtn"
+        app:layout_constraintTop_toTopOf="@+id/I_IV_I_IVBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

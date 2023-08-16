@@ -14,6 +14,9 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
 
     var chordProgressionAudioList = mutableListOf<ChordProgression>()
 
+    lateinit var I_I_ii_I: Button
+    lateinit var I_IV_I_IV: Button
+    lateinit var I_V_I_V: Button
     lateinit var I_IV_V_Btn: Button
     lateinit var I_VI_vi_IV_Btn: Button
     lateinit var ii_V_I_Btn: Button
@@ -33,6 +36,9 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ear_training_chord_progession_exercise)
 
+        I_I_ii_I = findViewById(R.id.I_I_ii_IBtn)
+        I_IV_I_IV = findViewById(R.id.I_IV_I_IVBtn)
+        I_V_I_V = findViewById(R.id.I_V_I_VBtn)
         I_IV_V_Btn = findViewById(R.id.I_IV_VBtn)
         I_VI_vi_IV_Btn = findViewById(R.id.I_VI_vi_IVBtn)
         ii_V_I_Btn = findViewById(R.id.ii_V_IBtn)
@@ -71,6 +77,18 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
         // audio files
         for (element in selectedChordProgressionStringList) {
             when (element) {
+                "I-I-ii-I" -> assets.list("chord_progressions/I_I_ii_I")?.forEach {
+                    val I_I_ii_I_Chord = ChordProgression("I-I-ii-I", "chord_progressions/I_I_ii_I/$it")
+                    audioObjectsList.add(I_I_ii_I_Chord)
+                }
+                "I-IV-I-IV" -> assets.list("chord_progressions/I_IV_I_IV")?.forEach {
+                val I_IV_I_IV_Chord = ChordProgression("I-IV-I-IV", "chord_progressions/I_IV_I_IV/$it")
+                audioObjectsList.add(I_IV_I_IV_Chord)
+                }
+                "I-V-I-V" -> assets.list("chord_progressions/I_V_I_V")?.forEach {
+                    val I_V_I_V_Chord = ChordProgression("I-V-I-V", "chord_progressions/I_V_I_V/$it")
+                    audioObjectsList.add(I_V_I_V_Chord)
+                }
                 "I-IV-V" -> assets.list("chord_progressions/I_IV_V")?.forEach {
                     val I_IV_V_Chord = ChordProgression("I-IV-V", "chord_progressions/I_IV_V/$it")
                     audioObjectsList.add(I_IV_V_Chord)
@@ -103,7 +121,7 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
 
     private fun getChordProgressionString(selectedChordProgressionInts: ArrayList<Int>?): MutableList<String> {
         var chordProgressionsArray = arrayOf(
-            "ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
+            "I-I-ii-I","I-IV-I-IV","I-V-I-V","ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
         )
         val selectedChordProgressionList = mutableListOf<String>()
         // Gets selected index with matching chord progression
@@ -145,6 +163,18 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
                 mediaPlayer?.release()
             }
 
+        }
+        I_I_ii_I.setOnClickListener {
+            var selectedAnswer = I_I_ii_I.text.toString()
+            checkAnswer(selectedAnswer,selectedSound)
+        }
+        I_IV_I_IV.setOnClickListener {
+            var selectedAnswer = I_IV_I_IV.text.toString()
+            checkAnswer(selectedAnswer,selectedSound)
+        }
+        I_V_I_V.setOnClickListener {
+            var selectedAnswer = I_V_I_V.text.toString()
+            checkAnswer(selectedAnswer,selectedSound)
         }
         ii_V_I_Btn.setOnClickListener {
             var selectedAnswer = ii_V_I_Btn.text.toString()
