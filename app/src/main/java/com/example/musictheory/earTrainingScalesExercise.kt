@@ -131,6 +131,22 @@ class earTrainingScalesExercise : AppCompatActivity() {
                     val majPentScale = Scale("Major Pentatonic", "scales/maj_pent_scales/$it")
                     audioObjectsList.add(majPentScale)
                 }
+                "Blues" -> assets.list("scales/blues_scales")?.forEach {
+                    val bluesScale = Scale("Blues", "scales/blues_scales/$it")
+                    audioObjectsList.add(bluesScale)
+                }
+                "Whole Tone" -> assets.list("scales/whole_tone_scales")?.forEach {
+                    val wholeToneScale = Scale("Whole Tone", "scales/whole_tone_scales/$it")
+                    audioObjectsList.add(wholeToneScale)
+                }
+                "Persian"-> assets.list("scales/persian_scales")?.forEach {
+                    val persianScale = Scale("Persian", "scales/persian_scales/$it")
+                    audioObjectsList.add(persianScale)
+                }
+                "Ukrainian Dorian"-> assets.list("scales/ukr_dor_scales")?.forEach {
+                    val ukrDorScale = Scale("Ukrainian Dorian", "scales/ukr_dor_scales/$it")
+                    audioObjectsList.add(ukrDorScale)
+                }
             }
         }
         return audioObjectsList
@@ -185,6 +201,18 @@ class earTrainingScalesExercise : AppCompatActivity() {
 
         }
 
+        ukrDorianBtn.setOnClickListener {
+            checkUkrDor(selectedSound)
+        }
+        persianBtn.setOnClickListener {
+            checkPersian(selectedSound)
+        }
+        wholeToneBtn.setOnClickListener {
+            checkWholeTone(selectedSound)
+        }
+        bluesBtn.setOnClickListener {
+            checkBlues(selectedSound)
+        }
         majPentBtn.setOnClickListener {
             checkMajPent(selectedSound)
         }
@@ -222,6 +250,38 @@ class earTrainingScalesExercise : AppCompatActivity() {
             playSound(selectedSound)
         }
 
+    }
+
+    private fun checkUkrDor(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Ukrainian Dorian"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkPersian(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Persian"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkWholeTone(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Whole Tone"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
+    }
+
+    private fun checkBlues(selectedSound: Scale) {
+        if (selectedSound.scaleType == "Blues"){
+            correctAns()
+        } else {
+            incorrectAns(selectedSound)
+        }
     }
 
     private fun checkMajPent(selectedSound: Scale) {
