@@ -30,6 +30,7 @@ class earTrainingScalesExercise : AppCompatActivity() {
     lateinit var persianBtn:Button
     lateinit var ukrDorianBtn:Button
     lateinit var repeatBtn:Button
+
     lateinit var accuracyTv: TextView
     lateinit var resultsTv:TextView
 

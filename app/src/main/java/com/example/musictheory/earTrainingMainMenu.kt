@@ -17,6 +17,7 @@ class earTrainingMainMenu : AppCompatActivity() {
 
     lateinit var tvIntervals:TextView
     lateinit var tvScales:TextView
+    lateinit var tvChordProgression:TextView
 
     lateinit var selectedIntervals: BooleanArray
     var intervalList : MutableList<Int> = mutableListOf()
@@ -34,12 +35,19 @@ class earTrainingMainMenu : AppCompatActivity() {
         "Blues", "Whole Tone", "Persian", "Ukrainian Dorian"
     )
 
+    lateinit var selectedChordProgressions: BooleanArray
+    var chordProgressionsList : MutableList<Int> = mutableListOf()
+    var chordProgressionsArray = arrayOf(
+        "ii_V_I","vi_IV_I_V","I_IV_V","I_VI_vi_IV","I_vi_IV_V","I_III_IV_iv"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ear_training_main_menu)
 
         createIntervalsDropdown()
         createScalesDropdown()
+        createChordProgressionsDropdown()
         val startExerciseBtn = findViewById<Button>(R.id.startExerciseBtn)
         startExerciseBtn.setOnClickListener{
 
@@ -48,7 +56,9 @@ class earTrainingMainMenu : AppCompatActivity() {
 
             } else if(scalesList.size>0) {
                 startEarTrainingScales()
-            }else{
+            } else if (chordProgressionsList.size>0){
+                startEarTrainingChordProgressions()
+            } else {
                 Toast.makeText(this, "You need to select something.", Toast.LENGTH_SHORT).show()
             }
 
@@ -96,10 +106,30 @@ class earTrainingMainMenu : AppCompatActivity() {
         }
     }
 
+    private fun startEarTrainingChordProgressions() {
+        // Singletonlist cannot be cast to arraylist
+        if (chordProgressionsList.size == 1){
+            // Converts singleton to single variable
+            val singleChordProgression = chordProgressionsList[0]
+            // Creates arraylist for single selection
+            val selectedChordProgressions = arrayListOf<Int>(singleChordProgression)
+            val intent = Intent(this, earTrainingChordProgessionExercise::class.java)
+            intent.putIntegerArrayListExtra("selected_chord_progressions",selectedChordProgressions)
+            startActivity(intent)
+        } else {
+            //Copies mutable list to immutable arraylist
+            //Kotlin can't pass a mutable list through activities
+            val selectedChordProgressions: ArrayList<Int> = chordProgressionsList.toList() as ArrayList<Int>
+            val intent = Intent(this, earTrainingChordProgessionExercise::class.java)
+            intent.putIntegerArrayListExtra("selected_chord_progressions",selectedChordProgressions)
+            startActivity(intent)
+        }
+    }
+
     // Interval selection dropdown
     private fun createIntervalsDropdown() {
         // assign variable
-        tvIntervals = findViewById<TextView>(R.id.IntervalsTextView)
+        tvIntervals = findViewById<TextView>(R.id.IntervalsEarTrainingDropdown)
         // initialize selected interval
         selectedIntervals = BooleanArray(intervalsArray.size)
         tvIntervals.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
@@ -170,20 +200,9 @@ class earTrainingMainMenu : AppCompatActivity() {
         })
     }
 
-    private fun checkIntervalListSize() {
-        // Disables other dropdowns if intervals is selected
-        if(intervalList.size>0){
-            createScalesDropdown()
-            tvScales.isEnabled = false
-        // Re-enables other dropdowns if intervals list is 0
-        } else{
-            tvScales.isEnabled = true
-        }
-    }
-
     private fun createScalesDropdown(){
         // assign variable
-        tvScales = findViewById<TextView>(R.id.scalesTextViewEarTraining)
+        tvScales = findViewById<TextView>(R.id.scalesEarTrainingDropDown)
         // initialize selected scale
         selectedScales = BooleanArray(scalesArray.size)
         tvScales.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
@@ -251,15 +270,113 @@ class earTrainingMainMenu : AppCompatActivity() {
             builder.show()
         })
     }
+    private fun createChordProgressionsDropdown() {
+        // assign variable
+        tvChordProgression = findViewById<TextView>(R.id.chordProgressionEarTrainingDropdown)
+        // initialize selected chord progression
+        selectedChordProgressions = BooleanArray(chordProgressionsArray.size)
+        tvChordProgression.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
+            val builder = AlertDialog.Builder(this@earTrainingMainMenu)
+
+            //Set title
+            builder.setTitle("Selected Chord Progressions")
+            //Set dialog non cancelable
+            builder.setCancelable(false)
+            builder.setMultiChoiceItems(
+                chordProgressionsArray,
+                selectedChordProgressions
+            ) { dialogInterface, i, b ->
+                //Check condition
+                if (b) {
+                    //When checkbox selected
+                    //Add position in chord progression list
+                    chordProgressionsList.add(i)
+                    //Sort
+                    Collections.sort(chordProgressionsList)
+                } else {
+                    //When checkbox unselected
+                    //Remove position from chord progression list
+                    chordProgressionsList.remove(i)
+                }
+            }
+            builder.setPositiveButton("Ok") { dialogInterface, i -> //Initalize string builder
+                val stringBuilder = StringBuilder()
+
+                // Gets selected index with matching scale
+                for (j in chordProgressionsList.indices) {
+                    //Concat array val
+                    stringBuilder.append(chordProgressionsArray[chordProgressionsList[j]])
+                    //Check condition
+                    if (j != chordProgressionsList.size - 1) {
+                        //When ja value not equal to chordProgressionsList list size -1
+                        //Add comma
+                        stringBuilder.append(", ")
+                    }
+                }
+                checkChordProgressionListSize()
+                //Set text on text vie
+                if (chordProgressionsList.size != 0) {
+                    tvChordProgression.text = stringBuilder.toString()
+                } else {
+                    tvChordProgression.text = "Chord Progressions"
+                }
+            }
+            builder.setNegativeButton("Cancel") { dialogInterface, i -> //Dismiss dialog
+                checkChordProgressionListSize()
+                dialogInterface.dismiss()
+            }
+            // Clear selected Chord Progressions
+            builder.setNeutralButton("Clear All") { dialogInterface, i ->
+                //Use for loop
+                for (j in selectedChordProgressions.indices) {
+                    //remove all selection
+                    selectedChordProgressions[j] = false
+                    chordProgressionsList.clear()
+                    tvChordProgression.text = "Chord Progressions"
+                }
+                checkChordProgressionListSize()
+            }
+            //Show dialog
+            builder.show()
+        })
+    }
+
+    private fun checkIntervalListSize() {
+        // Disables other dropdowns if intervals is selected
+        if(intervalList.size>0){
+            createScalesDropdown()
+            createChordProgressionsDropdown()
+            tvScales.isEnabled = false
+            tvChordProgression.isEnabled = false
+            // Re-enables other dropdowns if intervals list is 0
+        } else{
+            tvScales.isEnabled = true
+            tvChordProgression.isEnabled = true
+        }
+    }
 
     private fun checkScalesListSize() {
         // Disables other dropdowns if scales is selected
         if(scalesList.size>0){
             createIntervalsDropdown()
+            createChordProgressionsDropdown()
             tvIntervals.isEnabled = false
+            tvChordProgression.isEnabled = false
             // Re-enables other dropdowns if scales list is 0
         } else{
             tvIntervals.isEnabled = true
+            tvChordProgression.isEnabled = true
+        }
+    }
+    private fun checkChordProgressionListSize() {
+        if(chordProgressionsList.size>0){
+            createIntervalsDropdown()
+            createScalesDropdown()
+            tvIntervals.isEnabled = false
+            tvScales.isEnabled = false
+        } else {
+            tvIntervals.isEnabled = true
+            tvScales.isEnabled = true
         }
     }
 }
