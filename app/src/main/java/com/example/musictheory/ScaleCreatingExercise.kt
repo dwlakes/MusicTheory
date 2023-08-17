@@ -6,6 +6,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import org.w3c.dom.Text
 
+//TODO: Make objects for other modes
 class ScaleCreatingExercise : AppCompatActivity() {
 
     lateinit var taskTextView:TextView
