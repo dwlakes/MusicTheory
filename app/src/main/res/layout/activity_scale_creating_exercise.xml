@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScaleCreatingExercise">
+
+    <CheckBox
+        android:id="@+id/cFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C♭"
+        app:layout_constraintStart_toStartOf="@+id/gSharpBtn2"
+        app:layout_constraintTop_toBottomOf="@+id/gSharpBtn2" />
+
+    <CheckBox
+        android:id="@+id/eFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E♭"
+        app:layout_constraintStart_toStartOf="@+id/bSharpBtn2"
+        app:layout_constraintTop_toBottomOf="@+id/bSharpBtn2" />
+
+    <CheckBox
+        android:id="@+id/bFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B♭"
+        app:layout_constraintStart_toStartOf="@+id/eFlatBtn"
+        app:layout_constraintTop_toBottomOf="@+id/eFlatBtn" />
+
+    <CheckBox
+        android:id="@+id/gFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G♭"
+        app:layout_constraintStart_toStartOf="@+id/cFlatBtn"
+        app:layout_constraintTop_toBottomOf="@+id/cFlatBtn" />
+
+    <CheckBox
+        android:id="@+id/dFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D♭"
+        app:layout_constraintStart_toStartOf="@+id/aSharpBtn"
+        app:layout_constraintTop_toBottomOf="@+id/aSharpBtn2" />
+
+    <CheckBox
+        android:id="@+id/aFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A♭"
+        app:layout_constraintStart_toStartOf="@+id/dFlatBtn"
+        app:layout_constraintTop_toBottomOf="@+id/dFlatBtn" />
+
+    <CheckBox
+        android:id="@+id/fFlatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F♭"
+        app:layout_constraintBaseline_toBaselineOf="@+id/eFlatBtn"
+        app:layout_constraintEnd_toEndOf="@+id/fSharpBtn2"
+        app:layout_constraintStart_toStartOf="@+id/fSharpBtn2" />
+
+    <CheckBox
+        android:id="@+id/bBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B"
+        app:layout_constraintStart_toStartOf="@+id/eBtn"
+        app:layout_constraintTop_toBottomOf="@+id/eBtn" />
+
+    <CheckBox
+        android:id="@+id/aBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A"
+        app:layout_constraintStart_toStartOf="@+id/dBtn"
+        app:layout_constraintTop_toBottomOf="@+id/dBtn" />
+
+    <CheckBox
+        android:id="@+id/fBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F"
+        app:layout_constraintBaseline_toBaselineOf="@+id/eBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/eBtn" />
+
+    <CheckBox
+        android:id="@+id/cBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="48dp"
+        android:text="C"
+        app:layout_constraintBottom_toTopOf="@+id/cSharpScaleBtn2"
+        app:layout_constraintEnd_toStartOf="@+id/dBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scaleCreatorExerciseTV" />
+
+    <CheckBox
+        android:id="@+id/dBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="D"
+        app:layout_constraintEnd_toStartOf="@+id/eBtn"
+        app:layout_constraintStart_toEndOf="@+id/cBtn"
+        app:layout_constraintTop_toTopOf="@+id/cBtn" />
+
+    <CheckBox
+        android:id="@+id/gSharpBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G#"
+        app:layout_constraintBaseline_toBaselineOf="@+id/gSharpBtn"
+        app:layout_constraintStart_toStartOf="@+id/gSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/fSharpBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F#"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/eSharpBtn"
+        app:layout_constraintTop_toTopOf="@+id/eSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/bSharpBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B#"
+        app:layout_constraintEnd_toEndOf="@+id/eSharpBtn2"
+        app:layout_constraintTop_toTopOf="@+id/aSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/dSharpBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D#"
+        app:layout_constraintStart_toEndOf="@+id/cSharpScaleBtn"
+        app:layout_constraintStart_toStartOf="@+id/aBtn"
+        app:layout_constraintTop_toTopOf="@+id/cSharpScaleBtn" />
+
+    <CheckBox
+        android:id="@+id/cSharpScaleBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
+        android:text="C#"
+        app:layout_constraintStart_toStartOf="@+id/cSharpScaleBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/aSharpBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A#"
+        app:layout_constraintStart_toStartOf="@+id/dSharpBtn"
+        app:layout_constraintTop_toTopOf="@+id/gSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/eSharpBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E#"
+        app:layout_constraintEnd_toStartOf="@+id/fSharpBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dSharpBtn"
+        app:layout_constraintTop_toTopOf="@+id/dSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/fSharpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F#"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/eSharpBtn"
+        app:layout_constraintTop_toTopOf="@+id/eSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/eSharpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E#"
+        app:layout_constraintEnd_toStartOf="@+id/fSharpBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dSharpBtn"
+        app:layout_constraintTop_toTopOf="@+id/dSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/dSharpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D#"
+        app:layout_constraintStart_toEndOf="@+id/cSharpScaleBtn"
+        app:layout_constraintStart_toStartOf="@+id/dSharpBtn2"
+        app:layout_constraintTop_toTopOf="@+id/cSharpScaleBtn" />
+
+    <TextView
+        android:id="@+id/scaleCreatorExerciseTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cSharpScaleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
+        android:text="C#"
+        app:layout_constraintStart_toStartOf="@+id/gBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/gSharpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G#"
+        app:layout_constraintStart_toStartOf="@+id/cSharpScaleBtn2"
+        app:layout_constraintTop_toBottomOf="@+id/cSharpScaleBtn2" />
+
+    <CheckBox
+        android:id="@+id/aSharpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A#"
+        app:layout_constraintStart_toStartOf="@+id/aSharpBtn2"
+        app:layout_constraintTop_toTopOf="@+id/gSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/bSharpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B#"
+        app:layout_constraintStart_toStartOf="@+id/bSharpBtn2"
+        app:layout_constraintTop_toTopOf="@+id/aSharpBtn" />
+
+    <CheckBox
+        android:id="@+id/eBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="E"
+        app:layout_constraintEnd_toStartOf="@+id/fBtn"
+        app:layout_constraintStart_toEndOf="@+id/dBtn"
+        app:layout_constraintTop_toTopOf="@+id/dBtn" />
+
+    <CheckBox
+        android:id="@+id/gBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G"
+        app:layout_constraintStart_toStartOf="@+id/cBtn"
+        app:layout_constraintTop_toBottomOf="@+id/cBtn" />
+
+    <TextView
+        android:id="@+id/taskTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:text="Task:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

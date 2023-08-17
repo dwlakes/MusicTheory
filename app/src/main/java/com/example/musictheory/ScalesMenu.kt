@@ -1,8 +1,10 @@
 package com.example.musictheory
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import java.lang.StringBuilder
@@ -10,6 +12,7 @@ import java.util.*
 
 class ScalesMenu : AppCompatActivity() {
     lateinit var selectedScales: BooleanArray
+
 
     var scalesList : MutableList<Int> = mutableListOf()
     var scalesArray = arrayOf(
@@ -21,6 +24,27 @@ class ScalesMenu : AppCompatActivity() {
         setContentView(R.layout.activity_scales_menu)
 
         createScalesDropdown()
+        val startExerciseBtn = findViewById<Button>(R.id.startScalesExerciseBtn)
+        startExerciseBtn.setOnClickListener{
+            // Singletonlist cannot be cast to arraylist
+            if (scalesList.size == 1){
+                // Converts singleton to single variable
+                val singleScale = scalesList[0]
+                // Creates arraylist for single selection
+                val selectedScales = arrayListOf<Int>(singleScale)
+                val intent = Intent(this, ScaleCreatingExercise::class.java)
+                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
+                startActivity(intent)
+            } else {
+                //Copies mutable list to immutable arraylist
+                //Kotlin can't pass a mutable list through activities
+                val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
+                val intent = Intent(this, ScaleCreatingExercise::class.java)
+                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
+                startActivity(intent)
+            }
+
+        }
     }
 
     private fun createScalesDropdown() {
