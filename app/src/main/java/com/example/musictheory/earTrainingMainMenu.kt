@@ -38,7 +38,8 @@ class earTrainingMainMenu : AppCompatActivity() {
     lateinit var selectedChordProgressions: BooleanArray
     var chordProgressionsList : MutableList<Int> = mutableListOf()
     var chordProgressionsArray = arrayOf(
-        "I-I-ii-I","I-IV-I-IV","I-V-I-V","ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
+        "I-I-ii-I","I-IV-I-IV","I-V-I-V","ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV",
+        "I-vi-IV-V","I-III-IV-iv","i-iv-v-i", "i-ii°-v-i","i-♭VI-♭III-♭VII"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

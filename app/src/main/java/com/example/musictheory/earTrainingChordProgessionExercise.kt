@@ -23,6 +23,10 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
     lateinit var vi_IV_I_V_Btn: Button
     lateinit var I_vi_IV_V_Btn: Button
     lateinit var I_III_IV_iv_Btn: Button
+    lateinit var i_iv_v_i_Btn: Button
+    lateinit var i_ii_dim_v_i_Btn: Button
+    lateinit var i_bVI_bIII_bVII_Btn: Button
+
 
     lateinit var repeatBtn: Button
 
@@ -45,6 +49,9 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
         vi_IV_I_V_Btn = findViewById(R.id.vi_IV_I_VBtn)
         I_vi_IV_V_Btn = findViewById(R.id.I_vi_IV_VBtn)
         I_III_IV_iv_Btn = findViewById(R.id.I_III_IV_ivBtn)
+        i_iv_v_i_Btn = findViewById(R.id.i_iv_v_iBtn)
+        i_ii_dim_v_i_Btn = findViewById(R.id.i_ii_dim_v_iBtn)
+        i_bVI_bIII_bVII_Btn = findViewById(R.id.i_bVI_bIII_bVIIBtn)
 
         repeatBtn = findViewById(R.id.repeatChordProgExerciseBtn)
 
@@ -110,9 +117,21 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
                     val I_vi_IV_V_Chord = ChordProgression("I-vi-IV-V", "chord_progressions/I_vi_IV_V/$it")
                     audioObjectsList.add(I_vi_IV_V_Chord)
                 }
-                "I-III-IV-iv"-> assets.list("chord_progressions/I_III_IV_iv")?.forEach {
+                "I-III-IV-iv" -> assets.list("chord_progressions/I_III_IV_iv")?.forEach {
                     val I_III_IV_iv_Chord = ChordProgression("I-III-IV-iv", "chord_progressions/I_III_IV_iv/$it")
                     audioObjectsList.add(I_III_IV_iv_Chord)
+                }
+                "i-iv-v-i" -> assets.list("chord_progressions/i_iv_v_i")?.forEach {
+                    val i_iv_v_i_Chord = ChordProgression("i-iv-v-i", "chord_progressions/i_iv_v_i/$it")
+                    audioObjectsList.add(i_iv_v_i_Chord)
+                }
+                "i-ii°-v-i" -> assets.list("chord_progressions/i_ii_dim_v_i")?.forEach {
+                    val i_ii_dim_v_i_Chord = ChordProgression("i-ii°-v-i", "chord_progressions/i_ii_dim_v_i/$it")
+                    audioObjectsList.add(i_ii_dim_v_i_Chord)
+                }
+                "i-♭VI-♭III-♭VII" -> assets.list("chord_progressions/i_bVI_bIII_bVII")?.forEach {
+                    val i_bVI_bIII_bVII_Chord = ChordProgression("i-♭VI-♭III-♭VII", "chord_progressions/i_bVI_bIII_bVII/$it")
+                    audioObjectsList.add(i_bVI_bIII_bVII_Chord)
                 }
             }
         }
@@ -121,7 +140,8 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
 
     private fun getChordProgressionString(selectedChordProgressionInts: ArrayList<Int>?): MutableList<String> {
         var chordProgressionsArray = arrayOf(
-            "I-I-ii-I","I-IV-I-IV","I-V-I-V","ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
+            "I-I-ii-I","I-IV-I-IV","I-V-I-V","ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV",
+            "I-vi-IV-V","I-III-IV-iv","i-iv-v-i", "i-ii°-v-i","i-♭VI-♭III-♭VII"
         )
         val selectedChordProgressionList = mutableListOf<String>()
         // Gets selected index with matching chord progression
@@ -198,6 +218,24 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
         }
         I_III_IV_iv_Btn.setOnClickListener {
             var selectedAnswer = I_III_IV_iv_Btn.text.toString()
+            println("Answer: $selectedAnswer")
+            println("Real Type: "+selectedSound.progressionType)
+            checkAnswer(selectedAnswer,selectedSound)
+        }
+        i_iv_v_i_Btn.setOnClickListener {
+            var selectedAnswer = i_iv_v_i_Btn.text.toString()
+            println("Answer: $selectedAnswer")
+            println("Real Type: "+selectedSound.progressionType)
+            checkAnswer(selectedAnswer,selectedSound)
+        }
+        i_ii_dim_v_i_Btn.setOnClickListener {
+            var selectedAnswer = i_ii_dim_v_i_Btn.text.toString()
+            println("Answer: $selectedAnswer")
+            println("Real Type: "+selectedSound.progressionType)
+            checkAnswer(selectedAnswer,selectedSound)
+        }
+        i_bVI_bIII_bVII_Btn.setOnClickListener {
+            var selectedAnswer = i_bVI_bIII_bVII_Btn.text.toString()
             println("Answer: $selectedAnswer")
             println("Real Type: "+selectedSound.progressionType)
             checkAnswer(selectedAnswer,selectedSound)
