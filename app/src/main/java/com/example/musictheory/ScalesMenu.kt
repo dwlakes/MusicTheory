@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import java.lang.StringBuilder
 import java.util.*
@@ -26,23 +27,26 @@ class ScalesMenu : AppCompatActivity() {
         createScalesDropdown()
         val startExerciseBtn = findViewById<Button>(R.id.startScalesExerciseBtn)
         startExerciseBtn.setOnClickListener{
-            // Singletonlist cannot be cast to arraylist
-            if (scalesList.size == 1){
-                // Converts singleton to single variable
-                val singleScale = scalesList[0]
-                // Creates arraylist for single selection
-                val selectedScales = arrayListOf<Int>(singleScale)
-                val intent = Intent(this, ScaleCreatingExercise::class.java)
-                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
-                startActivity(intent)
+            if(scalesList.size < 1){
+                Toast.makeText(this, "You need to select something", Toast.LENGTH_SHORT).show()
+                // Singletonlist cannot be cast to arraylist
+            }else if (scalesList.size == 1){
+                    // Converts singleton to single variable
+                    val singleScale = scalesList[0]
+                    // Creates arraylist for single selection
+                    val selectedScales = arrayListOf<Int>(singleScale)
+                    val intent = Intent(this, ScaleCreatingExercise::class.java)
+                    intent.putIntegerArrayListExtra("selected_scales",selectedScales)
+                    startActivity(intent)
             } else {
-                //Copies mutable list to immutable arraylist
-                //Kotlin can't pass a mutable list through activities
-                val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
-                val intent = Intent(this, ScaleCreatingExercise::class.java)
-                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
-                startActivity(intent)
+                    //Copies mutable list to immutable arraylist
+                    //Kotlin can't pass a mutable list through activities
+                    val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
+                    val intent = Intent(this, ScaleCreatingExercise::class.java)
+                    intent.putIntegerArrayListExtra("selected_scales",selectedScales)
+                    startActivity(intent)
             }
+
 
         }
     }
