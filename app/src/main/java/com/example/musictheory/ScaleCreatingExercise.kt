@@ -222,6 +222,8 @@ class ScaleCreatingExercise : AppCompatActivity() {
         var cIonian = ScaleObject("C", "Ionian", listOf("C", "D", "E", "F", "G", "A", "B"))
         var cSharpIonian =
             ScaleObject("C#", "Ionian", listOf("C#", "D#", "E#", "F#", "G#", "A#", "B#"))
+        var dFlatIonian =
+            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F♭", "G♭", "A♭", "B♭","C"))
         var dIonian = ScaleObject("D", "Ionian", listOf("D", "E", "F#", "G", "A", "B", "C#"))
         var eFlatIonian = ScaleObject("E♭", "Ionian", listOf("E♭", "F", "G", "A♭", "B♭", "C", "D"))
         var eIonian = ScaleObject("E", "Ionian", listOf("E", "F#", "G#", "A", "B", "C#", "D#"))
@@ -238,7 +240,7 @@ class ScaleCreatingExercise : AppCompatActivity() {
             ScaleObject("C♭", "Ionian", listOf("C♭", "D♭", "E♭", "F♭", "G♭", "A♭", "B♭"))
 
         return listOf(
-            cIonian, cSharpIonian, dIonian, eFlatIonian, eIonian,
+            cIonian, cSharpIonian, dIonian, eFlatIonian, eIonian, dFlatIonian,
             fIonian, fSharpIonian, gFlatIonian, gIonian, aIonian, bFlatIonian, bIonian, cFlatIonian
         )
     }

@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicTheory">
         <activity
+            android:name=".ChordCreatingExercise"
+            android:exported="false" />
+        <activity
+            android:name=".ChordCreatingMainMenu"
+            android:exported="false" />
+        <activity
             android:name=".ScaleCreatingExercise"
             android:exported="false" />
         <activity

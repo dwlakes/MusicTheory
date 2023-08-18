@@ -31,5 +31,15 @@
             android:text="Scales"
             android:textAllCaps="false"
             android:layout_marginTop="75dp"/>
+
+        <Button
+            android:id="@+id/chordBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chords"
+            android:textAllCaps="false"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

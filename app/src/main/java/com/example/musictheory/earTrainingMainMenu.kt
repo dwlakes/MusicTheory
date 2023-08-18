@@ -203,7 +203,7 @@ class earTrainingMainMenu : AppCompatActivity() {
 
     private fun createScalesDropdown(){
         // assign variable
-        tvScales = findViewById<TextView>(R.id.scalesEarTrainingDropDown)
+        tvScales = findViewById<TextView>(R.id.chordTypeDropdown)
         // initialize selected scale
         selectedScales = BooleanArray(scalesArray.size)
         tvScales.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
