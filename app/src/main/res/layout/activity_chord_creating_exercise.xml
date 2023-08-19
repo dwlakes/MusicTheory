@@ -6,6 +6,251 @@
     android:layout_height="match_parent"
     tools:context=".ChordCreatingExercise">
 
+    <CheckBox
+        android:id="@+id/eChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="E"
+        app:layout_constraintEnd_toStartOf="@+id/fChordCreatorBtn"
+        app:layout_constraintStart_toEndOf="@+id/dChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/dChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/aSharpBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A#"
+        app:layout_constraintStart_toStartOf="@+id/dSharpBtn3"
+        app:layout_constraintTop_toTopOf="@+id/gSharpBtn3" />
+
+    <CheckBox
+        android:id="@+id/eFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E♭"
+        app:layout_constraintStart_toStartOf="@+id/bSharpChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/dFlatChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/gFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G♭"
+        app:layout_constraintStart_toStartOf="@+id/cFlatChordCreatorBtn"
+        app:layout_constraintTop_toBottomOf="@+id/cFlatChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/cChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="2dp"
+        android:text="C"
+        app:layout_constraintEnd_toStartOf="@+id/dChordCreatorBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/gSharpBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G#"
+        app:layout_constraintStart_toStartOf="@+id/gSharpChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/gSharpChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/aFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A♭"
+        app:layout_constraintStart_toStartOf="@+id/dFlatChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/gFlatChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/dSharpBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D#"
+        app:layout_constraintStart_toStartOf="@+id/dSharpChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/dSharpChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/bFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B♭"
+        app:layout_constraintStart_toStartOf="@+id/eFlatChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/aFlatChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/fFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F♭"
+        app:layout_constraintStart_toStartOf="@+id/fSharpBtn3"
+        app:layout_constraintTop_toTopOf="@+id/eFlatChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/dFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D♭"
+        app:layout_constraintStart_toStartOf="@+id/aSharpChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/cFlatChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/bSharpBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B#"
+        app:layout_constraintStart_toStartOf="@+id/eSharpChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/aSharpChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/gSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G#"
+        app:layout_constraintStart_toStartOf="@+id/cSharpChordCreatorBtn"
+        app:layout_constraintTop_toBottomOf="@+id/cSharpScaleBtn3" />
+
+    <CheckBox
+        android:id="@+id/fSharpBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F#"
+        app:layout_constraintStart_toStartOf="@+id/fSharpChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/fSharpChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/fSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F#"
+        app:layout_constraintStart_toStartOf="@+id/fChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/eSharpChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/bChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B"
+        app:layout_constraintStart_toStartOf="@+id/eChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/aChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/aChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A"
+        app:layout_constraintStart_toStartOf="@+id/dChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/gChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/dChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="D"
+        app:layout_constraintEnd_toStartOf="@+id/eChordCreatorBtn"
+        app:layout_constraintStart_toEndOf="@+id/cChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/cChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/cFlatChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C♭"
+        app:layout_constraintStart_toStartOf="@+id/gSharpBtn3"
+        app:layout_constraintTop_toBottomOf="@+id/gSharpBtn3" />
+
+    <CheckBox
+        android:id="@+id/eSharpBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E#"
+        app:layout_constraintStart_toStartOf="@+id/bChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/dSharpBtn3" />
+
+    <CheckBox
+        android:id="@+id/aSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A#"
+        app:layout_constraintStart_toStartOf="@+id/aSharpBtn3"
+        app:layout_constraintTop_toTopOf="@+id/aSharpBtn3" />
+
+    <CheckBox
+        android:id="@+id/bSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B#"
+        app:layout_constraintStart_toStartOf="@+id/bSharpBtn3"
+        app:layout_constraintTop_toTopOf="@+id/bSharpBtn3" />
+
+    <CheckBox
+        android:id="@+id/fChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/eChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/eChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/cSharpScaleBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C#"
+        app:layout_constraintStart_toStartOf="@+id/gChordCreatorBtn"
+        app:layout_constraintTop_toBottomOf="@+id/gChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/gChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G"
+        app:layout_constraintStart_toStartOf="@+id/cChordCreatorBtn"
+        app:layout_constraintTop_toBottomOf="@+id/cChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/dSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D#"
+        app:layout_constraintStart_toStartOf="@+id/aChordCreatorBtn"
+        app:layout_constraintTop_toTopOf="@+id/cSharpChordCreatorBtn" />
+
+    <CheckBox
+        android:id="@+id/cSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C#"
+        app:layout_constraintStart_toStartOf="@+id/cSharpScaleBtn3"
+        app:layout_constraintTop_toTopOf="@+id/cSharpScaleBtn3" />
+
+    <CheckBox
+        android:id="@+id/eSharpChordCreatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E#"
+        app:layout_constraintStart_toStartOf="@+id/eSharpBtn3"
+        app:layout_constraintTop_toTopOf="@+id/eSharpBtn3" />
+
+    <Button
+        android:id="@+id/chordCreatorCheckAnsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="588dp"
+        android:text="Check Answer"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/chordCreatorExerciseTV"
         android:layout_width="wrap_content"
@@ -21,8 +266,30 @@
         android:id="@+id/chordCreatorTaskTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="84dp"
         android:text="Task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/accuracyChordCreatorTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Accuracy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultsChordCreatorTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="484dp"
+        android:text="Results"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

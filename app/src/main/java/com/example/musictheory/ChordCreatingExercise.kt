@@ -10,6 +10,9 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 
+import com.example.musictheory.R.id.chordCreatorCheckAnsBtn
+
+
 class ChordCreatingExercise : AppCompatActivity() {
 
     lateinit var taskTextView: TextView
@@ -29,7 +32,9 @@ class ChordCreatingExercise : AppCompatActivity() {
 
         val selectedChordInts = intent.getIntegerArrayListExtra("selected_chords")
 
+
         val checkAnsBtn = findViewById<Button>(R.id.chordCreatorCheckAnsBtn)
+
 
         var selectedChordsStringList = mutableListOf<String>()
 
@@ -295,6 +300,12 @@ class ChordCreatingExercise : AppCompatActivity() {
     }
 
     private fun getHarmMinorScales(): Any{
+
+        var aHarmMinor = ScaleObject("A","Harmonic Minor", listOf("A","B","C","D","E","F","G#"))
+
+        return listOf(aHarmMinor)
+
+
 
     }
 
