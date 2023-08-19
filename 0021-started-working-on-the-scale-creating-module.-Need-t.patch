@@ -1,0 +1,547 @@
+From f147d00838cad637cac45d23d41bc7ab0148c5a3 Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Thu, 17 Aug 2023 14:10:45 -0400
+Subject: [PATCH 21/26] started working on the scale creating module. Need to
+ refactor other files eventually
+
+---
+ .idea/misc.xml                                |   1 +
+ app/src/main/AndroidManifest.xml              |   9 +-
+ .../musictheory/ScaleCreatingExercise.kt      | 124 ++++++++
+ .../com/example/musictheory/ScaleObject.kt    |   9 +
+ .../com/example/musictheory/ScalesMenu.kt     |  24 ++
+ .../activity_scale_creating_exercise.xml      | 278 ++++++++++++++++++
+ 6 files changed, 442 insertions(+), 3 deletions(-)
+ create mode 100644 app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+ create mode 100644 app/src/main/java/com/example/musictheory/ScaleObject.kt
+ create mode 100644 app/src/main/res/layout/activity_scale_creating_exercise.xml
+
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index 186c148..baab08e 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -10,6 +10,7 @@
+         <entry key="app/src/main/res/layout/activity_ear_training_main_menu.xml" value="0.2672394393566851" />
+         <entry key="app/src/main/res/layout/activity_ear_training_scales_exercise.xml" value="0.20339900531156543" />
+         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1843410213482924" />
++        <entry key="app/src/main/res/layout/activity_scale_creating_exercise.xml" value="0.23054219891732833" />
+         <entry key="app/src/main/res/layout/activity_scales_menu.xml" value="0.27247170356308836" />
+         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.8246152196689166" />
+         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.707420812667627" />
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+index c50a46c..62bea91 100644
+--- a/app/src/main/AndroidManifest.xml
++++ b/app/src/main/AndroidManifest.xml
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.example.musictheory" >
++    package="com.example.musictheory">
+ 
+     <application
+         android:allowBackup="true"
+@@ -8,7 +8,10 @@
+         android:label="@string/app_name"
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+-        android:theme="@style/Theme.MusicTheory" >
++        android:theme="@style/Theme.MusicTheory">
++        <activity
++            android:name=".ScaleCreatingExercise"
++            android:exported="false" />
+         <activity
+             android:name=".earTrainingChordProgessionExercise"
+             android:exported="false" />
+@@ -31,7 +34,7 @@
+             android:exported="false" />
+         <activity
+             android:name=".MainActivity"
+-            android:exported="true" >
++            android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+diff --git a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+new file mode 100644
+index 0000000..a097cb1
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+@@ -0,0 +1,124 @@
++package com.example.musictheory
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.widget.CheckBox
++import android.widget.TextView
++import org.w3c.dom.Text
++
++class ScaleCreatingExercise : AppCompatActivity() {
++
++    lateinit var taskTextView:TextView
++    private val selectedNotes = mutableListOf<String>()
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_scale_creating_exercise)
++
++        val exerciseTV = findViewById<TextView>(R.id.scaleCreatorExerciseTV)
++        taskTextView = findViewById<TextView>(R.id.taskTextView)
++
++        var selectedScalesStringList = mutableListOf<String>()
++
++        val selectedScaleInts = intent.getIntegerArrayListExtra("selected_scales")
++        //println(selectedScaleInts)
++        selectedScalesStringList = getScalesString(selectedScaleInts)
++
++        exerciseTV.text ="Scales Selected: "+ selectedScalesStringList.joinToString(", ")
++
++        var scaleObjectList = getSelectedScales(selectedScalesStringList)
++
++        getRandomScale(scaleObjectList)
++
++        initializeCheckBoxes()
++
++
++    }
++
++    // Chat GPT Function
++    private fun initializeCheckBoxes() {
++        //Get all ID of checkboxes
++        val checkBoxIds = arrayOf(
++            R.id.cBtn, R.id.cSharpScaleBtn, R.id.dBtn, R.id.dSharpBtn, R.id.eBtn, R.id.fBtn,
++            R.id.fSharpBtn, R.id.gBtn, R.id.gSharpBtn, R.id.aBtn, R.id.aSharpBtn, R.id.bBtn,
++            R.id.cFlatBtn, R.id.dFlatBtn, R.id.eFlatBtn, R.id.fFlatBtn, R.id.gFlatBtn,
++            R.id.aFlatBtn, R.id.bFlatBtn, R.id.eSharpBtn, R.id.bSharpBtn
++        )
++
++        //iterate through each ID and add an onClickListener
++        for (checkBoxId in checkBoxIds) {
++            val checkBox = findViewById<CheckBox>(checkBoxId)
++            checkBox.setOnCheckedChangeListener { _, isChecked ->
++                val note = checkBox.text.toString()
++                // Add/remove selected note to array as appropriate
++                if (isChecked) {
++                    selectedNotes.add(note)
++                } else {
++                    selectedNotes.remove(note)
++                }
++                println("Selected notes:$selectedNotes")
++            }
++        }
++    }
++
++    private fun getRandomScale(scaleObjectList: MutableList<ScaleObject>) {
++        val randomScale = scaleObjectList.random()
++        taskTextView.text = "Create: " +randomScale.root +" "+randomScale.scaleType
++    }
++
++    private fun getSelectedScales(selectedScalesStringList: MutableList<String>): MutableList<ScaleObject> {
++        var scaleObjectsList = mutableListOf<ScaleObject>()
++
++        // Iterates through each selected scales's subdirectory and gets appropriate
++        // audio files
++        //println(selectedScalesStringList)
++        for (element in selectedScalesStringList) {
++            when (element) {
++                "Ionian" -> getIonianScales(scaleObjectsList)
++                "Dorian" -> getDorianScales(scaleObjectsList)
++            }
++        }
++        return scaleObjectsList
++    }
++
++    private fun getDorianScales(scaleObjectsList: MutableList<ScaleObject>) {
++        var dDorian = ScaleObject("D","Dorian", listOf("C","D","E","F","G","A","B"))
++    }
++    private fun getIonianScales(scaleObjectsList: MutableList<ScaleObject>) {
++        var cIonian = ScaleObject("C","Ionian", listOf("C","D","E","F","G","A","B"))
++        var cSharpIonian = ScaleObject("C#","Ionian", listOf("C#","D#","E#","F#","G#","A#","B#"))
++        var dIonian = ScaleObject("D","Ionian", listOf("D","E","F#","G","A","B","C#"))
++        var eFlatIonian = ScaleObject("E♭","Ionian", listOf("E♭","F","G","A♭","B♭","C","D"))
++        var eIonian = ScaleObject("E","Ionian", listOf("E","F#","G#","A","B","C#","D#"))
++        var fIonian = ScaleObject("F","Ionian", listOf("F","G","A","B♭","C","D","E",))
++        var fSharpIonian = ScaleObject("F#","Ionian", listOf("F#","G#","A#","B","C#","D#","E#",))
++        var gFlatIonian = ScaleObject("G♭","Ionian", listOf("G♭","A♭","B♭","C♭","D♭","E♭","F"))
++        var gIonian = ScaleObject("G","Ionian", listOf("G","A","B","C","D","E","F#"))
++        var aIonian = ScaleObject("A","Ionian", listOf("A","B","C#","D","E","F#","G#"))
++        var bFlatIonian = ScaleObject("B♭","Ionian", listOf("B♭","C","D","E♭","F","G","A"))
++        var bIonian = ScaleObject("B","Ionian", listOf("B","C#","D#","E","F#","G#","A#"))
++        var cFlatIonian = ScaleObject("C♭","Ionian", listOf("C♭","D♭","E♭","F♭","G♭","A♭","B♭"))
++
++        scaleObjectsList.addAll(listOf(cIonian,cSharpIonian,dIonian,eFlatIonian,eIonian,fIonian,
++        fSharpIonian,gFlatIonian,gIonian,aIonian,bFlatIonian,bIonian,cFlatIonian))
++        //println("List Size: "+scaleObjectsList.size)
++    }
++
++    private fun getScalesString(selectedScaleInts: ArrayList<Int>?): MutableList<String> {
++        var scalesArray = arrayOf(
++            "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"
++        )
++        val selectedScaleList = mutableListOf<String>()
++        // Gets selected index with matching scale
++        if (selectedScaleInts != null) {
++            for (j in selectedScaleInts.indices) {
++                //Concat array val
++                selectedScaleList.add(scalesArray[selectedScaleInts[j]])
++            }
++        }
++        return selectedScaleList
++    }
++
++}
++
++
+diff --git a/app/src/main/java/com/example/musictheory/ScaleObject.kt b/app/src/main/java/com/example/musictheory/ScaleObject.kt
+new file mode 100644
+index 0000000..0f41946
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/ScaleObject.kt
+@@ -0,0 +1,9 @@
++package com.example.musictheory
++
++class ScaleObject (var root: String,var scaleType: String,  var notes: List<String>) {
++
++    fun getInfo(): String {
++        return "$root,$scaleType,$notes"
++    }
++
++}
+diff --git a/app/src/main/java/com/example/musictheory/ScalesMenu.kt b/app/src/main/java/com/example/musictheory/ScalesMenu.kt
+index c54a9b1..fcb3ae6 100644
+--- a/app/src/main/java/com/example/musictheory/ScalesMenu.kt
++++ b/app/src/main/java/com/example/musictheory/ScalesMenu.kt
+@@ -1,8 +1,10 @@
+ package com.example.musictheory
+ 
++import android.content.Intent
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
+ import android.view.View
++import android.widget.Button
+ import android.widget.TextView
+ import androidx.appcompat.app.AlertDialog
+ import java.lang.StringBuilder
+@@ -11,6 +13,7 @@ import java.util.*
+ class ScalesMenu : AppCompatActivity() {
+     lateinit var selectedScales: BooleanArray
+ 
++
+     var scalesList : MutableList<Int> = mutableListOf()
+     var scalesArray = arrayOf(
+         "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"
+@@ -21,6 +24,27 @@ class ScalesMenu : AppCompatActivity() {
+         setContentView(R.layout.activity_scales_menu)
+ 
+         createScalesDropdown()
++        val startExerciseBtn = findViewById<Button>(R.id.startScalesExerciseBtn)
++        startExerciseBtn.setOnClickListener{
++            // Singletonlist cannot be cast to arraylist
++            if (scalesList.size == 1){
++                // Converts singleton to single variable
++                val singleScale = scalesList[0]
++                // Creates arraylist for single selection
++                val selectedScales = arrayListOf<Int>(singleScale)
++                val intent = Intent(this, ScaleCreatingExercise::class.java)
++                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
++                startActivity(intent)
++            } else {
++                //Copies mutable list to immutable arraylist
++                //Kotlin can't pass a mutable list through activities
++                val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
++                val intent = Intent(this, ScaleCreatingExercise::class.java)
++                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
++                startActivity(intent)
++            }
++
++        }
+     }
+ 
+     private fun createScalesDropdown() {
+diff --git a/app/src/main/res/layout/activity_scale_creating_exercise.xml b/app/src/main/res/layout/activity_scale_creating_exercise.xml
+new file mode 100644
+index 0000000..74dfbfe
+--- /dev/null
++++ b/app/src/main/res/layout/activity_scale_creating_exercise.xml
+@@ -0,0 +1,278 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ScaleCreatingExercise">
++
++    <CheckBox
++        android:id="@+id/cFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="C♭"
++        app:layout_constraintStart_toStartOf="@+id/gSharpBtn2"
++        app:layout_constraintTop_toBottomOf="@+id/gSharpBtn2" />
++
++    <CheckBox
++        android:id="@+id/eFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E♭"
++        app:layout_constraintStart_toStartOf="@+id/bSharpBtn2"
++        app:layout_constraintTop_toBottomOf="@+id/bSharpBtn2" />
++
++    <CheckBox
++        android:id="@+id/bFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B♭"
++        app:layout_constraintStart_toStartOf="@+id/eFlatBtn"
++        app:layout_constraintTop_toBottomOf="@+id/eFlatBtn" />
++
++    <CheckBox
++        android:id="@+id/gFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G♭"
++        app:layout_constraintStart_toStartOf="@+id/cFlatBtn"
++        app:layout_constraintTop_toBottomOf="@+id/cFlatBtn" />
++
++    <CheckBox
++        android:id="@+id/dFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D♭"
++        app:layout_constraintStart_toStartOf="@+id/aSharpBtn"
++        app:layout_constraintTop_toBottomOf="@+id/aSharpBtn2" />
++
++    <CheckBox
++        android:id="@+id/aFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A♭"
++        app:layout_constraintStart_toStartOf="@+id/dFlatBtn"
++        app:layout_constraintTop_toBottomOf="@+id/dFlatBtn" />
++
++    <CheckBox
++        android:id="@+id/fFlatBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F♭"
++        app:layout_constraintBaseline_toBaselineOf="@+id/eFlatBtn"
++        app:layout_constraintEnd_toEndOf="@+id/fSharpBtn2"
++        app:layout_constraintStart_toStartOf="@+id/fSharpBtn2" />
++
++    <CheckBox
++        android:id="@+id/bBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B"
++        app:layout_constraintStart_toStartOf="@+id/eBtn"
++        app:layout_constraintTop_toBottomOf="@+id/eBtn" />
++
++    <CheckBox
++        android:id="@+id/aBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A"
++        app:layout_constraintStart_toStartOf="@+id/dBtn"
++        app:layout_constraintTop_toBottomOf="@+id/dBtn" />
++
++    <CheckBox
++        android:id="@+id/fBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F"
++        app:layout_constraintBaseline_toBaselineOf="@+id/eBtn"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toEndOf="@+id/eBtn" />
++
++    <CheckBox
++        android:id="@+id/cBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="49dp"
++        android:layout_marginEnd="2dp"
++        android:layout_marginBottom="48dp"
++        android:text="C"
++        app:layout_constraintBottom_toTopOf="@+id/cSharpScaleBtn2"
++        app:layout_constraintEnd_toStartOf="@+id/dBtn"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/scaleCreatorExerciseTV" />
++
++    <CheckBox
++        android:id="@+id/dBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginEnd="1dp"
++        android:text="D"
++        app:layout_constraintEnd_toStartOf="@+id/eBtn"
++        app:layout_constraintStart_toEndOf="@+id/cBtn"
++        app:layout_constraintTop_toTopOf="@+id/cBtn" />
++
++    <CheckBox
++        android:id="@+id/gSharpBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G#"
++        app:layout_constraintBaseline_toBaselineOf="@+id/gSharpBtn"
++        app:layout_constraintStart_toStartOf="@+id/gSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/fSharpBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F#"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/eSharpBtn"
++        app:layout_constraintTop_toTopOf="@+id/eSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/bSharpBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B#"
++        app:layout_constraintEnd_toEndOf="@+id/eSharpBtn2"
++        app:layout_constraintTop_toTopOf="@+id/aSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/dSharpBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D#"
++        app:layout_constraintStart_toEndOf="@+id/cSharpScaleBtn"
++        app:layout_constraintStart_toStartOf="@+id/aBtn"
++        app:layout_constraintTop_toTopOf="@+id/cSharpScaleBtn" />
++
++    <CheckBox
++        android:id="@+id/cSharpScaleBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="224dp"
++        android:text="C#"
++        app:layout_constraintStart_toStartOf="@+id/cSharpScaleBtn"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <CheckBox
++        android:id="@+id/aSharpBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A#"
++        app:layout_constraintStart_toStartOf="@+id/dSharpBtn"
++        app:layout_constraintTop_toTopOf="@+id/gSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/eSharpBtn2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E#"
++        app:layout_constraintEnd_toStartOf="@+id/fSharpBtn"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/dSharpBtn"
++        app:layout_constraintTop_toTopOf="@+id/dSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/fSharpBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F#"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/eSharpBtn"
++        app:layout_constraintTop_toTopOf="@+id/eSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/eSharpBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E#"
++        app:layout_constraintEnd_toStartOf="@+id/fSharpBtn"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/dSharpBtn"
++        app:layout_constraintTop_toTopOf="@+id/dSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/dSharpBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D#"
++        app:layout_constraintStart_toEndOf="@+id/cSharpScaleBtn"
++        app:layout_constraintStart_toStartOf="@+id/dSharpBtn2"
++        app:layout_constraintTop_toTopOf="@+id/cSharpScaleBtn" />
++
++    <TextView
++        android:id="@+id/scaleCreatorExerciseTV"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="60dp"
++        android:text="TextView"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <CheckBox
++        android:id="@+id/cSharpScaleBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="224dp"
++        android:text="C#"
++        app:layout_constraintStart_toStartOf="@+id/gBtn"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <CheckBox
++        android:id="@+id/gSharpBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G#"
++        app:layout_constraintStart_toStartOf="@+id/cSharpScaleBtn2"
++        app:layout_constraintTop_toBottomOf="@+id/cSharpScaleBtn2" />
++
++    <CheckBox
++        android:id="@+id/aSharpBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A#"
++        app:layout_constraintStart_toStartOf="@+id/aSharpBtn2"
++        app:layout_constraintTop_toTopOf="@+id/gSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/bSharpBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B#"
++        app:layout_constraintStart_toStartOf="@+id/bSharpBtn2"
++        app:layout_constraintTop_toTopOf="@+id/aSharpBtn" />
++
++    <CheckBox
++        android:id="@+id/eBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginEnd="1dp"
++        android:text="E"
++        app:layout_constraintEnd_toStartOf="@+id/fBtn"
++        app:layout_constraintStart_toEndOf="@+id/dBtn"
++        app:layout_constraintTop_toTopOf="@+id/dBtn" />
++
++    <CheckBox
++        android:id="@+id/gBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G"
++        app:layout_constraintStart_toStartOf="@+id/cBtn"
++        app:layout_constraintTop_toBottomOf="@+id/cBtn" />
++
++    <TextView
++        android:id="@+id/taskTextView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="84dp"
++        android:text="Task:"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+-- 
+2.35.1
+

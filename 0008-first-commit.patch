@@ -1,0 +1,20 @@
+From db8197d1b3f8141177221e08b9b667caa64e8f8d Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Thu, 10 Aug 2023 17:11:42 -0400
+Subject: [PATCH 08/26] first commit
+
+---
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..5082358
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++# MusicTheory
+-- 
+2.35.1
+

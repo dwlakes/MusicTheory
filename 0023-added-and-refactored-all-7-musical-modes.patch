@@ -1,0 +1,402 @@
+From 7789d8849dd4d026c738de312aed03171446cf7f Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Fri, 18 Aug 2023 12:22:36 -0400
+Subject: [PATCH 23/26] added and refactored all 7 musical modes
+
+---
+ .idea/misc.xml                                |   2 +-
+ .../musictheory/ScaleCreatingExercise.kt      | 195 +++++++++++++++---
+ .../com/example/musictheory/ScalesMenu.kt     |  34 +--
+ .../activity_scale_creating_exercise.xml      |  34 +++
+ 4 files changed, 221 insertions(+), 44 deletions(-)
+
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index baab08e..a4fbbd1 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -10,7 +10,7 @@
+         <entry key="app/src/main/res/layout/activity_ear_training_main_menu.xml" value="0.2672394393566851" />
+         <entry key="app/src/main/res/layout/activity_ear_training_scales_exercise.xml" value="0.20339900531156543" />
+         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1843410213482924" />
+-        <entry key="app/src/main/res/layout/activity_scale_creating_exercise.xml" value="0.23054219891732833" />
++        <entry key="app/src/main/res/layout/activity_scale_creating_exercise.xml" value="0.24260236314011602" />
+         <entry key="app/src/main/res/layout/activity_scales_menu.xml" value="0.27247170356308836" />
+         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.8246152196689166" />
+         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.707420812667627" />
+diff --git a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+index e3ee6a9..4b3a021 100644
+--- a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+@@ -2,23 +2,38 @@ package com.example.musictheory
+ 
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import android.widget.Button
+ import android.widget.CheckBox
+ import android.widget.TextView
+-import org.w3c.dom.Text
++import android.widget.Toast
+ 
+ //TODO: Make objects for other modes
+ class ScaleCreatingExercise : AppCompatActivity() {
+ 
+     lateinit var taskTextView:TextView
+     private val selectedNotes = mutableListOf<String>()
++    lateinit var randomScale:ScaleObject
++
++    var scaleObjectsList = mutableListOf<ScaleObject>()
++
++    lateinit var accuracyTv: TextView
++    lateinit var resultsTv:TextView
++
++    var guessCounter = 0
++    var correctGuesses = 0
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_scale_creating_exercise)
+ 
++        val checkAnsBtn = findViewById<Button>(R.id.scaleCreatorCheckAnsBtn)
++
+         val exerciseTV = findViewById<TextView>(R.id.scaleCreatorExerciseTV)
+         taskTextView = findViewById<TextView>(R.id.taskTextView)
+ 
++        accuracyTv = findViewById(R.id.accuracyScaleCreatorTv)
++        resultsTv = findViewById(R.id.resultsScaleCreatorTv)
++
+         var selectedScalesStringList = mutableListOf<String>()
+ 
+         val selectedScaleInts = intent.getIntegerArrayListExtra("selected_scales")
+@@ -27,12 +42,64 @@ class ScaleCreatingExercise : AppCompatActivity() {
+ 
+         exerciseTV.text ="Scales Selected: "+ selectedScalesStringList.joinToString(", ")
+ 
+-        var scaleObjectList = getSelectedScales(selectedScalesStringList)
++        scaleObjectsList = getSelectedScales(selectedScalesStringList)
+ 
+-        getRandomScale(scaleObjectList)
++        getRandomScale()
+ 
+         initializeCheckBoxes()
+ 
++        checkAnsBtn.setOnClickListener {
++            checkAnswer()
++        }
++
++    }
++
++    private fun checkAnswer() {
++        if(selectedNotes.size == randomScale.notes.size){
++            checkScaleNotes()
++        }else if (selectedNotes.size > randomScale.notes.size){
++            Toast.makeText(this, "You have too many notes", Toast.LENGTH_SHORT).show()
++            incorrectAns()
++        }else{
++            Toast.makeText(this, "You don't have enough notes", Toast.LENGTH_SHORT).show()
++            incorrectAns()
++        }
++    }
++
++    // Checks to make sure each selected note is in the scale
++    private fun checkScaleNotes() {
++        var isCorrect = true
++        println("Selected Scale: " + randomScale.root + " "+randomScale.scaleType)
++        println(randomScale.notes)
++        for (element in selectedNotes) {
++            println("In selected notes: $element")
++            if (element !in randomScale.notes) {
++                println("incorrect note: $element")
++                isCorrect = false
++                break
++            }
++        }
++        if(isCorrect){
++            correctAns()
++        } else {
++            incorrectAns()
++        }
++
++    }
++
++    private fun correctAns() {
++        guessCounter++
++        correctGuesses++
++        resultsTv.text = "Correct!"
++        accuracyTv.text = "Accuracy: $correctGuesses/$guessCounter"
++        initializeCheckBoxes()
++        getRandomScale()
++    }
++
++    private fun incorrectAns() {
++        guessCounter++
++        resultsTv.text = "Try again."
++        accuracyTv.text = "Accuracy: $correctGuesses/$guessCounter"
+ 
+     }
+ 
+@@ -49,6 +116,7 @@ class ScaleCreatingExercise : AppCompatActivity() {
+         //iterate through each ID and add an onClickListener
+         for (checkBoxId in checkBoxIds) {
+             val checkBox = findViewById<CheckBox>(checkBoxId)
++            checkBox.isChecked = false
+             checkBox.setOnCheckedChangeListener { _, isChecked ->
+                 val note = checkBox.text.toString()
+                 // Add/remove selected note to array as appropriate
+@@ -57,52 +125,122 @@ class ScaleCreatingExercise : AppCompatActivity() {
+                 } else {
+                     selectedNotes.remove(note)
+                 }
+-                println("Selected notes:$selectedNotes")
++                //println("Selected notes:$selectedNotes")
+             }
+         }
+     }
+ 
+-    private fun getRandomScale(scaleObjectList: MutableList<ScaleObject>) {
+-        val randomScale = scaleObjectList.random()
++    private fun getRandomScale() {
++        randomScale = scaleObjectsList.shuffled().random()
+         taskTextView.text = "Create: " +randomScale.root +" "+randomScale.scaleType
+     }
+ 
+     private fun getSelectedScales(selectedScalesStringList: MutableList<String>): MutableList<ScaleObject> {
+-        var scaleObjectsList = mutableListOf<ScaleObject>()
++        scaleObjectsList = mutableListOf()
+ 
+         // Iterates through each selected scales's subdirectory and gets appropriate
+         // audio files
+         //println(selectedScalesStringList)
+         for (element in selectedScalesStringList) {
+             when (element) {
+-                "Ionian" -> getIonianScales(scaleObjectsList)
+-                "Dorian" -> getDorianScales(scaleObjectsList)
++                "Ionian" -> getIonianScales()
++                "Dorian" -> getDorianScales()
++                "Phrygian" -> getPhrygianScales()
++                "Lydian" -> getLydianScales()
++                "Mixolydian" -> getMixolydianScales()
++                "Aeolian" -> getAeolianScales()
++                "Locrian" -> getLocrianScales()
+             }
+         }
+         return scaleObjectsList
+     }
+ 
+-    private fun getDorianScales(scaleObjectsList: MutableList<ScaleObject>) {
+-        var dDorian = ScaleObject("D","Dorian", listOf("C","D","E","F","G","A","B"))
++    private fun getLocrianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var locrianScale = ScaleObject(scale.notes[6],"Locrian",scale.notes)
++            scaleObjectsList.add(locrianScale)
++        }
++    }
++
++    private fun getAeolianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var aeolianScale = ScaleObject(scale.notes[5],"Aeolian",scale.notes)
++            scaleObjectsList.add(aeolianScale)
++        }
+     }
+-    private fun getIonianScales(scaleObjectsList: MutableList<ScaleObject>) {
+-        var cIonian = ScaleObject("C","Ionian", listOf("C","D","E","F","G","A","B"))
+-        var cSharpIonian = ScaleObject("C#","Ionian", listOf("C#","D#","E#","F#","G#","A#","B#"))
+-        var dIonian = ScaleObject("D","Ionian", listOf("D","E","F#","G","A","B","C#"))
+-        var eFlatIonian = ScaleObject("E♭","Ionian", listOf("E♭","F","G","A♭","B♭","C","D"))
+-        var eIonian = ScaleObject("E","Ionian", listOf("E","F#","G#","A","B","C#","D#"))
+-        var fIonian = ScaleObject("F","Ionian", listOf("F","G","A","B♭","C","D","E",))
+-        var fSharpIonian = ScaleObject("F#","Ionian", listOf("F#","G#","A#","B","C#","D#","E#",))
+-        var gFlatIonian = ScaleObject("G♭","Ionian", listOf("G♭","A♭","B♭","C♭","D♭","E♭","F"))
+-        var gIonian = ScaleObject("G","Ionian", listOf("G","A","B","C","D","E","F#"))
+-        var aIonian = ScaleObject("A","Ionian", listOf("A","B","C#","D","E","F#","G#"))
+-        var bFlatIonian = ScaleObject("B♭","Ionian", listOf("B♭","C","D","E♭","F","G","A"))
+-        var bIonian = ScaleObject("B","Ionian", listOf("B","C#","D#","E","F#","G#","A#"))
+-        var cFlatIonian = ScaleObject("C♭","Ionian", listOf("C♭","D♭","E♭","F♭","G♭","A♭","B♭"))
+ 
+-        scaleObjectsList.addAll(listOf(cIonian,cSharpIonian,dIonian,eFlatIonian,eIonian,fIonian,
+-        fSharpIonian,gFlatIonian,gIonian,aIonian,bFlatIonian,bIonian,cFlatIonian))
+-        //println("List Size: "+scaleObjectsList.size)
++    private fun getMixolydianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var mixolydianScale = ScaleObject(scale.notes[4],"Mixolydian",scale.notes)
++            scaleObjectsList.add(mixolydianScale)
++        }
++    }
++
++    private fun getLydianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var lydianScale = ScaleObject(scale.notes[3],"Lydian",scale.notes)
++            scaleObjectsList.add(lydianScale)
++        }
++
++    }
++
++    private fun getPhrygianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var phrygianScale = ScaleObject(scale.notes[2],"Phrygian",scale.notes)
++            scaleObjectsList.add(phrygianScale)
++        }
++
++    }
++
++    private fun getDorianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var dorianScale = ScaleObject(scale.notes[1],"Dorian",scale.notes)
++            scaleObjectsList.add(dorianScale)
++        }
++    }
++    private fun getIonianScales() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        for(scale in majorScales){
++            var ionianScale = ScaleObject(scale.notes[0],"Ionian",scale.notes)
++            scaleObjectsList.add(ionianScale)
++        }
++    }
++    private fun getMajorScales(): Any {
++        var cIonian = ScaleObject("C", "Ionian", listOf("C", "D", "E", "F", "G", "A", "B"))
++        var cSharpIonian =
++            ScaleObject("C#", "Ionian", listOf("C#", "D#", "E#", "F#", "G#", "A#", "B#"))
++        var dIonian = ScaleObject("D", "Ionian", listOf("D", "E", "F#", "G", "A", "B", "C#"))
++        var eFlatIonian = ScaleObject("E♭", "Ionian", listOf("E♭", "F", "G", "A♭", "B♭", "C", "D"))
++        var eIonian = ScaleObject("E", "Ionian", listOf("E", "F#", "G#", "A", "B", "C#", "D#"))
++        var fIonian = ScaleObject("F", "Ionian", listOf("F", "G", "A", "B♭", "C", "D", "E",))
++        var fSharpIonian =
++            ScaleObject("F#", "Ionian", listOf("F#", "G#", "A#", "B", "C#", "D#", "E#",))
++        var gFlatIonian =
++            ScaleObject("G♭", "Ionian", listOf("G♭", "A♭", "B♭", "C♭", "D♭", "E♭", "F"))
++        var gIonian = ScaleObject("G", "Ionian", listOf("G", "A", "B", "C", "D", "E", "F#"))
++        var aIonian = ScaleObject("A", "Ionian", listOf("A", "B", "C#", "D", "E", "F#", "G#"))
++        var bFlatIonian = ScaleObject("B♭", "Ionian", listOf("B♭", "C", "D", "E♭", "F", "G", "A"))
++        var bIonian = ScaleObject("B", "Ionian", listOf("B", "C#", "D#", "E", "F#", "G#", "A#"))
++        var cFlatIonian =
++            ScaleObject("C♭", "Ionian", listOf("C♭", "D♭", "E♭", "F♭", "G♭", "A♭", "B♭"))
++
++        return listOf(
++            cIonian, cSharpIonian, dIonian, eFlatIonian, eIonian,
++            fIonian, fSharpIonian, gFlatIonian, gIonian, aIonian, bFlatIonian, bIonian, cFlatIonian
++        )
+     }
+ 
+     private fun getScalesString(selectedScaleInts: ArrayList<Int>?): MutableList<String> {
+@@ -120,6 +258,7 @@ class ScaleCreatingExercise : AppCompatActivity() {
+         return selectedScaleList
+     }
+ 
++
+ }
+ 
+ 
+diff --git a/app/src/main/java/com/example/musictheory/ScalesMenu.kt b/app/src/main/java/com/example/musictheory/ScalesMenu.kt
+index fcb3ae6..c9ab723 100644
+--- a/app/src/main/java/com/example/musictheory/ScalesMenu.kt
++++ b/app/src/main/java/com/example/musictheory/ScalesMenu.kt
+@@ -6,6 +6,7 @@ import android.os.Bundle
+ import android.view.View
+ import android.widget.Button
+ import android.widget.TextView
++import android.widget.Toast
+ import androidx.appcompat.app.AlertDialog
+ import java.lang.StringBuilder
+ import java.util.*
+@@ -26,24 +27,27 @@ class ScalesMenu : AppCompatActivity() {
+         createScalesDropdown()
+         val startExerciseBtn = findViewById<Button>(R.id.startScalesExerciseBtn)
+         startExerciseBtn.setOnClickListener{
+-            // Singletonlist cannot be cast to arraylist
+-            if (scalesList.size == 1){
+-                // Converts singleton to single variable
+-                val singleScale = scalesList[0]
+-                // Creates arraylist for single selection
+-                val selectedScales = arrayListOf<Int>(singleScale)
+-                val intent = Intent(this, ScaleCreatingExercise::class.java)
+-                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
+-                startActivity(intent)
++            if(scalesList.size < 1){
++                Toast.makeText(this, "You need to select something", Toast.LENGTH_SHORT).show()
++                // Singletonlist cannot be cast to arraylist
++            }else if (scalesList.size == 1){
++                    // Converts singleton to single variable
++                    val singleScale = scalesList[0]
++                    // Creates arraylist for single selection
++                    val selectedScales = arrayListOf<Int>(singleScale)
++                    val intent = Intent(this, ScaleCreatingExercise::class.java)
++                    intent.putIntegerArrayListExtra("selected_scales",selectedScales)
++                    startActivity(intent)
+             } else {
+-                //Copies mutable list to immutable arraylist
+-                //Kotlin can't pass a mutable list through activities
+-                val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
+-                val intent = Intent(this, ScaleCreatingExercise::class.java)
+-                intent.putIntegerArrayListExtra("selected_scales",selectedScales)
+-                startActivity(intent)
++                    //Copies mutable list to immutable arraylist
++                    //Kotlin can't pass a mutable list through activities
++                    val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
++                    val intent = Intent(this, ScaleCreatingExercise::class.java)
++                    intent.putIntegerArrayListExtra("selected_scales",selectedScales)
++                    startActivity(intent)
+             }
+ 
++
+         }
+     }
+ 
+diff --git a/app/src/main/res/layout/activity_scale_creating_exercise.xml b/app/src/main/res/layout/activity_scale_creating_exercise.xml
+index 74dfbfe..9d101ba 100644
+--- a/app/src/main/res/layout/activity_scale_creating_exercise.xml
++++ b/app/src/main/res/layout/activity_scale_creating_exercise.xml
+@@ -275,4 +275,38 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+ 
++    <Button
++        android:id="@+id/scaleCreatorCheckAnsBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="588dp"
++        android:text="Check Answer"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/accuracyScaleCreatorTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="32dp"
++        android:text="Accuracy: "
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/resultsScaleCreatorTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="536dp"
++        android:text="Results: "
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+-- 
+2.35.1
+

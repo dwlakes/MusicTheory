@@ -1,0 +1,24 @@
+From 3a09e2918e6d4c7bb29b3469ece991be1ea18543 Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Thu, 10 Aug 2023 16:56:44 -0400
+Subject: [PATCH 07/26] still trying
+
+---
+ app/src/main/java/com/example/musictheory/earTrainingExercise.kt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingExercise.kt b/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
+index d315e92..cf80ebf 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
+@@ -49,6 +49,7 @@ class earTrainingExercise : AppCompatActivity() {
+         maj6Btn = findViewById(R.id.maj6Btn)
+         min7Btn = findViewById(R.id.min7Btn)
+         maj7Btn = findViewById(R.id.maj7Btn)
++        octBtn = findViewById(R.id.octBtn)
+         repeatBtn = findViewById(R.id.repeatBtn)
+         resultsTv = findViewById(R.id.resultsTv)
+         accuracyTv = findViewById(R.id.accuracyTv)
+-- 
+2.35.1
+

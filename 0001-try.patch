@@ -1,0 +1,21 @@
+From e6c07d29ce76ee84a4d76ec6f5b5dead7133ef5e Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Thu, 10 Aug 2023 12:50:10 -0400
+Subject: [PATCH 01/26] try
+
+---
+ README | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README
+
+diff --git a/README b/README
+new file mode 100644
+index 0000000..b418733
+--- /dev/null
++++ b/README
+@@ -0,0 +1 @@
++Trying
+\ No newline at end of file
+-- 
+2.35.1
+

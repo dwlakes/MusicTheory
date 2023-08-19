@@ -1,0 +1,24 @@
+From bd18807c22e3fa965e16e076b7c86518b04b1b4a Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Thu, 17 Aug 2023 17:35:02 -0400
+Subject: [PATCH 22/26] //TODO: Make objects for other modes
+
+---
+ .../main/java/com/example/musictheory/ScaleCreatingExercise.kt   | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+index a097cb1..e3ee6a9 100644
+--- a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+@@ -6,6 +6,7 @@ import android.widget.CheckBox
+ import android.widget.TextView
+ import org.w3c.dom.Text
+ 
++//TODO: Make objects for other modes
+ class ScaleCreatingExercise : AppCompatActivity() {
+ 
+     lateinit var taskTextView:TextView
+-- 
+2.35.1
+

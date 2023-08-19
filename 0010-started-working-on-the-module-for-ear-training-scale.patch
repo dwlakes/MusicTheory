@@ -1,0 +1,2333 @@
+From 43f6a483b9d70b7f8fa53d03413a664afac157db Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Mon, 14 Aug 2023 14:12:43 -0400
+Subject: [PATCH 10/26] started working on the module for ear training scales
+
+---
+ .idea/misc.xml                                |   8 +-
+ app/build.gradle                              |   5 +
+ app/src/main/AndroidManifest.xml              |  10 +-
+ .../maj2_ascending/major2_ascending01.mp3     | Bin
+ .../maj2_ascending/major2_ascending02.mp3     | Bin
+ .../maj2_ascending/major2_ascending03.mp3     | Bin
+ .../maj2_ascending/major2_ascending04.mp3     | Bin
+ .../maj2_ascending/major2_ascending05.mp3     | Bin
+ .../maj2_ascending/major2_ascending06.mp3     | Bin
+ .../maj2_ascending/major2_ascending07.mp3     | Bin
+ .../maj2_ascending/major2_ascending08.mp3     | Bin
+ .../maj2_ascending/major2_ascending09.mp3     | Bin
+ .../maj2_ascending/major2_ascending10.mp3     | Bin
+ .../maj2_ascending/major2_ascending11.mp3     | Bin
+ .../maj2_ascending/major2_ascending12.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending01.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending02.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending03.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending04.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending05.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending06.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending07.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending08.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending09.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending10.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending11.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending12.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending13.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending14.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending15.mp3     | Bin
+ .../maj3_ascending/Major3-Ascending16.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending01.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending02.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending03.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending04.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending05.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending06.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending07.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending08.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending09.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending10.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending11.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending12.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending13.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending14.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending15.mp3     | Bin
+ .../maj6_ascending/Major6-Ascending16.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending01.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending02.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending03.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending04.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending05.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending06.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending07.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending08.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending09.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending10.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending11.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending12.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending13.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending14.mp3     | Bin
+ .../maj7_ascending/Major7-Ascending15.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending01.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending02.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending03.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending04.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending05.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending06.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending07.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending08.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending09.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending10.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending11.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending12.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending13.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending14.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending15.mp3     | Bin
+ .../min2_ascending/Minor2-Ascending16.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending01.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending02.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending03.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending04.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending05.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending06.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending07.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending08.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending09.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending10.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending11.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending12.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending13.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending14.mp3     | Bin
+ .../min3_ascending/Minor3-Ascending15.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending01.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending02.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending03.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending04.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending05.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending06.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending07.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending08.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending09.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending10.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending11.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending12.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending13.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending14.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending15.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending16.mp3     | Bin
+ .../min6_ascending/Minor6-Ascending17.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending01.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending02.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending03.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending04.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending05.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending06.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending07.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending08.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending09.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending10.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending11.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending12.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending13.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending14.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending15.mp3     | Bin
+ .../min7_ascending/Minor7-Ascending16.mp3     | Bin
+ .../oct_ascending/Octave-Ascending01.mp3      | Bin
+ .../oct_ascending/Octave-Ascending02.mp3      | Bin
+ .../oct_ascending/Octave-Ascending03.mp3      | Bin
+ .../oct_ascending/Octave-Ascending04.mp3      | Bin
+ .../oct_ascending/Octave-Ascending05.mp3      | Bin
+ .../oct_ascending/Octave-Ascending06.mp3      | Bin
+ .../oct_ascending/Octave-Ascending07.mp3      | Bin
+ .../oct_ascending/Octave-Ascending08.mp3      | Bin
+ .../oct_ascending/Octave-Ascending09.mp3      | Bin
+ .../oct_ascending/Octave-Ascending10.mp3      | Bin
+ .../oct_ascending/Octave-Ascending11.mp3      | Bin
+ .../oct_ascending/Octave-Ascending12.mp3      | Bin
+ .../oct_ascending/Octave-Ascending13.mp3      | Bin
+ .../oct_ascending/Octave-Ascending14.mp3      | Bin
+ .../oct_ascending/Octave-Ascending15.mp3      | Bin
+ .../perf4_ascending/Perfect4-Ascending01.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending02.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending03.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending04.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending05.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending06.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending07.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending08.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending09.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending10.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending11.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending12.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending13.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending14.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending15.mp3  | Bin
+ .../perf4_ascending/Perfect4-Ascending16.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending01.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending02.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending03.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending04.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending05.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending06.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending07.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending08.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending09.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending10.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending11.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending12.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending13.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending14.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending15.mp3  | Bin
+ .../perf5_ascending/Perfect5-Ascending16.mp3  | Bin
+ .../tritone_ascending/Tritone-Ascending01.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending02.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending03.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending04.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending05.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending06.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending07.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending08.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending09.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending10.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending11.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending12.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending13.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending14.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending15.mp3 | Bin
+ .../tritone_ascending/Tritone-Ascending16.mp3 | Bin
+ .../com/example/musictheory/MainActivity.kt   |   5 +
+ .../com/example/musictheory/ScalesMenu.kt     |  90 ++++++++
+ ...cise.kt => earTrainingIntervalExercise.kt} | 181 ++++++++++++----
+ .../musictheory/earTrainingMainMenu.kt        | 203 +++++++++++++++---
+ .../musictheory/earTrainingScalesExercise.kt  |  40 ++++
+ ...tivity_ear_training_interval_exercise.xml} |   2 +-
+ .../activity_ear_training_main_menu.xml       |  54 ++++-
+ .../activity_ear_training_scales_exercise.xml |  28 +++
+ app/src/main/res/layout/activity_main.xml     |  41 ++--
+ .../main/res/layout/activity_scales_menu.xml  |  42 ++++
+ app/src/main/res/navigation/nav_graph.xml     |  28 +++
+ app/src/main/res/values-land/dimens.xml       |   3 +
+ app/src/main/res/values-w1240dp/dimens.xml    |   3 +
+ app/src/main/res/values-w600dp/dimens.xml     |   3 +
+ app/src/main/res/values/dimens.xml            |   3 +
+ app/src/main/res/values/strings.xml           |  10 +
+ app/src/main/res/values/themes.xml            |   9 +
+ 206 files changed, 664 insertions(+), 104 deletions(-)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj2_ascending/major2_ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj3_ascending/Major3-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj6_ascending/Major6-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/maj7_ascending/Major7-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min2_ascending/Minor2-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min3_ascending/Minor3-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min6_ascending/Minor6-Ascending17.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/min7_ascending/Minor7-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/oct_ascending/Octave-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf4_ascending/Perfect4-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/perf5_ascending/Perfect5-Ascending16.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending01.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending02.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending03.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending04.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending05.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending06.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending07.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending08.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending09.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending10.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending11.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending12.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending13.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending14.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending15.mp3 (100%)
+ rename app/src/main/assets/{ => ascending_intervals}/tritone_ascending/Tritone-Ascending16.mp3 (100%)
+ create mode 100644 app/src/main/java/com/example/musictheory/ScalesMenu.kt
+ rename app/src/main/java/com/example/musictheory/{earTrainingExercise.kt => earTrainingIntervalExercise.kt} (58%)
+ create mode 100644 app/src/main/java/com/example/musictheory/earTrainingScalesExercise.kt
+ rename app/src/main/res/layout/{activity_ear_training_exercise.xml => activity_ear_training_interval_exercise.xml} (98%)
+ create mode 100644 app/src/main/res/layout/activity_ear_training_scales_exercise.xml
+ create mode 100644 app/src/main/res/layout/activity_scales_menu.xml
+ create mode 100644 app/src/main/res/navigation/nav_graph.xml
+ create mode 100644 app/src/main/res/values-land/dimens.xml
+ create mode 100644 app/src/main/res/values-w1240dp/dimens.xml
+ create mode 100644 app/src/main/res/values-w600dp/dimens.xml
+ create mode 100644 app/src/main/res/values/dimens.xml
+
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index e06491b..f5fea66 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -4,8 +4,12 @@
+     <option name="filePathToZoomLevelMap">
+       <map>
+         <entry key="app/src/main/res/layout/activity_ear_training_exercise.xml" value="0.3636798394843618" />
+-        <entry key="app/src/main/res/layout/activity_ear_training_main_menu.xml" value="0.25" />
+-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2735000647735997" />
++        <entry key="app/src/main/res/layout/activity_ear_training_main_menu.xml" value="0.23991047511490002" />
++        <entry key="app/src/main/res/layout/activity_ear_training_scales_exercise.xml" value="0.24967995766730958" />
++        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1843410213482924" />
++        <entry key="app/src/main/res/layout/activity_scales_menu.xml" value="0.27247170356308836" />
++        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.8246152196689166" />
++        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.707420812667627" />
+       </map>
+     </option>
+   </component>
+diff --git a/app/build.gradle b/app/build.gradle
+index 58633d2..45c7042 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -29,6 +29,9 @@ android {
+     kotlinOptions {
+         jvmTarget = '1.8'
+     }
++    buildFeatures {
++        viewBinding true
++    }
+ }
+ 
+ dependencies {
+@@ -37,6 +40,8 @@ dependencies {
+     implementation 'androidx.appcompat:appcompat:1.4.2'
+     implementation 'com.google.android.material:material:1.6.1'
+     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
++    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
++    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+     testImplementation 'junit:junit:4.+'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+index a24146e..4c8e70f 100644
+--- a/app/src/main/AndroidManifest.xml
++++ b/app/src/main/AndroidManifest.xml
+@@ -10,7 +10,15 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.MusicTheory">
+         <activity
+-            android:name=".earTrainingExercise"
++            android:name=".earTrainingScalesExercise"
++            android:exported="false" />
++        <activity
++            android:name=".ScalesMenu"
++            android:exported="false"
++            android:label="@string/title_activity_scales_menu"
++            android:theme="@style/Theme.MusicTheory.NoActionBar" />
++        <activity
++            android:name=".earTrainingIntervalExercise"
+             android:exported="false" />
+         <activity
+             android:name=".earTrainingMainMenu"
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending01.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending01.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending02.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending02.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending03.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending03.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending04.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending04.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending05.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending05.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending06.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending06.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending07.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending07.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending08.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending08.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending09.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending09.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending10.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending10.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending11.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending11.mp3
+diff --git a/app/src/main/assets/maj2_ascending/major2_ascending12.mp3 b/app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/maj2_ascending/major2_ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/maj2_ascending/major2_ascending12.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending01.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending02.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending03.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending04.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending05.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending06.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending07.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending08.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending09.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending10.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending11.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending12.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending13.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending14.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending15.mp3
+diff --git a/app/src/main/assets/maj3_ascending/Major3-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/maj3_ascending/Major3-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/maj3_ascending/Major3-Ascending16.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending01.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending02.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending03.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending04.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending05.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending06.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending07.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending08.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending09.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending10.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending11.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending12.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending13.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending14.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending15.mp3
+diff --git a/app/src/main/assets/maj6_ascending/Major6-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/maj6_ascending/Major6-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/maj6_ascending/Major6-Ascending16.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending01.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending02.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending03.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending04.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending05.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending06.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending07.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending08.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending09.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending10.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending11.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending12.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending13.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending14.mp3
+diff --git a/app/src/main/assets/maj7_ascending/Major7-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/maj7_ascending/Major7-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/maj7_ascending/Major7-Ascending15.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending01.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending02.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending03.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending04.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending05.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending06.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending07.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending08.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending09.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending10.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending11.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending12.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending13.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending14.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending15.mp3
+diff --git a/app/src/main/assets/min2_ascending/Minor2-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/min2_ascending/Minor2-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/min2_ascending/Minor2-Ascending16.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending01.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending02.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending03.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending04.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending05.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending06.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending07.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending08.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending09.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending10.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending11.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending12.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending13.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending14.mp3
+diff --git a/app/src/main/assets/min3_ascending/Minor3-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/min3_ascending/Minor3-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/min3_ascending/Minor3-Ascending15.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending01.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending02.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending03.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending04.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending05.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending06.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending07.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending08.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending09.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending10.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending11.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending12.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending13.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending14.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending15.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending16.mp3
+diff --git a/app/src/main/assets/min6_ascending/Minor6-Ascending17.mp3 b/app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending17.mp3
+similarity index 100%
+rename from app/src/main/assets/min6_ascending/Minor6-Ascending17.mp3
+rename to app/src/main/assets/ascending_intervals/min6_ascending/Minor6-Ascending17.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending01.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending02.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending03.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending04.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending05.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending06.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending07.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending08.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending09.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending10.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending11.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending12.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending13.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending14.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending15.mp3
+diff --git a/app/src/main/assets/min7_ascending/Minor7-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/min7_ascending/Minor7-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/min7_ascending/Minor7-Ascending16.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending01.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending02.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending03.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending04.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending05.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending06.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending07.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending08.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending09.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending10.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending11.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending12.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending13.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending14.mp3
+diff --git a/app/src/main/assets/oct_ascending/Octave-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/oct_ascending/Octave-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/oct_ascending/Octave-Ascending15.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending01.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending02.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending03.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending04.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending05.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending06.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending07.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending08.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending09.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending10.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending11.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending12.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending13.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending14.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending15.mp3
+diff --git a/app/src/main/assets/perf4_ascending/Perfect4-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/perf4_ascending/Perfect4-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/perf4_ascending/Perfect4-Ascending16.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending01.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending02.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending03.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending04.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending05.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending06.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending07.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending08.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending09.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending10.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending11.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending12.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending13.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending14.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending15.mp3
+diff --git a/app/src/main/assets/perf5_ascending/Perfect5-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/perf5_ascending/Perfect5-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/perf5_ascending/Perfect5-Ascending16.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending01.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending01.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending01.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending01.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending02.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending02.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending02.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending02.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending03.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending03.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending03.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending03.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending04.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending04.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending04.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending04.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending05.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending05.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending05.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending05.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending06.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending06.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending06.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending06.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending07.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending07.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending07.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending07.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending08.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending08.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending08.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending08.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending09.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending09.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending09.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending09.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending10.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending10.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending10.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending10.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending11.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending11.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending11.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending11.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending12.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending12.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending12.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending12.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending13.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending13.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending13.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending13.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending14.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending14.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending14.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending14.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending15.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending15.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending15.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending15.mp3
+diff --git a/app/src/main/assets/tritone_ascending/Tritone-Ascending16.mp3 b/app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending16.mp3
+similarity index 100%
+rename from app/src/main/assets/tritone_ascending/Tritone-Ascending16.mp3
+rename to app/src/main/assets/ascending_intervals/tritone_ascending/Tritone-Ascending16.mp3
+diff --git a/app/src/main/java/com/example/musictheory/MainActivity.kt b/app/src/main/java/com/example/musictheory/MainActivity.kt
+index f551bea..7cc971d 100644
+--- a/app/src/main/java/com/example/musictheory/MainActivity.kt
++++ b/app/src/main/java/com/example/musictheory/MainActivity.kt
+@@ -11,10 +11,15 @@ class MainActivity : AppCompatActivity() {
+         setContentView(R.layout.activity_main)
+ 
+         val earTrainingBtn = findViewById<Button>(R.id.earTrainingBtn)
++        val scaleBtn = findViewById<Button>(R.id.scaleBtn)
+         earTrainingBtn.setOnClickListener{
+             val Intent = Intent(this, earTrainingMainMenu::class.java)
+             startActivity(Intent)
+ 
+         }
++        scaleBtn.setOnClickListener {
++            val Intent = Intent (this, ScalesMenu::class.java)
++            startActivity(Intent)
++        }
+     }
+ }
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/ScalesMenu.kt b/app/src/main/java/com/example/musictheory/ScalesMenu.kt
+new file mode 100644
+index 0000000..c54a9b1
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/ScalesMenu.kt
+@@ -0,0 +1,90 @@
++package com.example.musictheory
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.view.View
++import android.widget.TextView
++import androidx.appcompat.app.AlertDialog
++import java.lang.StringBuilder
++import java.util.*
++
++class ScalesMenu : AppCompatActivity() {
++    lateinit var selectedScales: BooleanArray
++
++    var scalesList : MutableList<Int> = mutableListOf()
++    var scalesArray = arrayOf(
++        "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"
++    )
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_scales_menu)
++
++        createScalesDropdown()
++    }
++
++    private fun createScalesDropdown() {
++        // assign variable
++        val tvScales = findViewById<TextView>(R.id.scalesTextView)
++        // initialize selected scale
++        selectedScales = BooleanArray(scalesArray.size)
++        tvScales.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
++            val builder = AlertDialog.Builder(this@ScalesMenu)
++
++            //Set title
++            builder.setTitle("Selected Scale")
++            //Set dialog non cancelable
++            builder.setCancelable(false)
++            builder.setMultiChoiceItems(
++                scalesArray,
++                selectedScales
++            ) { dialogInterface, i, b ->
++                //Check condition
++                if (b) {
++                    //When checkbox selected
++                    //Add position in scales list
++                    scalesList.add(i)
++                    //Sort
++                    Collections.sort(scalesList)
++                } else {
++                    //When checkbox unselected
++                    //Remove position from scales list
++                    scalesList.remove(i)
++                }
++            }
++            builder.setPositiveButton("Ok") { dialogInterface, i -> //Initalize string builder
++                val stringBuilder = StringBuilder()
++
++                // Gets selected index with matching scale
++                for (j in scalesList.indices) {
++                    //Concat array val
++                    stringBuilder.append(scalesArray[scalesList[j]])
++                    //Check condition
++                    if (j != scalesList.size - 1) {
++                        //When ja value not equal to scale list size -1
++                        //Add comma
++                        stringBuilder.append(", ")
++                    }
++                }
++                //Set text on text vie
++                tvScales.text = stringBuilder.toString()
++
++            }
++            builder.setNegativeButton("Cancel") { dialogInterface, i -> //Dismiss dialog
++                dialogInterface.dismiss()
++            }
++            // Clear selected scale
++            builder.setNeutralButton("Clear All") { dialogInterface, i ->
++                //Use for loop
++                for (j in selectedScales.indices) {
++                    //remove all selection
++                    selectedScales[j] = false
++                    scalesList.clear()
++                    tvScales.text = ""
++                }
++            }
++            //Show dialog
++            builder.show()
++        })
++    }
++}
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingExercise.kt b/app/src/main/java/com/example/musictheory/earTrainingIntervalExercise.kt
+similarity index 58%
+rename from app/src/main/java/com/example/musictheory/earTrainingExercise.kt
+rename to app/src/main/java/com/example/musictheory/earTrainingIntervalExercise.kt
+index 82d0e17..b05c1a4 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingIntervalExercise.kt
+@@ -11,14 +11,14 @@ import android.os.Bundle
+ import android.os.CountDownTimer
+ import android.widget.Button
+ import android.widget.TextView
+-import android.widget.Toast
+ import java.io.IOException
+ import java.util.ArrayList
+ 
+-class earTrainingExercise : AppCompatActivity() {
++class earTrainingIntervalExercise : AppCompatActivity() {
+ 
+     lateinit var min2Btn:Button
+-    lateinit var maj2ndBtn:Button
++    lateinit var maj2Btn:Button
++    lateinit var min3Btn:Button
+     lateinit var maj3Btn:Button
+     lateinit var perfFourthBtn:Button
+     lateinit var tritoneBtn:Button
+@@ -37,10 +37,11 @@ class earTrainingExercise : AppCompatActivity() {
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_ear_training_exercise)
++        setContentView(R.layout.activity_ear_training_interval_exercise)
+ 
+         min2Btn = findViewById(R.id.min2Btn)
+-        maj2ndBtn = findViewById(R.id.maj2Btn)
++        maj2Btn = findViewById(R.id.maj2Btn)
++        min3Btn = findViewById(R.id.min3Btn)
+         maj3Btn = findViewById(R.id.maj3Btn)
+         perfFourthBtn = findViewById(R.id.perf4Btn)
+         tritoneBtn = findViewById(R.id.tritoneBtn)
+@@ -69,7 +70,7 @@ class earTrainingExercise : AppCompatActivity() {
+     }
+ 
+     private fun selectSound(intervalAudioList: MutableList<Interval>) {
+-        val randomAudio = intervalAudioList.random()
++        val randomAudio = intervalAudioList.shuffled().random()
+         playSound(randomAudio)
+ 
+     }
+@@ -84,75 +85,75 @@ class earTrainingExercise : AppCompatActivity() {
+         for(element in selectedIntervalStringList){
+             when(element){
+ 
+-                "Minor Second" -> assets.list("min2_ascending")?.forEach {
++                "Minor Second" -> assets.list("ascending_intervals/min2_ascending")?.forEach {
+                     //println(it)
+-                    val min2Asc = Interval("Min2","Asc", "min2_ascending/$it")
+-                    //println(min2Asc.getInfo())
++                    val min2Asc = Interval("Min2","Asc", "ascending_intervals/min2_ascending/$it")
++                    println("Info: " + min2Asc.getInfo())
+                     audioObjectsList.add(min2Asc)
+                 }
+-                "Major Second" -> assets.list("maj2_ascending")?.forEach {
++                "Major Second" -> assets.list("ascending_intervals/maj2_ascending")?.forEach {
+                     //println(it)
+-                    val maj2Asc = Interval("Maj2","Asc", "maj2_ascending/$it")
++                    val maj2Asc = Interval("Maj2","Asc", "ascending_intervals/maj2_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(maj2Asc)
+                 }
+-                "Minor Third" -> assets.list("min3_ascending")?.forEach {
++                "Minor Third" -> assets.list("ascending_intervals/min3_ascending")?.forEach {
+                     //println(it)
+-                    val min3Asc = Interval("Min3","Asc", "min3_ascending/$it")
++                    val min3Asc = Interval("Min3","Asc", "ascending_intervals/min3_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(min3Asc)
+                 }
+-                "Major Third" -> assets.list("maj3_ascending")?.forEach {
++                "Major Third" -> assets.list("ascending_intervals/maj3_ascending")?.forEach {
+                     //println(it)
+-                    val maj3Asc = Interval("Maj3","Asc", "maj3_ascending/$it")
++                    val maj3Asc = Interval("Maj3","Asc", "ascending_intervals/maj3_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(maj3Asc)
+                 }
+-                "Perfect Fourth" -> assets.list("perf4_ascending")?.forEach {
++                "Perfect Fourth" -> assets.list("ascending_intervals/perf4_ascending")?.forEach {
+                     //println(it)
+-                    val perf4Asc = Interval("Perf4","Asc", "perf4_ascending/$it")
++                    val perf4Asc = Interval("Perf4","Asc", "ascending_intervals/perf4_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(perf4Asc)
+                 }
+-                "Tritone" -> assets.list("tritone_ascending")?.forEach {
++                "Tritone" -> assets.list("ascending_intervals/tritone_ascending")?.forEach {
+                     //println(it)
+-                    val tritoneAsc = Interval("Tritone","Asc", "tritone_ascending/$it")
++                    val tritoneAsc = Interval("Tritone","Asc", "ascending_intervals/tritone_ascending/$it")
+                     println(tritoneAsc.getInfo())
+                     audioObjectsList.add(tritoneAsc)
+                 }
+-                "Perfect Fifth" -> assets.list("perf5_ascending")?.forEach {
++                "Perfect Fifth" -> assets.list("ascending_intervals/perf5_ascending")?.forEach {
+                     //println(it)
+-                    val perf5Asc = Interval("Perf5","Asc", "perf5_ascending/$it")
++                    val perf5Asc = Interval("Perf5","Asc", "ascending_intervals/perf5_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(perf5Asc)
+                 }
+-                "Minor Sixth" -> assets.list("min6_ascending")?.forEach {
++                "Minor Sixth" -> assets.list("ascending_intervals/min6_ascending")?.forEach {
+                     //println(it)
+-                    val min6Asc = Interval("Min6","Asc", "min6_ascending/$it")
++                    val min6Asc = Interval("Min6","Asc", "ascending_intervals/min6_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(min6Asc)
+                 }
+-                "Major Sixth" -> assets.list("maj6_ascending")?.forEach {
++                "Major Sixth" -> assets.list("ascending_intervals/maj6_ascending")?.forEach {
+                     //println(it)
+-                    val maj6Asc = Interval("Maj6","Asc", "maj6_ascending/$it")
++                    val maj6Asc = Interval("Maj6","Asc", "ascending_intervals/maj6_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(maj6Asc)
+                 }
+-                "Minor Seventh" -> assets.list("min7_ascending")?.forEach {
++                "Minor Seventh" -> assets.list("ascending_intervals/min7_ascending")?.forEach {
+                     //println(it)
+-                    val min7Asc = Interval("Min7","Asc", "min7_ascending/$it")
++                    val min7Asc = Interval("Min7","Asc", "ascending_intervals/min7_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(min7Asc)
+                 }
+-                "Major Seventh" -> assets.list("maj7_ascending")?.forEach {
++                "Major Seventh" -> assets.list("ascending_intervals/maj7_ascending")?.forEach {
+                     //println(it)
+-                    val maj7Asc = Interval("Maj7","Asc", "maj7_ascending/$it")
++                    val maj7Asc = Interval("Maj7","Asc", "ascending_intervals/maj7_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(maj7Asc)
+                 }
+-                "Octave" -> assets.list("oct_ascending")?.forEach {
++                "Octave" -> assets.list("ascending_intervals/oct_ascending")?.forEach {
+                     //println(it)
+-                    val octAsc = Interval("Oct","Asc", "oct_ascending/$it")
++                    val octAsc = Interval("Oct","Asc", "ascending_intervals/oct_ascending/$it")
+                     //println(maj2Asc.getInfo())
+                     audioObjectsList.add(octAsc)
+                 }
+@@ -189,7 +190,10 @@ class earTrainingExercise : AppCompatActivity() {
+         val timer = object: CountDownTimer(3500, 1000) {
+             override fun onTick(millisUntilFinished: Long) {println("start: $millisUntilFinished")}
+             override fun onFinish() {
+-                mediaPlayer?.stop()
++                if (mediaPlayer?.isPlaying == true){
++                    mediaPlayer?.stop()
++                }
++
+             }
+         }
+         timer.start()
+@@ -214,21 +218,53 @@ class earTrainingExercise : AppCompatActivity() {
+                 start()
+             } catch (e: IOException){
+                 e.printStackTrace()
++                println("Path: "+ selectedSound.path)
++                playSound(selectedSound)
++            }
++            finally {
++                mediaPlayer?.release()
+             }
+ 
+         }
+ 
+-        Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
++        //Toast.makeText(this, "Playing sound. . . .", Toast.LENGTH_SHORT).show()
+ 
+         min2Btn.setOnClickListener {
+             checkMin2(selectedSound)
+         }
+-        maj2ndBtn.setOnClickListener{
++        maj2Btn.setOnClickListener{
+             checkMaj2(selectedSound)
+         }
++        min3Btn.setOnClickListener {
++            checkMin3(selectedSound)
++        }
++        maj3Btn.setOnClickListener {
++            checkMaj3(selectedSound)
++        }
++        perfFourthBtn.setOnClickListener {
++            checkPerf4(selectedSound)
++        }
+         tritoneBtn.setOnClickListener{
+             checkTritone(selectedSound)
+         }
++        perfFifthBtn.setOnClickListener {
++            checkPerf5(selectedSound)
++        }
++        min6Btn.setOnClickListener {
++            checkMin6(selectedSound)
++        }
++        maj6Btn.setOnClickListener {
++            checkMaj6(selectedSound)
++        }
++        min7Btn.setOnClickListener {
++            checkMin7(selectedSound)
++        }
++        maj7Btn.setOnClickListener {
++            checkMaj7(selectedSound)
++        }
++        octBtn.setOnClickListener {
++            checkOct(selectedSound)
++        }
+         repeatBtn.setOnClickListener {
+             playSound(selectedSound)
+         }
+@@ -243,6 +279,39 @@ class earTrainingExercise : AppCompatActivity() {
+ 
+     }
+ 
++    private fun checkMaj2(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Maj2"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++
++    }
++
++    private fun checkMin3(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Min3"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
++    private fun checkMaj3(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Maj3"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
++    private fun checkPerf4(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Perf4"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
+     private fun checkTritone(selectedSound: Interval) {
+         if (selectedSound.intervalType == "Tritone"){
+             correctAns()
+@@ -251,15 +320,55 @@ class earTrainingExercise : AppCompatActivity() {
+         }
+     }
+ 
+-    private fun checkMaj2(selectedSound: Interval) {
+-        if (selectedSound.intervalType == "Maj2"){
++    private fun checkPerf5(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Perf5"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
++    private fun checkMin6(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Min6"){
+             correctAns()
+         } else {
+             incorrectAns(selectedSound)
+         }
++    }
+ 
++    private fun checkMaj6(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Maj6"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
+     }
+ 
++    private fun checkMin7(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Min7"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
++    private fun checkMaj7(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Maj7"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
++    private fun checkOct(selectedSound: Interval) {
++        if (selectedSound.intervalType == "Oct"){
++            correctAns()
++        } else {
++            incorrectAns(selectedSound)
++        }
++    }
++
++
+     private fun incorrectAns(selectedSound: Interval) {
+         guessCounter++
+         resultsTv.text = "Try again."
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt b/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
+index 5f0af75..bfd75cb 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
+@@ -4,10 +4,6 @@ import android.content.Intent
+ import androidx.appcompat.app.AppCompatActivity
+ import android.widget.TextView
+ import android.os.Bundle
+-import android.media.AudioManager
+-import android.media.MediaPlayer
+-import android.media.SoundPool
+-import android.os.CountDownTimer
+ import android.view.View
+ import android.widget.Button
+ import android.widget.Toast
+@@ -18,11 +14,11 @@ import kotlin.collections.ArrayList
+ 
+ 
+ class earTrainingMainMenu : AppCompatActivity() {
+-    lateinit var selectedIntervals: BooleanArray
+ 
+-    private var soundPool: SoundPool? = null
+-    var soundId = 1
++    lateinit var tvIntervals:TextView
++    lateinit var tvScales:TextView
+ 
++    lateinit var selectedIntervals: BooleanArray
+     var intervalList : MutableList<Int> = mutableListOf()
+     var intervalsArray = arrayOf(
+         "Minor Second", "Major Second", "Minor Third", "Major Third",
+@@ -30,48 +26,84 @@ class earTrainingMainMenu : AppCompatActivity() {
+         "Major Sixth", "Minor Seventh", "Major Seventh", "Octave"
+     )
+ 
+-    private lateinit var playAudioBtn: Button
+-    var mediaPlayer : MediaPlayer? = null
++    lateinit var selectedScales: BooleanArray
++    var scalesList : MutableList<Int> = mutableListOf()
++    var scalesArray = arrayOf(
++        "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"
++    )
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_ear_training_main_menu)
+ 
+-        //soundPool = SoundPool(6, AudioManager.STREAM_MUSIC, 0)
+-        //soundPool!!.load(baseContext, R.assets.major2_ascending01, 1)
+-
+         createIntervalsDropdown()
++        createScalesDropdown()
+         val startExerciseBtn = findViewById<Button>(R.id.startExerciseBtn)
+         startExerciseBtn.setOnClickListener{
+-            
+-            // Singletonlist cannot be cast to arraylist 
+-            if (intervalList.size == 1){
+-                println("Selected only 1 interval")
+-                // Converts singleton to single variable
+-                val singleInterval = intervalList[0]
+-                // Creates arraylist for single selection
+-                val selectedIntervals = arrayListOf<Int>(singleInterval)
+-                println("Selected intervals"+selectedIntervals)
+-                val intent = Intent(this, earTrainingExercise::class.java)
+-                intent.putIntegerArrayListExtra("selected_intervals",selectedIntervals)
+-                startActivity(intent)
+-            } else {
+-                //Copies mutable list to immutable arraylist
+-                //Kotlin can't pass a mutable list through activities
+-                val selectedIntervals: ArrayList<Int> = intervalList.toList() as ArrayList<Int>
+-                println("Selected intervals"+selectedIntervals)
+-                val intent = Intent(this, earTrainingExercise::class.java)
+-                intent.putIntegerArrayListExtra("selected_intervals",selectedIntervals)
+-                startActivity(intent) 
++
++            if(intervalList.size > 0){
++                startEarTrainingInterval()
++
++            } else if(scalesList.size>0) {
++                startEarTrainingScales()
++            }else{
++                Toast.makeText(this, "You need to select something.", Toast.LENGTH_SHORT).show()
+             }
++
+             
+         }
+     }
+ 
++    private fun startEarTrainingScales() {
++        // Singletonlist cannot be cast to arraylist
++        if (scalesList.size == 1){
++            println("Selected only 1 interval")
++            // Converts singleton to single variable
++            val singleScale = scalesList[0]
++            // Creates arraylist for single selection
++            val selectedScales = arrayListOf<Int>(singleScale)
++            println("Selected Scales"+selectedScales)
++            val intent = Intent(this, earTrainingScalesExercise::class.java)
++            intent.putIntegerArrayListExtra("selected_scales",selectedScales)
++            startActivity(intent)
++        } else {
++            //Copies mutable list to immutable arraylist
++            //Kotlin can't pass a mutable list through activities
++            val selectedScales: ArrayList<Int> = scalesList.toList() as ArrayList<Int>
++            println("Selected scales"+selectedScales)
++            val intent = Intent(this, earTrainingScalesExercise::class.java)
++            intent.putIntegerArrayListExtra("selected_intervals",selectedScales)
++            startActivity(intent)
++        }
++    }
++
++    private fun startEarTrainingInterval() {
++        // Singletonlist cannot be cast to arraylist
++        if (intervalList.size == 1){
++            println("Selected only 1 interval")
++            // Converts singleton to single variable
++            val singleInterval = intervalList[0]
++            // Creates arraylist for single selection
++            val selectedIntervals = arrayListOf<Int>(singleInterval)
++            println("Selected intervals"+selectedIntervals)
++            val intent = Intent(this, earTrainingIntervalExercise::class.java)
++            intent.putIntegerArrayListExtra("selected_intervals",selectedIntervals)
++            startActivity(intent)
++        } else {
++            //Copies mutable list to immutable arraylist
++            //Kotlin can't pass a mutable list through activities
++            val selectedIntervals: ArrayList<Int> = intervalList.toList() as ArrayList<Int>
++            println("Selected intervals"+selectedIntervals)
++            val intent = Intent(this, earTrainingIntervalExercise::class.java)
++            intent.putIntegerArrayListExtra("selected_intervals",selectedIntervals)
++            startActivity(intent)
++        }
++    }
++
+     // Interval selection dropdown
+     private fun createIntervalsDropdown() {
+         // assign variable
+-        val tvIntervals = findViewById<TextView>(R.id.IntervalsTextView)
++        tvIntervals = findViewById<TextView>(R.id.IntervalsTextView)
+         // initialize selected interval
+         selectedIntervals = BooleanArray(intervalsArray.size)
+         tvIntervals.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
+@@ -112,11 +144,17 @@ class earTrainingMainMenu : AppCompatActivity() {
+                         stringBuilder.append(", ")
+                     }
+                 }
++                checkIntervalListSize()
+                 //Set text on text vie
+-                tvIntervals.text = stringBuilder.toString()
++                if (intervalList.size != 0) {
++                    tvIntervals.text = stringBuilder.toString()
++                } else {
++                    tvIntervals.text = "Intervals"
++                }
+ 
+             }
+             builder.setNegativeButton("Cancel") { dialogInterface, i -> //Dismiss dialog
++                checkIntervalListSize()
+                 dialogInterface.dismiss()
+             }
+             // Clear selected intervals
+@@ -126,12 +164,107 @@ class earTrainingMainMenu : AppCompatActivity() {
+                     //remove all selection
+                     selectedIntervals[j] = false
+                     intervalList.clear()
+-                    tvIntervals.text = ""
++                    tvIntervals.text = "Intervals"
++                }
++                checkIntervalListSize()
++            }
++            //Show dialog
++            builder.show()
++
++        })
++    }
++
++    private fun checkIntervalListSize() {
++        // Disables other dropdowns if intervals is selected
++        if(intervalList.size>0){
++            createScalesDropdown()
++            tvScales.isEnabled = false
++        // Re-enables other dropdowns if intervals list is 0
++        } else{
++            tvScales.isEnabled = true
++        }
++    }
++
++    private fun createScalesDropdown(){
++        // assign variable
++        tvScales = findViewById<TextView>(R.id.scalesTextViewEarTraining)
++        // initialize selected scale
++        selectedScales = BooleanArray(scalesArray.size)
++        tvScales.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
++            val builder = AlertDialog.Builder(this@earTrainingMainMenu)
++
++            //Set title
++            builder.setTitle("Selected Scale")
++            //Set dialog non cancelable
++            builder.setCancelable(false)
++            builder.setMultiChoiceItems(
++                scalesArray,
++                selectedScales
++            ) { dialogInterface, i, b ->
++                //Check condition
++                if (b) {
++                    //When checkbox selected
++                    //Add position in scales list
++                    scalesList.add(i)
++                    //Sort
++                    Collections.sort(scalesList)
++                } else {
++                    //When checkbox unselected
++                    //Remove position from scales list
++                    scalesList.remove(i)
++                }
++                println(scalesList.toString())
++            }
++            builder.setPositiveButton("Ok") { dialogInterface, i -> //Initalize string builder
++                val stringBuilder = StringBuilder()
++
++                // Gets selected index with matching scale
++                for (j in scalesList.indices) {
++                    //Concat array val
++                    stringBuilder.append(scalesArray[scalesList[j]])
++                    //Check condition
++                    if (j != scalesList.size - 1) {
++                        //When ja value not equal to scale list size -1
++                        //Add comma
++                        stringBuilder.append(", ")
++                    }
++                }
++                checkScalesListSize()
++                //Set text on text vie
++                if (scalesList.size != 0) {
++                    tvScales.text = stringBuilder.toString()
++                } else {
++                    tvScales.text = "Scales"
++                }
++            }
++            builder.setNegativeButton("Cancel") { dialogInterface, i -> //Dismiss dialog
++                checkScalesListSize()
++                dialogInterface.dismiss()
++            }
++            // Clear selected scale
++            builder.setNeutralButton("Clear All") { dialogInterface, i ->
++                //Use for loop
++                for (j in selectedScales.indices) {
++                    //remove all selection
++                    selectedScales[j] = false
++                    scalesList.clear()
++                    tvScales.text = "Scales"
+                 }
++                checkScalesListSize()
+             }
+             //Show dialog
+             builder.show()
+         })
+     }
+ 
++    private fun checkScalesListSize() {
++        // Disables other dropdowns if scales is selected
++        if(scalesList.size>0){
++            createIntervalsDropdown()
++            tvIntervals.isEnabled = false
++            // Re-enables other dropdowns if scales list is 0
++        } else{
++            tvIntervals.isEnabled = true
++        }
++    }
+ }
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingScalesExercise.kt b/app/src/main/java/com/example/musictheory/earTrainingScalesExercise.kt
+new file mode 100644
+index 0000000..0f26cb3
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/earTrainingScalesExercise.kt
+@@ -0,0 +1,40 @@
++package com.example.musictheory
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.widget.TextView
++
++class earTrainingScalesExercise : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_ear_training_scales_exercise)
++
++        val exerciseTV = findViewById<TextView>(R.id.scaleExerciseTV)
++        var selectedScalesStringList = mutableListOf<String>()
++
++        val selectedScaleInts = intent.getIntegerArrayListExtra("selected_intervals")
++        println(selectedScaleInts)
++
++        selectedScalesStringList = getScalesString(selectedScaleInts)
++
++        exerciseTV.text ="Scales Selected: "+ selectedScalesStringList.joinToString(", ")
++
++    }
++
++    private fun getScalesString(selectedScaleInts: ArrayList<Int>?): MutableList<String> {
++        var scalesArray = arrayOf(
++            "Ionian", "Dorian", "Phrygian", "Lydian",
++            "Mixolydian", "Aeolian", "Locrian"
++        )
++        val selectedScaleList = mutableListOf<String>()
++
++        // Gets selected index with matching interval
++        if (selectedScaleInts != null) {
++            for (j in selectedScaleInts.indices) {
++                //Concat array val
++                selectedScaleList.add(scalesArray[selectedScaleInts[j]])
++            }
++        }
++        return selectedScaleList
++    }
++}
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_ear_training_exercise.xml b/app/src/main/res/layout/activity_ear_training_interval_exercise.xml
+similarity index 98%
+rename from app/src/main/res/layout/activity_ear_training_exercise.xml
+rename to app/src/main/res/layout/activity_ear_training_interval_exercise.xml
+index bcc1bcb..ea68d54 100644
+--- a/app/src/main/res/layout/activity_ear_training_exercise.xml
++++ b/app/src/main/res/layout/activity_ear_training_interval_exercise.xml
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".earTrainingExercise">
++    tools:context=".earTrainingIntervalExercise">
+ 
+ 
+     <Button
+diff --git a/app/src/main/res/layout/activity_ear_training_main_menu.xml b/app/src/main/res/layout/activity_ear_training_main_menu.xml
+index 90d3d5e..373b82e 100644
+--- a/app/src/main/res/layout/activity_ear_training_main_menu.xml
++++ b/app/src/main/res/layout/activity_ear_training_main_menu.xml
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+@@ -8,19 +8,30 @@
+ 
+ 
+     <TextView
+-        android:id="@+id/IntervalsTextView"
++        android:id="@+id/scalesAndModesLabelEarTraining"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+-        android:layout_marginTop="108dp"
++        android:layout_marginTop="256dp"
++        android:text="Scales and Modes"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/scalesTextViewEarTraining"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentStart="true"
++        android:layout_alignParentTop="true"
++        android:layout_marginTop="284dp"
+         android:background="@android:drawable/editbox_background"
+         android:drawableEnd="@android:drawable/arrow_down_float"
+-        android:text="Intervals "
++        android:text="Scales"
+         app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_bias="0.498"
+         app:layout_constraintStart_toStartOf="parent"
+-        tools:layout_editor_absoluteY="94dp" />
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+     <TextView
+         android:id="@+id/intervalsLabelTextView"
+@@ -28,8 +39,26 @@
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+-        android:layout_marginTop="88dp"
+-        android:text="Intervals" />
++        android:layout_marginTop="80dp"
++        android:text="@string/intervals"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/IntervalsTextView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentTop="true"
++        android:layout_centerHorizontal="true"
++        android:layout_marginTop="108dp"
++        android:background="@android:drawable/editbox_background"
++        android:text="Intervals "
++        app:drawableEndCompat="@android:drawable/arrow_down_float"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+     <Button
+         android:id="@+id/startExerciseBtn"
+@@ -37,9 +66,12 @@
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+-        android:layout_marginTop="218dp"
++        android:layout_marginBottom="77dp"
+         android:text="Start Exercise"
+-        android:onClick="playSound"/>
++        android:textAllCaps="false"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
+ 
+ 
+-</RelativeLayout>
+\ No newline at end of file
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_ear_training_scales_exercise.xml b/app/src/main/res/layout/activity_ear_training_scales_exercise.xml
+new file mode 100644
+index 0000000..049b6b9
+--- /dev/null
++++ b/app/src/main/res/layout/activity_ear_training_scales_exercise.xml
+@@ -0,0 +1,28 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".earTrainingScalesExercise">
++
++    <TextView
++        android:id="@+id/textView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="ear training scales"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/scaleExerciseTV"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="80dp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+index 40bccae..86816a1 100644
+--- a/app/src/main/res/layout/activity_main.xml
++++ b/app/src/main/res/layout/activity_main.xml
+@@ -6,25 +6,30 @@
+     android:layout_height="match_parent"
+     tools:context=".MainActivity">
+ 
+-    <Button
+-        android:id="@+id/earTrainingBtn"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginBottom="464dp"
+-        android:text="Ear Training"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_bias="0.498"
+-        app:layout_constraintStart_toStartOf="parent" />
+-
+-    <Button
+-        android:id="@+id/scaleBtn"
+-        android:layout_width="142dp"
+-        android:layout_height="48dp"
+-        android:layout_marginTop="80dp"
+-        android:text="Scales"
++    <LinearLayout
++        android:layout_width="128dp"
++        android:layout_height="703dp"
++        android:layout_marginTop="12dp"
++        android:orientation="vertical"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.498"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/earTrainingBtn" />
++        app:layout_constraintTop_toTopOf="parent">
++
++        <Button
++            android:id="@+id/earTrainingBtn"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Ear Training"
++            android:textAllCaps="false"
++            android:layout_marginTop="75dp"/>
++
++        <Button
++            android:id="@+id/scaleBtn"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Scales"
++            android:textAllCaps="false"
++            android:layout_marginTop="75dp"/>
++    </LinearLayout>
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_scales_menu.xml b/app/src/main/res/layout/activity_scales_menu.xml
+new file mode 100644
+index 0000000..aacd825
+--- /dev/null
++++ b/app/src/main/res/layout/activity_scales_menu.xml
+@@ -0,0 +1,42 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ScalesMenu">
++
++    <TextView
++        android:id="@+id/scalesTextView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="72dp"
++        android:background="@android:drawable/editbox_background"
++        android:drawableEnd="@android:drawable/arrow_down_float"
++        android:text="Scales"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/scalesAndModesLabel"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="36dp"
++        android:text="Scales and Modes"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/startScalesExerciseBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="184dp"
++        android:text="Start Exercise"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/navigation/nav_graph.xml b/app/src/main/res/navigation/nav_graph.xml
+new file mode 100644
+index 0000000..fb35ce4
+--- /dev/null
++++ b/app/src/main/res/navigation/nav_graph.xml
+@@ -0,0 +1,28 @@
++<?xml version="1.0" encoding="utf-8"?>
++<navigation xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/nav_graph"
++    app:startDestination="@id/FirstFragment">
++
++    <fragment
++        android:id="@+id/FirstFragment"
++        android:name="com.example.musictheory.FirstFragment"
++        android:label="@string/first_fragment_label"
++        tools:layout="@layout/fragment_first">
++
++        <action
++            android:id="@+id/action_FirstFragment_to_SecondFragment"
++            app:destination="@id/SecondFragment" />
++    </fragment>
++    <fragment
++        android:id="@+id/SecondFragment"
++        android:name="com.example.musictheory.SecondFragment"
++        android:label="@string/second_fragment_label"
++        tools:layout="@layout/fragment_second">
++
++        <action
++            android:id="@+id/action_SecondFragment_to_FirstFragment"
++            app:destination="@id/FirstFragment" />
++    </fragment>
++</navigation>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-land/dimens.xml b/app/src/main/res/values-land/dimens.xml
+new file mode 100644
+index 0000000..22d7f00
+--- /dev/null
++++ b/app/src/main/res/values-land/dimens.xml
+@@ -0,0 +1,3 @@
++<resources>
++    <dimen name="fab_margin">48dp</dimen>
++</resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-w1240dp/dimens.xml b/app/src/main/res/values-w1240dp/dimens.xml
+new file mode 100644
+index 0000000..d73f4a3
+--- /dev/null
++++ b/app/src/main/res/values-w1240dp/dimens.xml
+@@ -0,0 +1,3 @@
++<resources>
++    <dimen name="fab_margin">200dp</dimen>
++</resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-w600dp/dimens.xml b/app/src/main/res/values-w600dp/dimens.xml
+new file mode 100644
+index 0000000..22d7f00
+--- /dev/null
++++ b/app/src/main/res/values-w600dp/dimens.xml
+@@ -0,0 +1,3 @@
++<resources>
++    <dimen name="fab_margin">48dp</dimen>
++</resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
+new file mode 100644
+index 0000000..125df87
+--- /dev/null
++++ b/app/src/main/res/values/dimens.xml
+@@ -0,0 +1,3 @@
++<resources>
++    <dimen name="fab_margin">16dp</dimen>
++</resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 9e673ce..ed1bf20 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -10,4 +10,14 @@
+         <item>Perfect Fourth</item>
+         <item>Augmented Fourth/Diminished Fifth</item>
+     </string-array>
++    <string name="title_activity_scales_menu">ScalesMenu</string>
++    <!-- Strings used for fragments for navigation -->
++    <string name="first_fragment_label">First Fragment</string>
++    <string name="second_fragment_label">Second Fragment</string>
++    <string name="next">Next</string>
++    <string name="previous">Previous</string>
++
++    <string name="hello_first_fragment">Hello first fragment</string>
++    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
++    <string name="intervals">Intervals</string>
+ </resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+index 1b2090b..332bb89 100644
+--- a/app/src/main/res/values/themes.xml
++++ b/app/src/main/res/values/themes.xml
+@@ -13,4 +13,13 @@
+         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+         <!-- Customize your theme here. -->
+     </style>
++
++    <style name="Theme.MusicTheory.NoActionBar">
++        <item name="windowActionBar">false</item>
++        <item name="windowNoTitle">true</item>
++    </style>
++
++    <style name="Theme.MusicTheory.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
++
++    <style name="Theme.MusicTheory.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+ </resources>
+\ No newline at end of file
+-- 
+2.35.1
+

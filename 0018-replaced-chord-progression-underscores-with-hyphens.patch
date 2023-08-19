@@ -1,0 +1,169 @@
+From 766c50b19038007c6f0949b35af288307d7ac578 Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Wed, 16 Aug 2023 14:26:20 -0400
+Subject: [PATCH 18/26] replaced chord progression underscores with hyphens
+
+---
+ .../earTrainingChordProgessionExercise.kt     | 26 +++++++++----------
+ .../musictheory/earTrainingMainMenu.kt        |  2 +-
+ ...ear_training_chord_progession_exercise.xml | 26 +++++++++----------
+ 3 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingChordProgessionExercise.kt b/app/src/main/java/com/example/musictheory/earTrainingChordProgessionExercise.kt
+index 95c317d..d089a41 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingChordProgessionExercise.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingChordProgessionExercise.kt
+@@ -71,29 +71,29 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
+         // audio files
+         for (element in selectedChordProgressionStringList) {
+             when (element) {
+-                "I_IV_V" -> assets.list("chord_progressions/I_IV_V")?.forEach {
+-                    val I_IV_V_Chord = ChordProgression("I_IV_V", "chord_progressions/I_IV_V/$it")
++                "I-IV-V" -> assets.list("chord_progressions/I_IV_V")?.forEach {
++                    val I_IV_V_Chord = ChordProgression("I-IV-V", "chord_progressions/I_IV_V/$it")
+                     audioObjectsList.add(I_IV_V_Chord)
+                 }
+-                "I_VI_vi_IV" -> assets.list("chord_progressions/I_VI_vi_IV")?.forEach {
++                "I-VI-vi-IV" -> assets.list("chord_progressions/I_VI_vi_IV")?.forEach {
+                     val I_VI_vi_IV_Chord =
+-                        ChordProgression("I_VI_vi_IV", "chord_progressions/I_VI_vi_IV/$it")
++                        ChordProgression("I-VI-vi-IV", "chord_progressions/I_VI_vi_IV/$it")
+                     audioObjectsList.add(I_VI_vi_IV_Chord)
+                 }
+-                "ii_V_I" -> assets.list("chord_progressions/ii_V_I")?.forEach {
+-                    val ii_V_I_Chord = ChordProgression("ii_V_I", "chord_progressions/ii_V_I/$it")
++                "ii-V-I" -> assets.list("chord_progressions/ii_V_I")?.forEach {
++                    val ii_V_I_Chord = ChordProgression("ii-V-I", "chord_progressions/ii_V_I/$it")
+                     audioObjectsList.add(ii_V_I_Chord)
+                 }
+-                "vi_IV_I_V" -> assets.list("chord_progressions/vi_IV_I_V")?.forEach {
+-                    val vi_IV_I_V_Chord = ChordProgression("vi_IV_I_V", "chord_progressions/vi_IV_I_V/$it")
++                "vi-IV-I-V" -> assets.list("chord_progressions/vi_IV_I_V")?.forEach {
++                    val vi_IV_I_V_Chord = ChordProgression("vi-IV-I-V", "chord_progressions/vi_IV_I_V/$it")
+                     audioObjectsList.add(vi_IV_I_V_Chord)
+                 }
+-                "I_vi_IV_V" -> assets.list("chord_progressions/I_vi_IV_V")?.forEach {
+-                    val I_vi_IV_V_Chord = ChordProgression("I_vi_IV_V", "chord_progressions/I_vi_IV_V/$it")
++                "I-vi-IV-V" -> assets.list("chord_progressions/I_vi_IV_V")?.forEach {
++                    val I_vi_IV_V_Chord = ChordProgression("I-vi-IV-V", "chord_progressions/I_vi_IV_V/$it")
+                     audioObjectsList.add(I_vi_IV_V_Chord)
+                 }
+-                "I_III_IV_iv"-> assets.list("chord_progressions/I_III_IV_iv")?.forEach {
+-                    val I_III_IV_iv_Chord = ChordProgression("I_III_IV_iv", "chord_progressions/I_III_IV_iv/$it")
++                "I-III-IV-iv"-> assets.list("chord_progressions/I_III_IV_iv")?.forEach {
++                    val I_III_IV_iv_Chord = ChordProgression("I-III-IV-iv", "chord_progressions/I_III_IV_iv/$it")
+                     audioObjectsList.add(I_III_IV_iv_Chord)
+                 }
+             }
+@@ -103,7 +103,7 @@ class earTrainingChordProgessionExercise : AppCompatActivity() {
+ 
+     private fun getChordProgressionString(selectedChordProgressionInts: ArrayList<Int>?): MutableList<String> {
+         var chordProgressionsArray = arrayOf(
+-            "ii_V_I","vi_IV_I_V","I_IV_V","I_VI_vi_IV","I_vi_IV_V","I_III_IV_iv"
++            "ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
+         )
+         val selectedChordProgressionList = mutableListOf<String>()
+         // Gets selected index with matching chord progression
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt b/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
+index 9c8c221..117b49c 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
+@@ -38,7 +38,7 @@ class earTrainingMainMenu : AppCompatActivity() {
+     lateinit var selectedChordProgressions: BooleanArray
+     var chordProgressionsList : MutableList<Int> = mutableListOf()
+     var chordProgressionsArray = arrayOf(
+-        "ii_V_I","vi_IV_I_V","I_IV_V","I_VI_vi_IV","I_vi_IV_V","I_III_IV_iv"
++        "ii-V-I","vi-IV-I-V","I-IV-V","I-VI-vi-IV","I-vi-IV-V","I-III-IV-iv"
+     )
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+diff --git a/app/src/main/res/layout/activity_ear_training_chord_progession_exercise.xml b/app/src/main/res/layout/activity_ear_training_chord_progession_exercise.xml
+index 7e84f74..63214f8 100644
+--- a/app/src/main/res/layout/activity_ear_training_chord_progession_exercise.xml
++++ b/app/src/main/res/layout/activity_ear_training_chord_progession_exercise.xml
+@@ -9,9 +9,9 @@
+     <Button
+         android:id="@+id/I_vi_IV_VBtn"
+         android:layout_width="0dp"
+-        android:layout_weight="1"
+         android:layout_height="wrap_content"
+-        android:text="I_vi_IV_V"
++        android:layout_weight="1"
++        android:text="I-vi-IV-V"
+         android:textAllCaps="false"
+         app:layout_constraintEnd_toStartOf="@+id/I_III_IV_ivBtn"
+         app:layout_constraintHorizontal_bias="0.5"
+@@ -42,12 +42,12 @@
+     <Button
+         android:id="@+id/ii_V_IBtn"
+         android:layout_width="0dp"
+-        android:layout_weight="1"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="92dp"
+         android:layout_marginEnd="16dp"
+-        android:text="ii_V_I"
++        android:layout_weight="1"
++        android:text="ii-V-I"
+         android:textAllCaps="false"
+         app:layout_constraintEnd_toStartOf="@+id/vi_IV_I_VBtn"
+         app:layout_constraintHorizontal_bias="0.5"
+@@ -57,9 +57,9 @@
+     <Button
+         android:id="@+id/vi_IV_I_VBtn"
+         android:layout_width="0dp"
+-        android:layout_weight="1"
+         android:layout_height="wrap_content"
+-        android:text="vi_IV_I_V"
++        android:layout_weight="1"
++        android:text="vi-IV-I-V"
+         android:textAllCaps="false"
+         app:layout_constraintEnd_toStartOf="@+id/I_IV_VBtn"
+         app:layout_constraintHorizontal_bias="0.5"
+@@ -69,11 +69,11 @@
+     <Button
+         android:id="@+id/I_IV_VBtn"
+         android:layout_width="0dp"
+-        android:layout_weight="1"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+         android:layout_marginEnd="16dp"
+-        android:text="I_IV_V"
++        android:layout_weight="1"
++        android:text="I-IV-V"
+         android:textAllCaps="false"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+@@ -83,12 +83,12 @@
+     <Button
+         android:id="@+id/I_VI_vi_IVBtn"
+         android:layout_width="0dp"
+-        android:layout_weight="1"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+-        android:layout_marginEnd="16dp"
+         android:layout_marginTop="140dp"
+-        android:text="I_VI_vi_IV"
++        android:layout_marginEnd="16dp"
++        android:layout_weight="1"
++        android:text="I-VI-vi-IV"
+         android:textAllCaps="false"
+         app:layout_constraintEnd_toStartOf="@+id/I_vi_IV_VBtn"
+         app:layout_constraintHorizontal_bias="0.5"
+@@ -109,11 +109,11 @@
+     <Button
+         android:id="@+id/I_III_IV_ivBtn"
+         android:layout_width="0dp"
+-        android:layout_weight="1"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+         android:layout_marginEnd="16dp"
+-        android:text="I_III_IV_iv"
++        android:layout_weight="1"
++        android:text="I-III-IV-iv"
+         android:textAllCaps="false"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+-- 
+2.35.1
+

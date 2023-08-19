@@ -1,0 +1,519 @@
+From 70d3fcd4c744b568f9565d752cd6edc6fc59ad85 Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Fri, 18 Aug 2023 16:50:55 -0400
+Subject: [PATCH 24/26] started on the scale building module. Need to make
+ different chords and add the checkboxes for notes
+
+---
+ .idea/misc.xml                                |   4 +-
+ app/src/main/AndroidManifest.xml              |   6 +
+ .../musictheory/ChordCreatingExercise.kt      | 111 +++++++++++++++
+ .../musictheory/ChordCreatingMainMenu.kt      | 126 ++++++++++++++++++
+ .../com/example/musictheory/ChordObject.kt    |  13 ++
+ .../com/example/musictheory/MainActivity.kt   |   5 +
+ .../musictheory/ScaleCreatingExercise.kt      |   4 +-
+ .../musictheory/earTrainingMainMenu.kt        |   2 +-
+ .../activity_chord_creating_exercise.xml      |  30 +++++
+ .../activity_chord_creating_main_menu.xml     |  45 +++++++
+ .../activity_ear_training_main_menu.xml       |   2 +-
+ app/src/main/res/layout/activity_main.xml     |  10 ++
+ 12 files changed, 354 insertions(+), 4 deletions(-)
+ create mode 100644 app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt
+ create mode 100644 app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt
+ create mode 100644 app/src/main/java/com/example/musictheory/ChordObject.kt
+ create mode 100644 app/src/main/res/layout/activity_chord_creating_exercise.xml
+ create mode 100644 app/src/main/res/layout/activity_chord_creating_main_menu.xml
+
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index a4fbbd1..d739582 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -3,13 +3,15 @@
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+       <map>
++        <entry key="app/src/main/res/layout/activity_chord_creating_exercise.xml" value="0.23102744093860345" />
++        <entry key="app/src/main/res/layout/activity_chord_creating_main_menu.xml" value="0.2380392351133111" />
+         <entry key="app/src/main/res/layout/activity_chord_progression_ear_training_exercise.xml" value="0.1" />
+         <entry key="app/src/main/res/layout/activity_ear_training_chord_progession_exercise.xml" value="0.399114983172182" />
+         <entry key="app/src/main/res/layout/activity_ear_training_exercise.xml" value="0.3636798394843618" />
+         <entry key="app/src/main/res/layout/activity_ear_training_interval_exercise.xml" value="0.39442033525734993" />
+         <entry key="app/src/main/res/layout/activity_ear_training_main_menu.xml" value="0.2672394393566851" />
+         <entry key="app/src/main/res/layout/activity_ear_training_scales_exercise.xml" value="0.20339900531156543" />
+-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1843410213482924" />
++        <entry key="app/src/main/res/layout/activity_main.xml" value="0.45407858990214406" />
+         <entry key="app/src/main/res/layout/activity_scale_creating_exercise.xml" value="0.24260236314011602" />
+         <entry key="app/src/main/res/layout/activity_scales_menu.xml" value="0.27247170356308836" />
+         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.8246152196689166" />
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+index 62bea91..7f47ac8 100644
+--- a/app/src/main/AndroidManifest.xml
++++ b/app/src/main/AndroidManifest.xml
+@@ -9,6 +9,12 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.MusicTheory">
++        <activity
++            android:name=".ChordCreatingExercise"
++            android:exported="false" />
++        <activity
++            android:name=".ChordCreatingMainMenu"
++            android:exported="false" />
+         <activity
+             android:name=".ScaleCreatingExercise"
+             android:exported="false" />
+diff --git a/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt
+new file mode 100644
+index 0000000..cdc3d96
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt
+@@ -0,0 +1,111 @@
++package com.example.musictheory
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.widget.TextView
++
++class ChordCreatingExercise : AppCompatActivity() {
++
++    lateinit var taskTextView: TextView
++    var chordObjectsList = mutableListOf<ChordObject>()
++    lateinit var randomChord:ChordObject
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_chord_creating_exercise)
++
++        val selectedChordInts = intent.getIntegerArrayListExtra("selected_chords")
++
++        var selectedChordsStringList = mutableListOf<String>()
++
++        selectedChordsStringList = getChordsString(selectedChordInts)
++
++        val exerciseTV = findViewById<TextView>(R.id.chordCreatorExerciseTV)
++
++        taskTextView = findViewById<TextView>(R.id.chordCreatorTaskTextView)
++
++        exerciseTV.text ="Scales Selected: "+ selectedChordsStringList.joinToString(", ")
++
++        chordObjectsList = getSelectedChords(selectedChordsStringList)
++
++        getRandomChord()
++    }
++
++    private fun getRandomChord() {
++        randomChord = chordObjectsList.shuffled().random()
++        taskTextView.text = "Create: " +randomChord.root +" "+randomChord.chordType
++        println(randomChord.getChordInfo())
++    }
++
++    private fun getSelectedChords(selectedChordsStringList: MutableList<String>): MutableList<ChordObject> {
++        chordObjectsList = mutableListOf()
++
++        // Iterates through each selected scales's subdirectory and gets appropriate
++        // audio files
++        //println(selectedScalesStringList)
++        for (element in selectedChordsStringList) {
++            when (element) {
++                "Major" -> getMajorChords()
++            }
++        }
++        return chordObjectsList
++    }
++
++    private fun getMajorChords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        // takes appropriate scale degrees from each scale, assigns it to chordObject,
++        // also makes the appropriate root note.
++        for(scale in majorScales){
++            var majorChord = ChordObject(scale.notes[0],"Major", listOf(
++                scale.notes[0], scale.notes[2],scale.notes[4]))
++
++            chordObjectsList.add(majorChord)
++        }
++    }
++
++    private fun getChordsString(selectedChordInts: ArrayList<Int>?): MutableList<String> {
++
++        var scalesArray = arrayOf(
++            "Major","Minor","Diminished","Augmented","Major 7","Dominant 7","Minor 7",
++            "Minor Major 7","Dominant 9","Dominant Minor 9", "Major 9"
++        )
++        val selectedScaleList = mutableListOf<String>()
++        // Gets selected index with matching scale
++        if (selectedChordInts != null) {
++            for (j in selectedChordInts.indices) {
++                //Concat array val
++                selectedScaleList.add(scalesArray[selectedChordInts[j]])
++            }
++        }
++        return selectedScaleList
++
++    }
++
++    private fun getMajorScales(): Any {
++        var cIonian = ScaleObject("C", "Ionian", listOf("C", "D", "E", "F", "G", "A", "B"))
++        var cSharpIonian =
++            ScaleObject("C#", "Ionian", listOf("C#", "D#", "E#", "F#", "G#", "A#", "B#"))
++        var dFlatIonian =
++            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F♭", "G♭", "A♭", "B♭","C"))
++        var dIonian = ScaleObject("D", "Ionian", listOf("D", "E", "F#", "G", "A", "B", "C#"))
++        var eFlatIonian = ScaleObject("E♭", "Ionian", listOf("E♭", "F", "G", "A♭", "B♭", "C", "D"))
++        var eIonian = ScaleObject("E", "Ionian", listOf("E", "F#", "G#", "A", "B", "C#", "D#"))
++        var fIonian = ScaleObject("F", "Ionian", listOf("F", "G", "A", "B♭", "C", "D", "E",))
++        var fSharpIonian =
++            ScaleObject("F#", "Ionian", listOf("F#", "G#", "A#", "B", "C#", "D#", "E#",))
++        var gFlatIonian =
++            ScaleObject("G♭", "Ionian", listOf("G♭", "A♭", "B♭", "C♭", "D♭", "E♭", "F"))
++        var gIonian = ScaleObject("G", "Ionian", listOf("G", "A", "B", "C", "D", "E", "F#"))
++        var aIonian = ScaleObject("A", "Ionian", listOf("A", "B", "C#", "D", "E", "F#", "G#"))
++        var bFlatIonian = ScaleObject("B♭", "Ionian", listOf("B♭", "C", "D", "E♭", "F", "G", "A"))
++        var bIonian = ScaleObject("B", "Ionian", listOf("B", "C#", "D#", "E", "F#", "G#", "A#"))
++        var cFlatIonian =
++            ScaleObject("C♭", "Ionian", listOf("C♭", "D♭", "E♭", "F♭", "G♭", "A♭", "B♭"))
++
++        return listOf(
++            cIonian, cSharpIonian, dIonian, eFlatIonian, eIonian, dFlatIonian,
++            fIonian, fSharpIonian, gFlatIonian, gIonian, aIonian, bFlatIonian, bIonian, cFlatIonian
++        )
++    }
++}
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt b/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt
+new file mode 100644
+index 0000000..2ebdb2c
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt
+@@ -0,0 +1,126 @@
++package com.example.musictheory
++
++import android.content.Intent
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.view.View
++import android.widget.Button
++import android.widget.TextView
++import android.widget.Toast
++import androidx.appcompat.app.AlertDialog
++import java.lang.StringBuilder
++import java.util.*
++
++class ChordCreatingMainMenu : AppCompatActivity() {
++
++    lateinit var tvChordTypes: TextView
++    lateinit var chordTypeDropDown:TextView
++
++    lateinit var selectedChordTypes: BooleanArray
++    var chordTypesList : MutableList<Int> = mutableListOf()
++    var chordTypesArray = arrayOf(
++        "Major","Minor","Diminished","Augmented","Major 7","Dominant 7","Minor 7",
++        "Minor Major 7","Dominant 9","Dominant Minor 9", "Major 9"
++    )
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_chord_creating_main_menu)
++
++        createChordTypesDropdown()
++
++        val startExerciseBtn = findViewById<Button>(R.id.startChordCreatingExerciseBtn)
++        startExerciseBtn.setOnClickListener{
++            if(chordTypesList.size < 1){
++                Toast.makeText(this, "You need to select something", Toast.LENGTH_SHORT).show()
++                // Singletonlist cannot be cast to arraylist
++            }else if (chordTypesList.size == 1){
++                // Converts singleton to single variable
++                val singleChord = chordTypesList[0]
++                // Creates arraylist for single selection
++                val selectedChordType = arrayListOf<Int>(singleChord)
++                val intent = Intent(this, ChordCreatingExercise::class.java)
++                intent.putIntegerArrayListExtra("selected_chords",selectedChordType)
++                startActivity(intent)
++            } else {
++                //Copies mutable list to immutable arraylist
++                //Kotlin can't pass a mutable list through activities
++                val selectedChordType: ArrayList<Int> = chordTypesList.toList() as ArrayList<Int>
++                val intent = Intent(this, ChordCreatingExercise::class.java)
++                intent.putIntegerArrayListExtra("selected_chords",selectedChordType)
++                startActivity(intent)
++            }
++
++
++        }
++    }
++
++    private fun createChordTypesDropdown() {
++        // assign variable
++        chordTypeDropDown = findViewById<TextView>(R.id.chordTypeDropdown)
++        // initialize selected chord progression
++        selectedChordTypes = BooleanArray(chordTypesArray.size)
++        chordTypeDropDown.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
++            val builder = AlertDialog.Builder(this@ChordCreatingMainMenu)
++
++            //Set title
++            builder.setTitle("Selected Chord Progressions")
++            //Set dialog non cancelable
++            builder.setCancelable(false)
++            builder.setMultiChoiceItems(
++                chordTypesArray,
++                selectedChordTypes
++            ) { dialogInterface, i, b ->
++                //Check condition
++                if (b) {
++                    //When checkbox selected
++                    //Add position in chord progression list
++                    chordTypesList.add(i)
++                    //Sort
++                    chordTypesList.sort()
++                } else {
++                    //When checkbox unselected
++                    //Remove position from chord progression list
++                    chordTypesList.remove(i)
++                }
++            }
++            builder.setPositiveButton("Ok") { dialogInterface, i -> //Initalize string builder
++                val stringBuilder = StringBuilder()
++
++                // Gets selected index with matching scale
++                for (j in chordTypesList.indices) {
++                    //Concat array val
++                    stringBuilder.append(chordTypesArray[chordTypesList[j]])
++                    //Check condition
++                    if (j != chordTypesList.size - 1) {
++                        //When ja value not equal to chordProgressionsList list size -1
++                        //Add comma
++                        stringBuilder.append(", ")
++                    }
++                }
++                //Set text on text vie
++                if (chordTypesList.size != 0) {
++                    chordTypeDropDown.text = stringBuilder.toString()
++                } else {
++                    chordTypeDropDown.text = "Chords"
++                }
++            }
++            builder.setNegativeButton("Cancel") { dialogInterface, i -> //Dismiss dialog
++                dialogInterface.dismiss()
++            }
++            // Clear selected Chord Progressions
++            builder.setNeutralButton("Clear All") { dialogInterface, i ->
++                //Use for loop
++                for (j in selectedChordTypes.indices) {
++                    //remove all selection
++                    selectedChordTypes[j] = false
++                    chordTypesList.clear()
++                    chordTypeDropDown.text = "Chords"
++                }
++            }
++            //Show dialog
++            builder.show()
++        })
++    }
++
++}
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/ChordObject.kt b/app/src/main/java/com/example/musictheory/ChordObject.kt
+new file mode 100644
+index 0000000..7238c5b
+--- /dev/null
++++ b/app/src/main/java/com/example/musictheory/ChordObject.kt
+@@ -0,0 +1,13 @@
++package com.example.musictheory
++
++open class ChordObject(
++    var root: String,
++    var chordType: String,
++    var notes: List<String>
++){
++
++    fun getChordInfo(): String {
++        return "$root, $chordType, $notes"
++    }
++
++}
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/MainActivity.kt b/app/src/main/java/com/example/musictheory/MainActivity.kt
+index 7cc971d..96a7e0b 100644
+--- a/app/src/main/java/com/example/musictheory/MainActivity.kt
++++ b/app/src/main/java/com/example/musictheory/MainActivity.kt
+@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
+ 
+         val earTrainingBtn = findViewById<Button>(R.id.earTrainingBtn)
+         val scaleBtn = findViewById<Button>(R.id.scaleBtn)
++        val chordBtn = findViewById<Button>(R.id.chordBtn)
+         earTrainingBtn.setOnClickListener{
+             val Intent = Intent(this, earTrainingMainMenu::class.java)
+             startActivity(Intent)
+@@ -21,5 +22,9 @@ class MainActivity : AppCompatActivity() {
+             val Intent = Intent (this, ScalesMenu::class.java)
+             startActivity(Intent)
+         }
++        chordBtn.setOnClickListener {
++            val Intent = Intent (this, ChordCreatingMainMenu::class.java)
++            startActivity(Intent)
++        }
+     }
+ }
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+index 4b3a021..490a3fb 100644
+--- a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+@@ -222,6 +222,8 @@ class ScaleCreatingExercise : AppCompatActivity() {
+         var cIonian = ScaleObject("C", "Ionian", listOf("C", "D", "E", "F", "G", "A", "B"))
+         var cSharpIonian =
+             ScaleObject("C#", "Ionian", listOf("C#", "D#", "E#", "F#", "G#", "A#", "B#"))
++        var dFlatIonian =
++            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F♭", "G♭", "A♭", "B♭","C"))
+         var dIonian = ScaleObject("D", "Ionian", listOf("D", "E", "F#", "G", "A", "B", "C#"))
+         var eFlatIonian = ScaleObject("E♭", "Ionian", listOf("E♭", "F", "G", "A♭", "B♭", "C", "D"))
+         var eIonian = ScaleObject("E", "Ionian", listOf("E", "F#", "G#", "A", "B", "C#", "D#"))
+@@ -238,7 +240,7 @@ class ScaleCreatingExercise : AppCompatActivity() {
+             ScaleObject("C♭", "Ionian", listOf("C♭", "D♭", "E♭", "F♭", "G♭", "A♭", "B♭"))
+ 
+         return listOf(
+-            cIonian, cSharpIonian, dIonian, eFlatIonian, eIonian,
++            cIonian, cSharpIonian, dIonian, eFlatIonian, eIonian, dFlatIonian,
+             fIonian, fSharpIonian, gFlatIonian, gIonian, aIonian, bFlatIonian, bIonian, cFlatIonian
+         )
+     }
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt b/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
+index 1d2d693..c897b6a 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingMainMenu.kt
+@@ -203,7 +203,7 @@ class earTrainingMainMenu : AppCompatActivity() {
+ 
+     private fun createScalesDropdown(){
+         // assign variable
+-        tvScales = findViewById<TextView>(R.id.scalesEarTrainingDropDown)
++        tvScales = findViewById<TextView>(R.id.chordTypeDropdown)
+         // initialize selected scale
+         selectedScales = BooleanArray(scalesArray.size)
+         tvScales.setOnClickListener(View.OnClickListener { //Initialize alert dialog                            //nead to change to earTrainingMainMenu
+diff --git a/app/src/main/res/layout/activity_chord_creating_exercise.xml b/app/src/main/res/layout/activity_chord_creating_exercise.xml
+new file mode 100644
+index 0000000..c8149fb
+--- /dev/null
++++ b/app/src/main/res/layout/activity_chord_creating_exercise.xml
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ChordCreatingExercise">
++
++    <TextView
++        android:id="@+id/chordCreatorExerciseTV"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="56dp"
++        android:text="TextView"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/chordCreatorTaskTextView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="136dp"
++        android:text="Task"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_chord_creating_main_menu.xml b/app/src/main/res/layout/activity_chord_creating_main_menu.xml
+new file mode 100644
+index 0000000..004f234
+--- /dev/null
++++ b/app/src/main/res/layout/activity_chord_creating_main_menu.xml
+@@ -0,0 +1,45 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ChordCreatingMainMenu">
++
++    <TextView
++        android:id="@+id/chordsTextView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="44dp"
++        android:text="Chords"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/chordTypeDropdown"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentStart="true"
++        android:layout_alignParentTop="true"
++        android:layout_marginTop="72dp"
++        android:background="@android:drawable/editbox_background"
++        android:drawableEnd="@android:drawable/arrow_down_float"
++        android:text="Chords"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/startChordCreatingExerciseBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="340dp"
++        android:text="Start"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_ear_training_main_menu.xml b/app/src/main/res/layout/activity_ear_training_main_menu.xml
+index ce42e3d..a18c34a 100644
+--- a/app/src/main/res/layout/activity_ear_training_main_menu.xml
++++ b/app/src/main/res/layout/activity_ear_training_main_menu.xml
+@@ -20,7 +20,7 @@
+         app:layout_constraintTop_toTopOf="parent" />
+ 
+     <TextView
+-        android:id="@+id/scalesEarTrainingDropDown"
++        android:id="@+id/chordTypeDropdown"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentStart="true"
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+index 86816a1..97d6ecb 100644
+--- a/app/src/main/res/layout/activity_main.xml
++++ b/app/src/main/res/layout/activity_main.xml
+@@ -31,5 +31,15 @@
+             android:text="Scales"
+             android:textAllCaps="false"
+             android:layout_marginTop="75dp"/>
++
++        <Button
++            android:id="@+id/chordBtn"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Chords"
++            android:textAllCaps="false"
++            android:layout_marginTop="100dp"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent" />
+     </LinearLayout>
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+-- 
+2.35.1
+

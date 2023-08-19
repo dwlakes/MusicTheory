@@ -1,0 +1,127 @@
+From ea5ec6d991964bae5f5e4f998e5dfcbd98d98981 Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Thu, 10 Aug 2023 16:19:56 -0400
+Subject: [PATCH 03/26] Added buttons and restarted android studio
+
+---
+ .idea/misc.xml                                       |  2 +-
+ .../com/example/musictheory/earTrainingExercise.kt   | 12 ++++++++++++
+ .../res/layout/activity_ear_training_exercise.xml    | 11 +++++++----
+ 3 files changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index 84a9e30..e06491b 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -3,7 +3,7 @@
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+       <map>
+-        <entry key="app/src/main/res/layout/activity_ear_training_exercise.xml" value="0.4896116969754004" />
++        <entry key="app/src/main/res/layout/activity_ear_training_exercise.xml" value="0.3636798394843618" />
+         <entry key="app/src/main/res/layout/activity_ear_training_main_menu.xml" value="0.25" />
+         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2735000647735997" />
+       </map>
+diff --git a/app/src/main/java/com/example/musictheory/earTrainingExercise.kt b/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
+index 424ec7c..180ee45 100644
+--- a/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/earTrainingExercise.kt
+@@ -20,7 +20,14 @@ class earTrainingExercise : AppCompatActivity() {
+     lateinit var min2Btn:Button
+     lateinit var maj2ndBtn:Button
+     lateinit var maj3Btn:Button
++    lateinit var perfFourthBtn:Button
+     lateinit var tritoneBtn:Button
++    lateinit var perfFifthBtn:Button
++    lateinit var min6Btn:Button
++    lateinit var maj6Btn:Button
++    lateinit var min7Btn:Button
++    lateinit var maj7Btn:Button
++    lateinit var octBtn:Button
+     lateinit var repeatBtn:Button
+     lateinit var resultsTv: TextView
+     lateinit var accuracyTv: TextView
+@@ -34,7 +41,12 @@ class earTrainingExercise : AppCompatActivity() {
+ 
+         min2Btn = findViewById(R.id.min2Btn)
+         maj2ndBtn = findViewById(R.id.maj2Btn)
++        maj3Btn = findViewById(R.id.maj3Btn)
++        perfFourthBtn = findViewById(R.id.perf4Btn)
+         tritoneBtn = findViewById(R.id.tritoneBtn)
++        perfFifthBtn = findViewById(R.id.perf5Btn)
++        min6Btn = findViewById(R.id.min6Btn)
++        maj6Btn = findViewById(R.id.maj6Btn)
+         repeatBtn = findViewById(R.id.repeatBtn)
+         resultsTv = findViewById(R.id.resultsTv)
+         accuracyTv = findViewById(R.id.accuracyTv)
+diff --git a/app/src/main/res/layout/activity_ear_training_exercise.xml b/app/src/main/res/layout/activity_ear_training_exercise.xml
+index dccab36..bcc1bcb 100644
+--- a/app/src/main/res/layout/activity_ear_training_exercise.xml
++++ b/app/src/main/res/layout/activity_ear_training_exercise.xml
+@@ -11,11 +11,11 @@
+         android:id="@+id/octBtn"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
++        android:layout_marginEnd="16dp"
+         android:layout_weight="1"
+         android:text="Octave "
+         android:textAllCaps="false"
+         android:textSize="14sp"
+-        android:layout_marginEnd="16"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toEndOf="@+id/maj7Btn"
+@@ -39,6 +39,7 @@
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
++        android:layout_marginTop="224dp"
+         android:layout_weight="1"
+         android:text="Minor 7th"
+         android:textAllCaps="false"
+@@ -46,7 +47,7 @@
+         app:layout_constraintEnd_toStartOf="@+id/maj7Btn"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+-        tools:layout_editor_absoluteY="224dp" />
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+     <Button
+         android:id="@+id/maj6Btn"
+@@ -79,6 +80,7 @@
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
++        android:layout_marginTop="176dp"
+         android:layout_weight="1"
+         android:text="Perfect 5th"
+         android:textAllCaps="false"
+@@ -86,7 +88,7 @@
+         app:layout_constraintEnd_toStartOf="@+id/min6Btn"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+-        tools:layout_editor_absoluteY="176dp" />
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+     <Button
+         android:id="@+id/tritoneBtn"
+@@ -119,6 +121,7 @@
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
++        android:layout_marginTop="128dp"
+         android:layout_weight="1"
+         android:text="Major 3rd"
+         android:textAllCaps="false"
+@@ -126,7 +129,7 @@
+         app:layout_constraintEnd_toStartOf="@+id/perf4Btn"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+-        tools:layout_editor_absoluteY="128dp" />
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+     <Button
+         android:id="@+id/min3Btn"
+-- 
+2.35.1
+

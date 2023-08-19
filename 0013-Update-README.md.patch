@@ -1,0 +1,26 @@
+From 92c928acc52f58debd62a684397c87ebe24831e3 Mon Sep 17 00:00:00 2001
+From: dwlakes <76272809+dwlakes@users.noreply.github.com>
+Date: Tue, 15 Aug 2023 08:41:02 -0400
+Subject: [PATCH 13/26] Update README.md
+
+---
+ README.md | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index 3d05fd6..a20deda 100644
+--- a/README.md
++++ b/README.md
+@@ -34,4 +34,8 @@ App will also keep track of successful identification for each identification. F
+ Stimulus: App will be manually opened by the user selecting the app. (The “standard” way of opening an app.)
+ Use cases:
+ 
+-musicTheoryUseCase.drawio.png
++![musicTheoryUseCase drawio](https://github.com/dwlakes/MusicTheory/assets/76272809/58dc8f78-01b9-4c51-8431-701c285a9f5a)
++
++![MusicTheoryWireFrame drawio](https://github.com/dwlakes/MusicTheory/assets/76272809/25ee46d4-6e69-4339-acaa-d14f064121f2)
++
++
+-- 
+2.35.1
+

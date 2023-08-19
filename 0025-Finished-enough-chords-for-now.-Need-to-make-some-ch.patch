@@ -1,0 +1,626 @@
+From 8595121f76fdbcdda5b5aa257b2775c5f40a5dab Mon Sep 17 00:00:00 2001
+From: dlakes1 <dlakes1@sycamores.indstate.edu>
+Date: Sat, 19 Aug 2023 11:16:27 -0400
+Subject: [PATCH 25/26] Finished enough chords for now. Need to make some
+ chords that are based off the harmonic minor scale
+
+---
+ .../musictheory/ChordCreatingExercise.kt      | 218 +++++++++++++-
+ .../musictheory/ChordCreatingMainMenu.kt      |   2 +-
+ .../musictheory/ScaleCreatingExercise.kt      |   2 +-
+ .../activity_chord_creating_exercise.xml      | 271 +++++++++++++++++-
+ 4 files changed, 486 insertions(+), 7 deletions(-)
+
+diff --git a/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt
+index cdc3d96..d01aa2a 100644
+--- a/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/ChordCreatingExercise.kt
+@@ -1,21 +1,36 @@
++//TODO: started on the scale building module.
++// Need to make different chords and add the checkboxes for notes
++
+ package com.example.musictheory
+ 
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import android.widget.Button
++import android.widget.CheckBox
+ import android.widget.TextView
++import android.widget.Toast
+ 
+ class ChordCreatingExercise : AppCompatActivity() {
+ 
+     lateinit var taskTextView: TextView
++    private val selectedNotes = mutableListOf<String>()
+     var chordObjectsList = mutableListOf<ChordObject>()
+     lateinit var randomChord:ChordObject
+ 
++    lateinit var accuracyTv: TextView
++    lateinit var resultsTv:TextView
++
++    var guessCounter = 0
++    var correctGuesses = 0
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_chord_creating_exercise)
+ 
+         val selectedChordInts = intent.getIntegerArrayListExtra("selected_chords")
+ 
++        val checkAnsBtn = findViewById<Button>(R.id.chordCreatorCheckAnsBtn)
++
+         var selectedChordsStringList = mutableListOf<String>()
+ 
+         selectedChordsStringList = getChordsString(selectedChordInts)
+@@ -24,17 +39,105 @@ class ChordCreatingExercise : AppCompatActivity() {
+ 
+         taskTextView = findViewById<TextView>(R.id.chordCreatorTaskTextView)
+ 
++        accuracyTv = findViewById(R.id.accuracyChordCreatorTv)
++        resultsTv = findViewById(R.id.resultsChordCreatorTv)
++
+         exerciseTV.text ="Scales Selected: "+ selectedChordsStringList.joinToString(", ")
+ 
+         chordObjectsList = getSelectedChords(selectedChordsStringList)
+ 
+         getRandomChord()
++
++        initializeCheckBoxes()
++
++        checkAnsBtn.setOnClickListener {
++            checkAnswer()
++        }
++
++    }
++
++    private fun checkAnswer() {
++        if(selectedNotes.size == randomChord.notes.size){
++            checkChordNotes()
++        }else if (selectedNotes.size > randomChord.notes.size){
++            Toast.makeText(this, "You have too many notes", Toast.LENGTH_SHORT).show()
++            incorrectAns()
++        }else{
++            Toast.makeText(this, "You don't have enough notes", Toast.LENGTH_SHORT).show()
++            incorrectAns()
++        }
++    }
++
++    private fun checkChordNotes() {
++        var isCorrect = true
++        println("Selected Scale: " + randomChord.root + " "+randomChord.chordType)
++        println(randomChord.notes)
++        for (element in selectedNotes) {
++            println("In selected notes: $element")
++            if (element !in randomChord.notes) {
++                println("incorrect note: $element")
++                isCorrect = false
++                break
++            }
++        }
++        if(isCorrect){
++            correctAns()
++        } else {
++            incorrectAns()
++        }
++
++    }
++
++    private fun correctAns() {
++        guessCounter++
++        correctGuesses++
++        resultsTv.text = "Correct!"
++        accuracyTv.text = "Accuracy: $correctGuesses/$guessCounter"
++        initializeCheckBoxes()
++        getRandomChord()
++    }
++
++    private fun incorrectAns() {
++        guessCounter++
++        resultsTv.text = "Try again."
++        accuracyTv.text = "Accuracy: $correctGuesses/$guessCounter"
++
++    }
++
++    // Chat GPT Function
++    private fun initializeCheckBoxes() {
++        //Get all ID of checkboxes
++        val checkBoxIds = arrayOf(
++            R.id.cChordCreatorBtn, R.id.cChordCreatorBtn, R.id.dChordCreatorBtn, R.id.dSharpChordCreatorBtn,
++            R.id.eChordCreatorBtn, R.id.fChordCreatorBtn, R.id.fSharpChordCreatorBtn, R.id.gChordCreatorBtn,
++            R.id.gSharpChordCreatorBtn, R.id.aChordCreatorBtn, R.id.aSharpChordCreatorBtn, R.id.bChordCreatorBtn,
++            R.id.cFlatChordCreatorBtn, R.id.dFlatChordCreatorBtn, R.id.eFlatChordCreatorBtn, R.id.fFlatChordCreatorBtn,
++            R.id.gFlatChordCreatorBtn, R.id.aFlatChordCreatorBtn, R.id.bFlatChordCreatorBtn, R.id.eSharpChordCreatorBtn,
++            R.id.bSharpChordCreatorBtn,R.id.cSharpChordCreatorBtn
++        )
++
++        //iterate through each ID and add an onClickListener
++        for (checkBoxId in checkBoxIds) {
++            val checkBox = findViewById<CheckBox>(checkBoxId)
++            checkBox.isChecked = false
++            checkBox.setOnCheckedChangeListener { _, isChecked ->
++                val note = checkBox.text.toString()
++                // Add/remove selected note to array as appropriate
++                if (isChecked) {
++                    selectedNotes.add(note)
++                } else {
++                    selectedNotes.remove(note)
++                }
++                println("Selected notes:$selectedNotes")
++            }
++        }
+     }
+ 
++
+     private fun getRandomChord() {
+         randomChord = chordObjectsList.shuffled().random()
+         taskTextView.text = "Create: " +randomChord.root +" "+randomChord.chordType
+-        println(randomChord.getChordInfo())
++        println("Minor Chord Info : "+ randomChord.getChordInfo())
+     }
+ 
+     private fun getSelectedChords(selectedChordsStringList: MutableList<String>): MutableList<ChordObject> {
+@@ -46,11 +149,120 @@ class ChordCreatingExercise : AppCompatActivity() {
+         for (element in selectedChordsStringList) {
+             when (element) {
+                 "Major" -> getMajorChords()
++                "Minor" -> getMinorChords()
++                // TODO: Diminished Needs harmonic minor scale
++                //"Diminished" -> getDiminishedChords()
++                "Major 7" -> getMajor7Chords()
++                "Dominant 7" -> getDom7Chords()
++                "Minor 7" -> getMinor7Chords()
++                // TODO: MinMaj 7 needs harmonic minor
++                //"Minor Major 7" -> getMinorMajor7Chords()
++                "Dominant 9" -> getDom9Chords()
++                // TODO: DomMin 9 needs harmonic minor
++                //"Dominant Minor 9" -> getDomMin9Chords()
++                "Minor 9" -> getMinor9Chords()
++                "Major 9" -> getMajor9Chords()
++
++
+             }
+         }
+         return chordObjectsList
+     }
+ 
++    private fun getMajor9Chords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        // takes appropriate scale degrees from each scale, assigns it to chordObject,
++        // also makes the appropriate root note.
++        for(scale in majorScales){
++            var maj9Chord = ChordObject(scale.notes[0],"Major 9", listOf(
++                scale.notes[0], scale.notes[2],scale.notes[4],scale.notes[6], scale.notes[1]))
++
++            chordObjectsList.add(maj9Chord)
++        }
++    }
++
++    private fun getMinor9Chords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++        for(scale in majorScales){
++            var minor9Chord = ChordObject(scale.notes[5],"Minor 9", listOf(
++                scale.notes[5], scale.notes[0],scale.notes[2],scale.notes[4],scale.notes[6]))
++
++            chordObjectsList.add(minor9Chord)
++        }
++    }
++
++    // TODO: Base this chord off of the harmonic minor scale
++    private fun getDomMin9Chords() {
++        TODO("Not yet implemented")
++    }
++
++    private fun getDom9Chords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++        for(scale in majorScales){
++            var dom9Chord = ChordObject(scale.notes[4],"Dominant 9", listOf(
++                scale.notes[4], scale.notes[6],scale.notes[1],scale.notes[3],scale.notes[5]))
++
++            chordObjectsList.add(dom9Chord)
++        }
++    }
++
++    // TODO: Base this chord off of the harmonic minor scale
++    private fun getMinorMajor7Chords() {
++        TODO("Not yet implemented")
++    }
++
++    private fun getMinor7Chords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++        for(scale in majorScales){
++            var minor7Chord = ChordObject(scale.notes[5],"Minor 7", listOf(
++                scale.notes[5], scale.notes[0],scale.notes[2],scale.notes[4]))
++
++            chordObjectsList.add(minor7Chord)
++        }
++    }
++
++    private fun getDom7Chords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++        for(scale in majorScales){
++            var dom7Chord = ChordObject(scale.notes[4],"Dominant 7", listOf(
++                scale.notes[4], scale.notes[6],scale.notes[1],scale.notes[3]))
++
++            chordObjectsList.add(dom7Chord)
++        }
++    }
++
++    private fun getMajor7Chords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        // takes appropriate scale degrees from each scale, assigns it to chordObject,
++        // also makes the appropriate root note.
++        for(scale in majorScales){
++            var maj7Chord = ChordObject(scale.notes[0],"Major 7", listOf(
++                scale.notes[0], scale.notes[2],scale.notes[4],scale.notes[6]))
++
++            chordObjectsList.add(maj7Chord)
++        }
++    }
++
++    // TODO: Base this chord off of the harmonic minor scale
++    private fun getDiminishedChords() {
++
++    }
++
++    private fun getMinorChords() {
++        var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
++
++        // takes appropriate scale degrees from each scale, assigns it to chordObject,
++        // also makes the appropriate root note.
++        for(scale in majorScales){
++            var minorChord = ChordObject(scale.notes[5],"Minor", listOf(
++                scale.notes[5], scale.notes[0],scale.notes[2]))
++
++            chordObjectsList.add(minorChord)
++        }
++    }
++
+     private fun getMajorChords() {
+         var majorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
+ 
+@@ -68,7 +280,7 @@ class ChordCreatingExercise : AppCompatActivity() {
+ 
+         var scalesArray = arrayOf(
+             "Major","Minor","Diminished","Augmented","Major 7","Dominant 7","Minor 7",
+-            "Minor Major 7","Dominant 9","Dominant Minor 9", "Major 9"
++            "Minor Major 7","Dominant 9","Dominant Minor 9","Minor 9", "Major 9"
+         )
+         val selectedScaleList = mutableListOf<String>()
+         // Gets selected index with matching scale
+@@ -87,7 +299,7 @@ class ChordCreatingExercise : AppCompatActivity() {
+         var cSharpIonian =
+             ScaleObject("C#", "Ionian", listOf("C#", "D#", "E#", "F#", "G#", "A#", "B#"))
+         var dFlatIonian =
+-            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F♭", "G♭", "A♭", "B♭","C"))
++            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F", "G♭", "A♭", "B♭","C"))
+         var dIonian = ScaleObject("D", "Ionian", listOf("D", "E", "F#", "G", "A", "B", "C#"))
+         var eFlatIonian = ScaleObject("E♭", "Ionian", listOf("E♭", "F", "G", "A♭", "B♭", "C", "D"))
+         var eIonian = ScaleObject("E", "Ionian", listOf("E", "F#", "G#", "A", "B", "C#", "D#"))
+diff --git a/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt b/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt
+index 2ebdb2c..de5966c 100644
+--- a/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt
++++ b/app/src/main/java/com/example/musictheory/ChordCreatingMainMenu.kt
+@@ -20,7 +20,7 @@ class ChordCreatingMainMenu : AppCompatActivity() {
+     var chordTypesList : MutableList<Int> = mutableListOf()
+     var chordTypesArray = arrayOf(
+         "Major","Minor","Diminished","Augmented","Major 7","Dominant 7","Minor 7",
+-        "Minor Major 7","Dominant 9","Dominant Minor 9", "Major 9"
++        "Minor Major 7","Dominant 9","Dominant Minor 9", "Minor 9", "Major 9"
+     )
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+diff --git a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+index 490a3fb..4cced58 100644
+--- a/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
++++ b/app/src/main/java/com/example/musictheory/ScaleCreatingExercise.kt
+@@ -223,7 +223,7 @@ class ScaleCreatingExercise : AppCompatActivity() {
+         var cSharpIonian =
+             ScaleObject("C#", "Ionian", listOf("C#", "D#", "E#", "F#", "G#", "A#", "B#"))
+         var dFlatIonian =
+-            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F♭", "G♭", "A♭", "B♭","C"))
++            ScaleObject("D♭", "Ionian", listOf("D♭", "E♭", "F", "G♭", "A♭", "B♭","C"))
+         var dIonian = ScaleObject("D", "Ionian", listOf("D", "E", "F#", "G", "A", "B", "C#"))
+         var eFlatIonian = ScaleObject("E♭", "Ionian", listOf("E♭", "F", "G", "A♭", "B♭", "C", "D"))
+         var eIonian = ScaleObject("E", "Ionian", listOf("E", "F#", "G#", "A", "B", "C#", "D#"))
+diff --git a/app/src/main/res/layout/activity_chord_creating_exercise.xml b/app/src/main/res/layout/activity_chord_creating_exercise.xml
+index c8149fb..7908770 100644
+--- a/app/src/main/res/layout/activity_chord_creating_exercise.xml
++++ b/app/src/main/res/layout/activity_chord_creating_exercise.xml
+@@ -6,11 +6,256 @@
+     android:layout_height="match_parent"
+     tools:context=".ChordCreatingExercise">
+ 
++    <Button
++        android:id="@+id/chordCreatorCheckAnsBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="588dp"
++        android:text="Check Answer"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <CheckBox
++        android:id="@+id/eSharpBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E#"
++        app:layout_constraintStart_toStartOf="@+id/eSharpChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/fSharpChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/gFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G♭"
++        app:layout_constraintStart_toStartOf="@+id/cFlatChordCreatorBtn"
++        app:layout_constraintTop_toBottomOf="@+id/cFlatChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/aSharpBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A#"
++        app:layout_constraintStart_toStartOf="@+id/aSharpChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/aSharpChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/aChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A"
++        app:layout_constraintStart_toStartOf="@+id/dChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/gChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/dSharpBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D#"
++        app:layout_constraintStart_toStartOf="@+id/aChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/dSharpChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/aFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A♭"
++        app:layout_constraintStart_toStartOf="@+id/dFlatChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/gFlatChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/fSharpBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F#"
++        app:layout_constraintStart_toStartOf="@+id/fSharpChordCreatorBtn"
++        app:layout_constraintTop_toBottomOf="@+id/bChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/bFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B♭"
++        app:layout_constraintStart_toStartOf="@+id/eFlatChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/aFlatChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/cSharpScaleBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="C#"
++        app:layout_constraintStart_toStartOf="@+id/cSharpChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/dSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/eSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E#"
++        app:layout_constraintStart_toStartOf="@+id/bChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/eSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/eChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E"
++        app:layout_constraintEnd_toStartOf="@+id/fChordCreatorBtn"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/dChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/fChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/aSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="A#"
++        app:layout_constraintStart_toStartOf="@+id/dSharpChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/gSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/dChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D"
++        app:layout_constraintEnd_toStartOf="@+id/eChordCreatorBtn"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/cChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/eChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/cSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="C#"
++        app:layout_constraintStart_toStartOf="@+id/gChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/cSharpScaleBtn5" />
++
++    <CheckBox
++        android:id="@+id/dSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D#"
++        app:layout_constraintStart_toStartOf="@+id/dSharpBtn5"
++        app:layout_constraintTop_toTopOf="@+id/eSharpChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/dFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="D♭"
++        app:layout_constraintStart_toStartOf="@+id/aSharpBtn5"
++        app:layout_constraintTop_toTopOf="@+id/eFlatChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/cFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="C♭"
++        app:layout_constraintStart_toStartOf="@+id/gSharpBtn5"
++        app:layout_constraintTop_toTopOf="@+id/dFlatChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/gSharpBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G#"
++        app:layout_constraintStart_toStartOf="@+id/gSharpChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/gSharpChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/bSharpBtn5"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B#"
++        app:layout_constraintStart_toStartOf="@+id/eSharpBtn5"
++        app:layout_constraintTop_toTopOf="@+id/aSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/cChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="C"
++        app:layout_constraintEnd_toStartOf="@+id/dChordCreatorBtn"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/dChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/eFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="E♭"
++        app:layout_constraintStart_toStartOf="@+id/bSharpChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/fFlatChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/fSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F#"
++        app:layout_constraintStart_toStartOf="@+id/fChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/fSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/fChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="128dp"
++        android:text="F"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toEndOf="@+id/eChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <CheckBox
++        android:id="@+id/bSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B#"
++        app:layout_constraintStart_toStartOf="@+id/bSharpBtn5"
++        app:layout_constraintTop_toTopOf="@+id/bSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/gSharpChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G#"
++        app:layout_constraintStart_toStartOf="@+id/cSharpScaleBtn5"
++        app:layout_constraintTop_toBottomOf="@+id/cSharpScaleBtn5" />
++
++    <CheckBox
++        android:id="@+id/bChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="B"
++        app:layout_constraintStart_toStartOf="@+id/eChordCreatorBtn"
++        app:layout_constraintTop_toTopOf="@+id/aChordCreatorBtn" />
++
++    <CheckBox
++        android:id="@+id/fFlatChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="F♭"
++        app:layout_constraintStart_toStartOf="@+id/fSharpBtn5"
++        app:layout_constraintTop_toBottomOf="@+id/bSharpBtn5" />
++
++    <CheckBox
++        android:id="@+id/gChordCreatorBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="G"
++        app:layout_constraintStart_toStartOf="@+id/cChordCreatorBtn"
++        app:layout_constraintTop_toBottomOf="@+id/cChordCreatorBtn" />
++
+     <TextView
+         android:id="@+id/chordCreatorExerciseTV"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginTop="56dp"
++        android:layout_marginTop="60dp"
+         android:text="TextView"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.498"
+@@ -21,10 +266,32 @@
+         android:id="@+id/chordCreatorTaskTextView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginTop="136dp"
++        android:layout_marginTop="96dp"
+         android:text="Task"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.498"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/resultsChordCreatorTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="540dp"
++        android:text="Results"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/accuracyChordCreatorTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="28dp"
++        android:text="Accuracy "
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.498"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+-- 
+2.35.1
+
