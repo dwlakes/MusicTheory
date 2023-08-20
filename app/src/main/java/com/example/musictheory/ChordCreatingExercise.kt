@@ -47,7 +47,7 @@ class ChordCreatingExercise : AppCompatActivity() {
         accuracyTv = findViewById(R.id.accuracyChordCreatorTv)
         resultsTv = findViewById(R.id.resultsChordCreatorTv)
 
-        exerciseTV.text ="Scales Selected: "+ selectedChordsStringList.joinToString(", ")
+        exerciseTV.text ="Chords Selected: "+ selectedChordsStringList.joinToString(", ")
 
         chordObjectsList = getSelectedChords(selectedChordsStringList)
 
@@ -155,16 +155,13 @@ class ChordCreatingExercise : AppCompatActivity() {
             when (element) {
                 "Major" -> getMajorChords()
                 "Minor" -> getMinorChords()
-                // TODO: Diminished Needs harmonic minor scale
-                //"Diminished" -> getDiminishedChords()
+                "Diminished" -> getDiminishedChords()
+                "Augmented" -> getAugmentedChords()
                 "Major 7" -> getMajor7Chords()
                 "Dominant 7" -> getDom7Chords()
-                "Minor 7" -> getMinor7Chords()
-                // TODO: MinMaj 7 needs harmonic minor
-                //"Minor Major 7" -> getMinorMajor7Chords()
+                "Minor 7" -> getMinor7Chords()"Minor Major 7" -> getMinorMajor7Chords()
                 "Dominant 9" -> getDom9Chords()
-                // TODO: DomMin 9 needs harmonic minor
-                //"Dominant Minor 9" -> getDomMin9Chords()
+                "Dominant Minor 9" -> getDomMin9Chords()
                 "Minor 9" -> getMinor9Chords()
                 "Major 9" -> getMajor9Chords()
 
@@ -197,9 +194,14 @@ class ChordCreatingExercise : AppCompatActivity() {
         }
     }
 
-    // TODO: Base this chord off of the harmonic minor scale
     private fun getDomMin9Chords() {
-        TODO("Not yet implemented")
+        var harmMinorScales: List<ScaleObject> = getHarmonicMinorScales() as List<ScaleObject>
+        for(scale in harmMinorScales){
+            var dommin9Chord = ChordObject(scale.notes[4],"Dominant Minor 9", listOf(
+                scale.notes[4], scale.notes[6],scale.notes[1],scale.notes[3],scale.notes[5]))
+
+            chordObjectsList.add(dommin9Chord)
+        }
     }
 
     private fun getDom9Chords() {
@@ -212,9 +214,14 @@ class ChordCreatingExercise : AppCompatActivity() {
         }
     }
 
-    // TODO: Base this chord off of the harmonic minor scale
     private fun getMinorMajor7Chords() {
-        TODO("Not yet implemented")
+        var harmMinorScales: List<ScaleObject> = getHarmonicMinorScales() as List<ScaleObject>
+        for(scale in harmMinorScales){
+            var minMaj7Chord = ChordObject(scale.notes[0],"Minor Major 7", listOf(
+                scale.notes[0], scale.notes[2],scale.notes[4],scale.notes[6]))
+
+            chordObjectsList.add(minMaj7Chord)
+        }
     }
 
     private fun getMinor7Chords() {
@@ -250,8 +257,26 @@ class ChordCreatingExercise : AppCompatActivity() {
         }
     }
 
-    // TODO: Base this chord off of the harmonic minor scale
+    private fun getAugmentedChords() {
+        var wholeToneScales: List<ScaleObject> = getWholeToneScales() as List<ScaleObject>
+
+        for(scale in wholeToneScales){
+            var augChords = ChordObject(scale.notes[0],"Augmented", listOf(
+                scale.notes[0], scale.notes[2],scale.notes[4]))
+
+            chordObjectsList.add(augChords)
+        }
+    }
+
     private fun getDiminishedChords() {
+        var harmMinorScales: List<ScaleObject> = getMajorScales() as List<ScaleObject>
+
+        for(scale in harmMinorScales){
+            var diminishedChord = ChordObject(scale.notes[6],"Diminished", listOf(
+                scale.notes[6], scale.notes[1],scale.notes[3]))
+
+            chordObjectsList.add(diminishedChord)
+        }
 
     }
 
@@ -299,14 +324,43 @@ class ChordCreatingExercise : AppCompatActivity() {
 
     }
 
-    private fun getHarmMinorScales(): Any{
+    private fun getWholeToneScales(): Any {
+        var aWholeTone = ScaleObject("A","Whole Tone",listOf("A", "B", "C#", "D#", "E#", "G"))
+        var bFlatWholeTone = ScaleObject("B♭","Whole Tone",listOf("B♭", "C", "D", "E", "F#", "A♭"))
+        var cFlatWholeTone = ScaleObject("C♭","Whole Tone",listOf("C♭", "D♭", "E♭", "F", "G","A"))
+        var cWholeTone = ScaleObject("C","Whole Tone",listOf("C", "D", "E", "F#", "G#","A#"))
+        var dFlatWholeTone = ScaleObject("D♭","Whole Tone",listOf("D♭", "E♭", "F", "G","A","B"))
+        var dWholeTone = ScaleObject("D","Whole Tone",listOf("D", "E", "F#", "G#","A#","B#"))
+        var eFlatWholeTone = ScaleObject("E♭","Whole Tone",listOf("E♭", "F", "G","A","B","C"))
+        var eWholeTone = ScaleObject("E","Whole Tone",listOf("E", "F#", "G#","A#","B#","C#"))
+        var fFlatWholeTone = ScaleObject("F♭","Whole Tone",listOf("F♭", "G♭","A♭","B♭","C","D"))
+        var fWholeTone = ScaleObject("F","Whole Tone",listOf("F", "G","A","B","C#","D#"))
+        var gFlatWholeTone = ScaleObject("G♭","Whole Tone",listOf("G♭","A♭","B♭","C","D","E"))
+        var gWholeTone = ScaleObject("G","Whole Tone",listOf("G","A","B","C#","D#","E#"))
+        var aFlatWholeTone = ScaleObject("A♭","Whole Tone",listOf("A♭", "B♭", "C", "D", "E", "G♭"))
 
+        return listOf(aWholeTone,bFlatWholeTone, cFlatWholeTone,cWholeTone,dFlatWholeTone,dWholeTone,
+            aFlatWholeTone,eFlatWholeTone,eWholeTone,fFlatWholeTone,fWholeTone,dFlatWholeTone,
+            gFlatWholeTone,gWholeTone)
+    }
+
+
+    private fun getHarmonicMinorScales(): Any{
         var aHarmMinor = ScaleObject("A","Harmonic Minor", listOf("A","B","C","D","E","F","G#"))
+        var aFlatHarmMinor = ScaleObject("A♭","Harmonic Minor", listOf("A♭","B♭","C♭","D♭","E♭","F♭","G"))
+        var bFlatHarmMinor = ScaleObject("B♭","Harmonic Minor", listOf("B♭","C","D♭","E♭","F","G♭","A"))
+        var bHarmMinor = ScaleObject("B","Harmonic Minor", listOf("B","C#","D","E","F#","G","A#"))
+        var cHarmMinor = ScaleObject("C","Harmonic Minor", listOf("C","D","E♭","F","G","A♭","B"))
+        var cSharpHarmMinor = ScaleObject("C#","Harmonic Minor", listOf("C#","D#","E","F#","G#","A","B#"))
+        var dHarmMinor = ScaleObject("D","Harmonic Minor", listOf("D","E","F","G","A","B♭","C#"))
+        var eFlatHarmMinor = ScaleObject("E♭","Harmonic Minor", listOf("E♭","F","G♭","A♭","B♭","C♭","D"))
+        var eHarmMinor = ScaleObject("E","Harmonic Minor", listOf("E","F#","G","A","B","C","D#"))
+        var fHarmMinor = ScaleObject("F","Harmonic Minor", listOf("F","G","A♭","B♭","C","D♭","E"))
+        var fSharpHarmMinor = ScaleObject("F#","Harmonic Minor", listOf("F#","G#","A","B","C#","D","E#"))
+        var gHarmMinor = ScaleObject("G","Harmonic Minor", listOf("G","A","B♭","C","D","E♭","F#"))
 
-        return listOf(aHarmMinor)
-
-
-
+        return listOf(aHarmMinor,aFlatHarmMinor,bFlatHarmMinor,bHarmMinor,cHarmMinor,cSharpHarmMinor,
+            dHarmMinor,eFlatHarmMinor,eHarmMinor,fHarmMinor,fSharpHarmMinor,gHarmMinor)
     }
 
     private fun getMajorScales(): Any {
